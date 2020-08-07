@@ -6,7 +6,7 @@ using System.Text;
 
 public static class Scores
 {
-    public static List<KeyValuePair<string, int>> GetScoresAsync(int count = 10)
+    public static List<KeyValuePair<string, int>> GetScores(int count = 10)
     {
         const string URL = "https://firestore.googleapis.com/v1beta1/projects/wgjweek161/databases/(default)/documents:runQuery";
         string queryJson = "{\"structuredQuery\": {\"from\": [{\"collectionId\": \"scores\",\"allDescendants\": false}],\"orderBy\":{\"field\":{\"fieldPath\":\"Score\"}},\"limit\": 10},}";

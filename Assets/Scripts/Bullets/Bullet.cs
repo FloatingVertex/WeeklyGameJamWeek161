@@ -9,12 +9,6 @@ public class Bullet : MonoBehaviour
     public float timeToLive = 5f;
     public ContactFilter2D filter;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     private void FixedUpdate()
     {
         Vector3 newPosition = transform.position + new Vector3(velocity.x,velocity.y) * Time.fixedDeltaTime;
