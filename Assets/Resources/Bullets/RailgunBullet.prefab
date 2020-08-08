@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4523761160389634807}
   - component: {fileID: 4523761160389634806}
   m_Layer: 0
-  m_Name: Bullet
+  m_Name: RailgunBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -94,8 +94,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b5bf155c4fa1ed46af4f29b6c1a3c11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
-  damage: 10
+  speed: 100
+  damage: 100
   dmgType: 0
   timeToLive: 5
   filter:

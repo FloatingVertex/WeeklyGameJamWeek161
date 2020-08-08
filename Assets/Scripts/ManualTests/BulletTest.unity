@@ -1158,6 +1158,56 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1036407670 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8527596439739563882, guid: abea2c57e571e8243b62a4f37f61d0f6,
+    type: 3}
+  m_PrefabInstance: {fileID: 8527596439684623388}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1036407671 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8527596439739563883, guid: abea2c57e571e8243b62a4f37f61d0f6,
+    type: 3}
+  m_PrefabInstance: {fileID: 8527596439684623388}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1036407670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e53a0d9bd7613d48a091244dc66f47a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1036407673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1036407670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c8d37dd10858a0428da9c684652cc9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  callAtStart:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1036407671}
+        m_MethodName: SetFiring
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  callOnUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+  callOnFixedUpdate:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1796936369 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5957118287669565353, guid: 35bbd7590259348478ca88392d818729,
@@ -1617,32 +1667,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: MachineGun
       objectReference: {fileID: 0}
-    - target: {fileID: 5957118287669565355, guid: 35bbd7590259348478ca88392d818729,
-        type: 3}
-      propertyPath: spreadOverTime.m_Curve.Array.data[0].inSlope
-      value: 1.2497652
-      objectReference: {fileID: 0}
-    - target: {fileID: 5957118287669565355, guid: 35bbd7590259348478ca88392d818729,
-        type: 3}
-      propertyPath: spreadOverTime.m_Curve.Array.data[0].outSlope
-      value: 1.2497652
-      objectReference: {fileID: 0}
-    - target: {fileID: 5957118287669565355, guid: 35bbd7590259348478ca88392d818729,
-        type: 3}
-      propertyPath: spreadOverTime.m_Curve.Array.data[1].time
-      value: 2.0002644
-      objectReference: {fileID: 0}
-    - target: {fileID: 5957118287669565355, guid: 35bbd7590259348478ca88392d818729,
-        type: 3}
-      propertyPath: spreadOverTime.m_Curve.Array.data[1].value
-      value: 2.5002315
-      objectReference: {fileID: 0}
-    - target: {fileID: 5957118287669565355, guid: 35bbd7590259348478ca88392d818729,
-        type: 3}
-      propertyPath: bulletPrefab
-      value: 
-      objectReference: {fileID: 4523761160389634805, guid: 580e3f600fee5ae4cb00aa80082898ab,
-        type: 3}
     - target: {fileID: 5957118287669565356, guid: 35bbd7590259348478ca88392d818729,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1769,3 +1793,72 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 936845640fb64164ba66adea56a8fa41, type: 3}
+--- !u!1001 &8527596439684623388
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8527596439739563876, guid: abea2c57e571e8243b62a4f37f61d0f6,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.77
+      objectReference: {fileID: 0}
+    - target: {fileID: 8527596439739563876, guid: abea2c57e571e8243b62a4f37f61d0f6,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.044
+      objectReference: {fileID: 0}
+    - target: {fileID: 8527596439739563876, guid: abea2c57e571e8243b62a4f37f61d0f6,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -481.50955
+      objectReference: {fileID: 0}
+    - target: {fileID: 8527596439739563876, guid: abea2c57e571e8243b62a4f37f61d0f6,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8527596439739563876, guid: abea2c57e571e8243b62a4f37f61d0f6,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8527596439739563876, guid: abea2c57e571e8243b62a4f37f61d0f6,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8527596439739563876, guid: abea2c57e571e8243b62a4f37f61d0f6,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8527596439739563876, guid: abea2c57e571e8243b62a4f37f61d0f6,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8527596439739563876, guid: abea2c57e571e8243b62a4f37f61d0f6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8527596439739563876, guid: abea2c57e571e8243b62a4f37f61d0f6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8527596439739563876, guid: abea2c57e571e8243b62a4f37f61d0f6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8527596439739563882, guid: abea2c57e571e8243b62a4f37f61d0f6,
+        type: 3}
+      propertyPath: m_Name
+      value: RailGun
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: abea2c57e571e8243b62a4f37f61d0f6, type: 3}
