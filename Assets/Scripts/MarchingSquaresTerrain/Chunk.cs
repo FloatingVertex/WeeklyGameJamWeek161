@@ -9,6 +9,7 @@ using UnityEngine;
 [RequireComponent(typeof(PolygonCollider2D))]
 public class Chunk : MonoBehaviour, IDamageable
 {
+    [System.NonSerialized]
     public ChunkData data;
     public float edgeLength = 0.1f;
 
@@ -27,12 +28,20 @@ public class Chunk : MonoBehaviour, IDamageable
         GenerateNewMesh();
     }
 
-    public void AddCircle(Vector2 center, float radius)
+    public void AddCircle(Vector2 center, float radius, bool removeInstead = false)
     {
         ModifyRegion(center, radius, (Vector2 position,float previousValue) =>
         {
-            var newDensity = radius / (position - center).magnitude - 1;
-            return Mathf.Max(newDensity, previousValue);
+            if (removeInstead)
+            {
+                var newDensity = (position - center).magnitude / radius - 1;
+                return Mathf.Min(newDensity, previousValue);
+            }
+            else
+            {
+                var newDensity = radius / (position - center).magnitude - 1;
+                return Mathf.Max(newDensity, previousValue);
+            }
         });
     }
 
@@ -45,7 +54,7 @@ public class Chunk : MonoBehaviour, IDamageable
         for (int i = 0; i < paths.Count; i++) {
             GetComponent<PolygonCollider2D>().SetPath(i, paths[i]);
         }
-        Debug.Log("Setting Collider: "+ timer.ElapsedMilliseconds+ "ms");
+        //Debug.Log("Setting Collider: "+ timer.ElapsedMilliseconds+ "ms");
     }
 
     public void ModifyRegion(Vector2 point, float radius, Func<Vector2, float, float> newValueFunction)
@@ -78,9 +87,13 @@ public class Chunk : MonoBehaviour, IDamageable
     }
 }
 
-public class ChunkData
+[System.Serializable]
+public class ChunkData : ISerializationCallbackReceiver
 {
-    public float[,] densities; // positives = terrain, negative = air
+    [SerializeField] private float[] _densities;
+    [SerializeField] private int _sizeX;
+
+    [System.NonSerialized] public float[,] densities; // positives = terrain, negative = air
 
     public ChunkData(int sizeX,int sizeY)
     {
@@ -90,7 +103,8 @@ public class ChunkData
 
     public ChunkData(float[,] densities)
     {
-        this.densities = densities;
+        this.densities = new float[densities.GetLength(0), densities.GetLength(1)];
+        Map((x, y, previous) => { return densities[x,y]; });
     }
 
     public void Map(System.Func<int,int,float,float> lamda, int minX = 0, int minY = 0, int maxX = -1, int maxY = -1)
@@ -344,7 +358,7 @@ public class ChunkData
             colliderPaths.Add(path);
         }
 
-        Debug.Log("Generation took: "+ timer.ElapsedMilliseconds +"ms");
+        //Debug.Log("Generation took: "+ timer.ElapsedMilliseconds +"ms");
 
         return (mesh, colliderPaths);
     }
@@ -366,5 +380,29 @@ public class ChunkData
     Vector3 ToVertexPosition(int x, int y, float edgeLength)
     {
         return new Vector3(x * edgeLength, y * edgeLength);
+    }
+
+    public void OnAfterDeserialize()
+    {
+        if (_densities == null)
+        {
+            _densities = new float[0];
+        }
+        densities = new float[_sizeX, _densities.Length / _sizeX];
+        for (int i = 0; i < _densities.Length; i++)
+        {
+            densities[i / _sizeX, i % _sizeX] = _densities[i];
+        }
+    }
+
+    public void OnBeforeSerialize()
+    {
+        _sizeX = densities.GetLength(0);
+        int totalCount = (densities.GetLength(0) * densities.GetLength(1));
+        _densities = new float[totalCount];
+        for (int i = 0; i < (densities.GetLength(0) * densities.GetLength(1)); i++)
+        {
+            _densities[i] = densities[i / _sizeX, i % _sizeX];
+        }
     }
 }
