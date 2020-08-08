@@ -18,8 +18,18 @@ public class Chunk : MonoBehaviour, IDamageable
     {
         data = new ChunkData(21, 21);
         data.Map((x, y, previous) => { return -10.0f; });
-        data.Map((x, y, previous) => { return UnityEngine.Random.Range(-1.0f, 1.0f); });
+        AddCircle(new Vector2(1.0f, 1.0f), 1f);
+        //data.Map((x, y, previous) => { return UnityEngine.Random.Range(-1.0f, 1.0f); });
         GenerateNewMesh();
+    }
+
+    void AddCircle(Vector2 center, float radius)
+    {
+        ModifyRegion(center, radius, (position, previousValue) =>
+        {
+            var newDensity = radius / (position - center).magnitude - 1;
+            return Mathf.Max(newDensity, previousValue);
+        });
     }
 
     void GenerateNewMesh()
