@@ -14,6 +14,8 @@ public class Chunk : MonoBehaviour
     public float edgeLength = 0.1f;
     public float uvScale = 4f;
 
+    private bool needsRebuild = false;
+
     public void SetData(ChunkData newData)
     {
         data = newData;
@@ -39,15 +41,26 @@ public class Chunk : MonoBehaviour
 
     public void GenerateNewMesh()
     {
+        if (Application.isPlaying)
+        {
+            needsRebuild = true;
+        }
+        else
+        {
+            GenerateNewMeshInternal();
+        }
+    }
+    private void GenerateNewMeshInternal()
+    {
         (var mesh, var paths) = data.GenerateMesh(edgeLength, uvScale);
         gameObject.GetComponent<MeshFilter>().mesh = mesh;
         var timer = System.Diagnostics.Stopwatch.StartNew();
         GetComponent<PolygonCollider2D>().pathCount = paths.Count;
-        for (int i = 0; i < paths.Count; i++) {
+        for (int i = 0; i < paths.Count; i++)
+        {
             GetComponent<PolygonCollider2D>().SetPath(i, paths[i]);
         }
         //Debug.Log("Setting Collider: "+ timer.ElapsedMilliseconds+ "ms");
-        
     }
 
     public void ModifyRegion(Vector2 point, float radius, Func<Vector2, float, float> newValueFunction)
@@ -56,7 +69,10 @@ public class Chunk : MonoBehaviour
         var maxPoint = point + new Vector2(radius, radius);
         Vector2 minCorner = transform.position;
         Vector2 maxCorner = new Vector2(transform.position.x + ((data.densities.GetLength(0) - 1) * edgeLength), transform.position.y + ((data.densities.GetLength(1) - 1) * edgeLength));
-        //if(minPoint.x > maxCorner.x)
+        if(minPoint.x > maxCorner.x || minPoint.y > maxCorner.y || maxPoint.x < minCorner.x || maxPoint.y < minCorner.y)
+        {
+            return; // nothing needs to be changed
+        }
         minPoint.x = Mathf.Max(transform.position.x, minPoint.x);
         minPoint.y = Mathf.Max(transform.position.y, minPoint.y);
         maxPoint.x = Mathf.Min(transform.position.x + ((data.densities.GetLength(0) - 1) * edgeLength), maxPoint.x);
@@ -69,6 +85,15 @@ public class Chunk : MonoBehaviour
             Mathf.FloorToInt((minPoint.y - transform.position.y) / edgeLength),
             Mathf.CeilToInt((maxPoint.x - transform.position.x) / edgeLength),
             Mathf.CeilToInt((maxPoint.y - transform.position.y) / edgeLength));
+    }
+
+    private void Update()
+    {
+        if (needsRebuild)
+        {
+            GenerateNewMeshInternal();
+            needsRebuild = false;
+        }
     }
 }
 
@@ -208,11 +233,12 @@ public class ChunkData : ISerializationCallbackReceiver
                 meshEdgeEdgesDict[new Vector2((x+1), yEnd)] = new Vector2((x+1), yStart);
             }
         };
-
-        for (int x = 0; x < densities.GetLength(0) - 1; x++)
+        int dimention0 = densities.GetLength(0);
+        int dimention1 = densities.GetLength(1);
+        for (int x = 0; x < dimention0 - 1; x++)
         {
             int firstSolid = -1;
-            for (int y = 0; y < densities.GetLength(1) - 1; y++)
+            for (int y = 0; y < dimention1 - 1; y++)
             {
                 int mask = 0;
                 for(int i = 0; i < 4; i++)
@@ -328,9 +354,9 @@ public class ChunkData : ISerializationCallbackReceiver
             var enumerator = meshEdgeEdgesDict.Keys.GetEnumerator();
             enumerator.MoveNext();
             var current = enumerator.Current;
-            while (meshEdgeEdgesDict.ContainsKey(current))
+            Vector2 next = Vector2.zero;
+            while (meshEdgeEdgesDict.TryGetValue(current, out next))
             {
-                var next = meshEdgeEdgesDict[current];
                 path.Add(current * edgeLength);
                 meshEdgeEdgesDict.Remove(current);
                 current = next;
@@ -351,10 +377,6 @@ public class ChunkData : ISerializationCallbackReceiver
 
     float LerpWeight(float weight1, float weight2)
     {
-        if(weight1 * weight2 > 0)
-        {
-            throw new System.Exception("Weights can't both be positive");
-        }
         return Mathf.Abs(weight1) / (Mathf.Abs(weight1) + Mathf.Abs(weight2));
     }
 
