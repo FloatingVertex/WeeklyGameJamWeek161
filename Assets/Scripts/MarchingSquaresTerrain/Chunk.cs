@@ -16,10 +16,9 @@ public class Chunk : MonoBehaviour, IDamageable
 
     void Start()
     {
-        data = new ChunkData(101, 101);
+        data = new ChunkData(21, 21);
         data.Map((x, y, previous) => { return -10.0f; });
-        data.Update(0, 0, ChunkData.Circle(new Vector2(40, 40), 40), false);
-        //data.Map((x, y, previous) => { return Random.Range(-1.0f, 1.0f); });
+        data.Map((x, y, previous) => { return UnityEngine.Random.Range(-1.0f, 1.0f); });
         GenerateNewMesh();
     }
 
@@ -27,10 +26,12 @@ public class Chunk : MonoBehaviour, IDamageable
     {
         (var mesh, var paths) = data.GenerateMesh(edgeLength);
         gameObject.GetComponent<MeshFilter>().mesh = mesh;
+        var timer = System.Diagnostics.Stopwatch.StartNew();
         GetComponent<PolygonCollider2D>().pathCount = paths.Count;
         for (int i = 0; i < paths.Count; i++) {
             GetComponent<PolygonCollider2D>().SetPath(i, paths[i]);
         }
+        Debug.Log("Setting Collider: "+ timer.ElapsedMilliseconds+ "ms");
     }
 
     public void ModifyRegion(Vector2 point, float radius, Func<Vector2, float, float> newValueFunction)
@@ -96,24 +97,6 @@ public class ChunkData
         }
     }
 
-    public void Update(int xStart, int yStart, float[,] newDensities, bool overrideWithMin = true)
-    {
-        for(int xOffset = 0; xOffset < newDensities.GetLength(0); xOffset++)
-        {
-            for(int yOffset = 0; yOffset < newDensities.GetLength(1); yOffset++)
-            {
-                if (overrideWithMin)
-                {
-                    densities[xStart + xOffset,yStart + yOffset] = Mathf.Min(newDensities[xOffset,yOffset], densities[xStart + xOffset, yStart + yOffset]);
-                }
-                else
-                {
-                    densities[xStart + xOffset, yStart + yOffset] = Mathf.Max(newDensities[xOffset, yOffset], densities[xStart + xOffset, yStart + yOffset]);
-                }
-            }
-        }
-    }
-
     private static readonly int[,] corners = new int[,]
     {
         {0,0 },
@@ -172,6 +155,8 @@ public class ChunkData
 
     public (Mesh,List<List<Vector2>>) GenerateMesh(float edgeLength = 0.1f)
     {
+        var timer = System.Diagnostics.Stopwatch.StartNew();
+
         var vertices = new List<Vector3>();
         var uv = new List<Vector2>();
         var triangles = new List<int>();
@@ -200,7 +185,7 @@ public class ChunkData
             {
                 meshEdgeEdgesDict[new Vector2((x + 1), yStart)] = new Vector2(x, yStart);
             }
-            if(yEnd == densities.GetLength(1)-1)
+            if(yEnd == densities.GetLength(1) - 1)
             {
                 meshEdgeEdgesDict[new Vector2(x, yEnd)] = new Vector2((x + 1), yEnd);
             }
@@ -208,7 +193,7 @@ public class ChunkData
             {
                 meshEdgeEdgesDict[new Vector2(x, yStart)] = new Vector2(x, yEnd);
             }
-            if (x == densities.GetLength(0) - 1)
+            if (x == densities.GetLength(0) - 2)
             {
                 meshEdgeEdgesDict[new Vector2((x+1), yEnd)] = new Vector2((x+1), yStart);
             }
@@ -291,7 +276,7 @@ public class ChunkData
                                 }
                             }
                         }
-                        if (x == 0 || y == 0 || x == densities.GetLength(0) - 1 || y == densities.GetLength(1) - 1)
+                        if (x == 0 || y == 0 || x == (densities.GetLength(0) - 2) || y == (densities.GetLength(1) - 2))
                         {
                             for (int trixEdgeId = 0; trixEdgeId < 3; trixEdgeId++)
                             {
@@ -309,6 +294,10 @@ public class ChunkData
                         }
                     }
                 }
+            }
+            if (firstSolid != -1)
+            {
+                addRect(x, firstSolid, densities.GetLength(1) - 1);
             }
         }
 
@@ -340,6 +329,8 @@ public class ChunkData
             colliderPaths.Add(path);
         }
 
+        Debug.Log("Generation took: "+ timer.ElapsedMilliseconds +"ms");
+
         return (mesh, colliderPaths);
     }
 
@@ -360,27 +351,5 @@ public class ChunkData
     Vector3 ToVertexPosition(int x, int y, float edgeLength)
     {
         return new Vector3(x * edgeLength, y * edgeLength);
-    }
-
-    public static float[,] Circle(Vector2 positionOffset, float radius, bool additive=true)
-    {
-        int sizeX = Mathf.RoundToInt(radius * 2 + 1.5f);
-        int sizeY = Mathf.RoundToInt(radius * 2 + 1.5f);
-        var newDensities = new float[sizeX, sizeY];
-        for(int x = 0; x < sizeX; x++)
-        {
-            for(int y = 0; y < sizeY; y++)
-            {
-                if (additive)
-                {
-                    newDensities[x, y] = radius / (positionOffset - new Vector2(x, y)).magnitude - 1;
-                }
-                else
-                {
-                    newDensities[x, y] = (positionOffset - new Vector2(x, y)).magnitude / radius - 1;
-                }
-            }
-        }
-        return newDensities;
     }
 }
