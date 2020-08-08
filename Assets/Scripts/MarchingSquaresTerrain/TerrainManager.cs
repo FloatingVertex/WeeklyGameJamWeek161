@@ -134,7 +134,6 @@ public class TerrainManager : MonoBehaviour, IDamageable
                 if (loadedChunks.loadedChunks[x, y] != null)
                 {
                     loadedChunks.loadedChunks[x, y].AddCircle(position, radius, removeInstead);
-                    loadedChunks.loadedChunks[x, y].GenerateNewMesh();
                 }
                 else
                 {

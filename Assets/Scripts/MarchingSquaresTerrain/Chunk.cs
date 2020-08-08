@@ -85,6 +85,7 @@ public class Chunk : MonoBehaviour
             Mathf.FloorToInt((minPoint.y - transform.position.y) / edgeLength),
             Mathf.CeilToInt((maxPoint.x - transform.position.x) / edgeLength),
             Mathf.CeilToInt((maxPoint.y - transform.position.y) / edgeLength));
+        GenerateNewMesh();
     }
 
     private void Update()
