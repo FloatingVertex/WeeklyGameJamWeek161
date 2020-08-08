@@ -15,7 +15,7 @@ namespace Tests
             // Spawns a crate and a bullet that gets shot at the crate.
             var crate = GameObject.Instantiate<GameObject>(Resources.Load<GameObject>("SimpleEnvironment/Crate"),Vector3.zero,Quaternion.identity);
             var bullet = GameObject.Instantiate<GameObject>(Resources.Load<GameObject>("Bullets/Bullet"), Vector3.left*2, Quaternion.identity);
-            bullet.GetComponent<Bullet>().velocity = Vector2.right * 800;
+            bullet.GetComponent<Bullet>().speed = 800.0f;
 
             // Make sure both are gone after 2 frames
             yield return new WaitForFixedUpdate();

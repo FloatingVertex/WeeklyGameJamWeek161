@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [ExecuteInEditMode]
-public class TerrainManager : MonoBehaviour
+public class TerrainManager : MonoBehaviour, IDamageable
 {
     public TerrainDataScriptableObject data;
     public int chunkCount = 10;
@@ -138,6 +138,16 @@ public class TerrainManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void Damage(float damageTaken, DamageType type, Vector2 point, Vector2 damageDirection, Vector2 surfaceNormal)
+    {
+        Dictionary<DamageType, float> radiusMultiples = new Dictionary<DamageType, float> {
+            { DamageType.Explosive,0.2f },
+            { DamageType.Impact, 0.04f },
+            { DamageType.Penetrating, 0.01f } };
+        var dmgRadius = Mathf.Sqrt(damageTaken) * radiusMultiples[type];
+        AddCircle(point, dmgRadius, true);
     }
 }
 

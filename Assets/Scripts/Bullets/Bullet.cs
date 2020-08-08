@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public Vector2 velocity;
+    public float speed = 10.0f;
     public float damage = 40f;
+    public DamageType dmgType;
     public float timeToLive = 5f;
     public ContactFilter2D filter;
 
     private void FixedUpdate()
     {
-        Vector3 newPosition = transform.position + new Vector3(velocity.x,velocity.y) * Time.fixedDeltaTime;
+        Vector2 velocity = transform.right * speed;
+        Vector3 newPosition = transform.position + (Vector3)velocity * Time.fixedDeltaTime;
         var hits = new List<RaycastHit2D>();
         if(0 != Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y),velocity, filter, hits,velocity.magnitude * Time.fixedDeltaTime))
         {
@@ -26,7 +28,7 @@ public class Bullet : MonoBehaviour
             var damageable = nearestHit.collider.GetComponentInParent<IDamageable>();
             if (damageable != null)
             {
-                damageable.Damage(damage, nearestHit.point);
+                damageable.Damage(damage, dmgType, nearestHit.point, transform.right, nearestHit.normal);
                 Destroy(gameObject);
             }
             transform.position = nearestHit.point;
