@@ -12,27 +12,31 @@ public class Chunk : MonoBehaviour, IDamageable
     public ChunkData data;
     public float edgeLength = 0.1f;
 
-    public GameObject dotPrefab;
-
     void Start()
     {
-        data = new ChunkData(21, 21);
-        data.Map((x, y, previous) => { return -10.0f; });
-        AddCircle(new Vector2(1.0f, 1.0f), 1f);
+        //data = new ChunkData(21, 21);
+        //data.Map((x, y, previous) => { return -10.0f; });
+        //AddCircle(new Vector2(1.0f, 1.0f), 1f);
         //data.Map((x, y, previous) => { return UnityEngine.Random.Range(-1.0f, 1.0f); });
+        //GenerateNewMesh();
+    }
+
+    public void SetData(ChunkData newData)
+    {
+        data = newData;
         GenerateNewMesh();
     }
 
-    void AddCircle(Vector2 center, float radius)
+    public void AddCircle(Vector2 center, float radius)
     {
-        ModifyRegion(center, radius, (position, previousValue) =>
+        ModifyRegion(center, radius, (Vector2 position,float previousValue) =>
         {
             var newDensity = radius / (position - center).magnitude - 1;
             return Mathf.Max(newDensity, previousValue);
         });
     }
 
-    void GenerateNewMesh()
+    public void GenerateNewMesh()
     {
         (var mesh, var paths) = data.GenerateMesh(edgeLength);
         gameObject.GetComponent<MeshFilter>().mesh = mesh;
@@ -52,7 +56,7 @@ public class Chunk : MonoBehaviour, IDamageable
         minPoint.y = Mathf.Max(transform.position.y, minPoint.y);
         maxPoint.x = Mathf.Min(transform.position.x + ((data.densities.GetLength(0) - 1) * edgeLength), maxPoint.x);
         maxPoint.y = Mathf.Min(transform.position.y + ((data.densities.GetLength(1) - 1) * edgeLength), maxPoint.y);
-        data.Map((xInt, yInt, previousValue) => {
+        data.Map((int xInt, int yInt, float previousValue) => {
             Vector2 worldPosition = new Vector2(xInt * edgeLength,yInt * edgeLength) + (Vector2)transform.position;
             return newValueFunction(worldPosition, previousValue);
         },
@@ -65,7 +69,7 @@ public class Chunk : MonoBehaviour, IDamageable
     public void Damage(float damageTaken, Vector2 point)
     {
         var dmgRadius = damageTaken * 0.01f;
-        ModifyRegion(point, dmgRadius, (position, previousValue) =>
+        ModifyRegion( point, dmgRadius, (Vector2 position, float previousValue) =>
          {
              var newDensity = (position - point).magnitude / dmgRadius - 1;
              return Mathf.Min(newDensity, previousValue);
@@ -81,6 +85,7 @@ public class ChunkData
     public ChunkData(int sizeX,int sizeY)
     {
         densities = new float[sizeX,sizeY];
+        Map((x, y, previous) => { return -10f; });
     }
 
     public ChunkData(float[,] densities)
@@ -100,7 +105,7 @@ public class ChunkData
         }
         for (int x = minX; x <= maxX; x++)
         {
-            for(int y = minX; y <= maxY; y++)
+            for(int y = minY; y <= maxY; y++)
             {
                 densities[x, y] = lamda(x, y, densities[x, y]);
             }
