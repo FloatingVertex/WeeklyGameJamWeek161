@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MachineGun : MonoBehaviour, IWeapon
 {
-    public GameObject bulletPrefsb;
+    public GameObject bulletPrefab;
     public float shotsPerSecond = 10f;
     public float bulletSpeed = 10f;
     public AnimationCurve spreadOverTime;
@@ -51,7 +51,7 @@ public class MachineGun : MonoBehaviour, IWeapon
         float perlin = Mathf.PerlinNoise(Time.timeSinceLevelLoad * noiseRate/2, Time.timeSinceLevelLoad * noiseRate) - 0.5f;
         float rotateBy = perlin * spread * 10.0f;
         var bulletRotation = Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z + rotateBy);
-        var bullet = Instantiate(bulletPrefsb, transform.position, bulletRotation).GetComponent<Bullet>();
+        var bullet = Instantiate(bulletPrefab, transform.position, bulletRotation).GetComponent<Bullet>();
         bullet.speed = bulletSpeed;
     }
 

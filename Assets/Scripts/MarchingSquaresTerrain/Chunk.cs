@@ -12,6 +12,7 @@ public class Chunk : MonoBehaviour
     [System.NonSerialized]
     public ChunkData data;
     public float edgeLength = 0.1f;
+    public float uvScale = 4f;
 
     public void SetData(ChunkData newData)
     {
@@ -38,7 +39,7 @@ public class Chunk : MonoBehaviour
 
     public void GenerateNewMesh()
     {
-        (var mesh, var paths) = data.GenerateMesh(edgeLength);
+        (var mesh, var paths) = data.GenerateMesh(edgeLength, uvScale);
         gameObject.GetComponent<MeshFilter>().mesh = mesh;
         var timer = System.Diagnostics.Stopwatch.StartNew();
         GetComponent<PolygonCollider2D>().pathCount = paths.Count;
@@ -46,12 +47,16 @@ public class Chunk : MonoBehaviour
             GetComponent<PolygonCollider2D>().SetPath(i, paths[i]);
         }
         //Debug.Log("Setting Collider: "+ timer.ElapsedMilliseconds+ "ms");
+        
     }
 
     public void ModifyRegion(Vector2 point, float radius, Func<Vector2, float, float> newValueFunction)
     {
         var minPoint = point - new Vector2(radius, radius);
         var maxPoint = point + new Vector2(radius, radius);
+        Vector2 minCorner = transform.position;
+        Vector2 maxCorner = new Vector2(transform.position.x + ((data.densities.GetLength(0) - 1) * edgeLength), transform.position.y + ((data.densities.GetLength(1) - 1) * edgeLength));
+        //if(minPoint.x > maxCorner.x)
         minPoint.x = Mathf.Max(transform.position.x, minPoint.x);
         minPoint.y = Mathf.Max(transform.position.y, minPoint.y);
         maxPoint.x = Mathf.Min(transform.position.x + ((data.densities.GetLength(0) - 1) * edgeLength), maxPoint.x);
@@ -78,7 +83,7 @@ public class ChunkData : ISerializationCallbackReceiver
     public ChunkData(int sizeX,int sizeY)
     {
         densities = new float[sizeX,sizeY];
-        Map((x, y, previous) => { return -10f; });
+        Map((x, y, previous) => { return 10f; });
     }
 
     public ChunkData(float[,] densities)
@@ -103,6 +108,7 @@ public class ChunkData : ISerializationCallbackReceiver
             {
                 densities[x, y] = lamda(x, y, densities[x, y]);
             }
+            
         }
     }
 
@@ -162,12 +168,11 @@ public class ChunkData : ISerializationCallbackReceiver
                         {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},//0b1111
                     };
 
-    public (Mesh,List<List<Vector2>>) GenerateMesh(float edgeLength = 0.1f)
+    public (Mesh,List<List<Vector2>>) GenerateMesh(float edgeLength = 0.1f, float uvScale = 1)
     {
         var timer = System.Diagnostics.Stopwatch.StartNew();
 
         var vertices = new List<Vector3>();
-        var uv = new List<Vector2>();
         var triangles = new List<int>();
         var meshEdgeEdgesDict = new Dictionary<Vector2, Vector2>();
 
@@ -177,10 +182,6 @@ public class ChunkData : ISerializationCallbackReceiver
             vertices.Add(new Vector3((x + 1), yStart));
             vertices.Add(new Vector3(x, yEnd));
             vertices.Add(new Vector3((x + 1), yEnd));
-            uv.Add(new Vector2(0, 0));
-            uv.Add(new Vector2(1, 0));
-            uv.Add(new Vector2(0, 1));
-            uv.Add(new Vector2(1, 1));
 
             triangles.Add(startingIndex);
             triangles.Add(startingIndex + 2);
@@ -238,7 +239,6 @@ public class ChunkData : ISerializationCallbackReceiver
                         if (densities[x+corners[i, 0],y+ corners[i, 1]] > 0)
                         {
                             vertices.Add(new Vector3((x+corners[i, 0]), (y+corners[i, 1])));
-                            uv.Add(new Vector2(corners[i, 0], corners[i, 1]));
                         }
                     }
                     int startingIntersectionVertIndex = vertices.Count;
@@ -254,7 +254,6 @@ public class ChunkData : ISerializationCallbackReceiver
                                 new Vector3((x + corners[corner1, 0]), (y + corners[corner1, 1])),
                                 new Vector3((x + corners[corner2, 0]), (y + corners[corner2, 1])),
                                 LerpWeight(densities[(x + corners[corner1, 0]), (y + corners[corner1, 1])], densities[(x + corners[corner2, 0]), (y + corners[corner2, 1])])));
-                            uv.Add(new Vector2(0,0));
                         }
                     }
                     
@@ -310,14 +309,16 @@ public class ChunkData : ISerializationCallbackReceiver
             }
         }
 
-        for(int i = 0; i < vertices.Count; i++)
+        var uv = new Vector2[vertices.Count];
+        for (int i = 0; i < vertices.Count; i++)
         {
             vertices[i] = vertices[i]*edgeLength;
+            uv[i] = vertices[i] / uvScale;
         }
 
         var mesh = new Mesh();
         mesh.vertices = vertices.ToArray();
-        mesh.uv = uv.ToArray();
+        mesh.uv = uv;
         mesh.triangles = triangles.ToArray();
 
         var colliderPaths = new List<List<Vector2>>();

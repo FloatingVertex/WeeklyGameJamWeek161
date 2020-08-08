@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4f3fe48013137c4293eb1fada96f84c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefsb: {fileID: 4523761160389634805, guid: 580e3f600fee5ae4cb00aa80082898ab,
+  bulletPrefab: {fileID: 4523761160389634805, guid: 580e3f600fee5ae4cb00aa80082898ab,
     type: 3}
   shotsPerSecond: 10
   bulletSpeed: 10
@@ -53,15 +53,15 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0.0003707409
-      inSlope: 0.19849023
-      outSlope: 0.19849023
+      inSlope: 1.2497652
+      outSlope: 1.2497652
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 5.0361633
-      value: 1
+      time: 2.0002644
+      value: 2.5002315
       inSlope: -0.0004953671
       outSlope: -0.0004953671
       tangentMode: 0
