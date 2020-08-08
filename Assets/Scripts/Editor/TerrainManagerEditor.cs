@@ -53,8 +53,6 @@ public class TerrainManagerEditor : Editor
         serializedObject.Update();
         var terrainManager = ((TerrainManager)serializedObject.targetObject);
 
-        Debug.Log("terrainManager.data is dirty? " + EditorUtility.IsDirty(terrainManager.data));
-        Debug.Log("terrainManager is dirty? " + EditorUtility.IsDirty(terrainManager));
         GUI.enabled = true;
         EditorGUILayout.PropertyField(chunkCount, new GUIContent("chunkCount"));
         EditorGUILayout.PropertyField(chunkSize, new GUIContent("chunkSize"));

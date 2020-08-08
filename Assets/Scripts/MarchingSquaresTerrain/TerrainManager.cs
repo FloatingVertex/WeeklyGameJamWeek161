@@ -29,7 +29,10 @@ public class TerrainManager : MonoBehaviour, IDamageable
 
     private void OnEnable()
     {
-        ReloadChunks();
+        if (!Application.isPlaying)
+        {
+            ReloadChunks();
+        }
     }
 
     private void OnDisable()
@@ -87,7 +90,7 @@ public class TerrainManager : MonoBehaviour, IDamageable
 
     public void ReloadChunks()
     {
-        Debug.Log("ReloadingChunks");
+        var timer = System.Diagnostics.Stopwatch.StartNew();
         ClearChildren();
         loadedChunks.loadedChunks = new Chunk[data.chunks.GetLength(0), data.chunks.GetLength(1)];
         for (int chunkX = 0; chunkX < data.chunks.GetLength(0); chunkX++)
@@ -109,6 +112,7 @@ public class TerrainManager : MonoBehaviour, IDamageable
                 loadedChunks.loadedChunks[chunkX, chunkY] = newChunk;
             }
         }
+        Debug.Log("ReloadingChunks took: "+ timer.ElapsedMilliseconds +" ms");
     }
 
     public void AddCircle(Vector2 position, float radius, bool removeInstead=false)
@@ -163,7 +167,7 @@ public class ChunksSquare : ISerializationCallbackReceiver
         {
             _loadedChunks = new Chunk[0];
         }
-        loadedChunks = new Chunk[_sizeX, _loadedChunks.Length / _sizeX];
+        loadedChunks = new Chunk[_sizeX, _sizeX == 0 ? 0 : _loadedChunks.Length / _sizeX];
         for (int i = 0; i < _loadedChunks.Length; i++)
         {
             loadedChunks[i / _sizeX, i % _sizeX] = _loadedChunks[i];
@@ -173,6 +177,10 @@ public class ChunksSquare : ISerializationCallbackReceiver
 
     public void OnBeforeSerialize()
     {
+        if (loadedChunks == null)
+        {
+            loadedChunks = new Chunk[0, 0];
+        }
         _sizeX = loadedChunks.GetLength(0);
         int totalCount = (loadedChunks.GetLength(0) * loadedChunks.GetLength(1));
         _loadedChunks = new Chunk[totalCount];

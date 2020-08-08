@@ -369,7 +369,7 @@ public class ChunkData : ISerializationCallbackReceiver
         {
             _densities = new float[0];
         }
-        densities = new float[_sizeX, _densities.Length / _sizeX];
+        densities = new float[_sizeX, _sizeX == 0 ? 0 : _densities.Length / _sizeX];
         for (int i = 0; i < _densities.Length; i++)
         {
             densities[i / _sizeX, i % _sizeX] = _densities[i];

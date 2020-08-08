@@ -15,7 +15,7 @@ public class TerrainDataScriptableObject : ScriptableObject, ISerializationCallb
         {
             _ChunkDatas = new ChunkData[0];
         }
-        chunks = new ChunkData[_sizeX, _ChunkDatas.Length / _sizeX];
+        chunks = new ChunkData[_sizeX, _sizeX == 0 ? 0 : _ChunkDatas.Length / _sizeX];
         for (int i = 0; i < _ChunkDatas.Length; i++)
         {
             chunks[i / _sizeX, i % _sizeX] = _ChunkDatas[i];
@@ -24,6 +24,10 @@ public class TerrainDataScriptableObject : ScriptableObject, ISerializationCallb
 
     public void OnBeforeSerialize()
     {
+        if (chunks == null)
+        {
+            chunks = new ChunkData[0, 0];
+        }
         _sizeX = chunks.GetLength(0);
         int totalCount = (chunks.GetLength(0) * chunks.GetLength(1));
         _ChunkDatas = new ChunkData[totalCount];
