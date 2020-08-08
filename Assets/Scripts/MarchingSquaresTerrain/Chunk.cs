@@ -7,29 +7,59 @@ using UnityEngine;
 [RequireComponent(typeof(MeshFilter))]
 [RequireComponent(typeof(MeshRenderer))]
 [RequireComponent(typeof(PolygonCollider2D))]
-public class Chunk : MonoBehaviour
+public class Chunk : MonoBehaviour, IDamageable
 {
     public ChunkData data;
+    public float edgeLength = 0.1f;
 
     public GameObject dotPrefab;
 
     void Start()
     {
         data = new ChunkData(101, 101);
-        data.Map((x, y, previous) => { return -100.0f; });
-        data.Update(0, 0, ChunkData.CircleAdd(new Vector2(40, 40), 40), false);
+        data.Map((x, y, previous) => { return -10.0f; });
+        data.Update(0, 0, ChunkData.Circle(new Vector2(40, 40), 40), false);
         //data.Map((x, y, previous) => { return Random.Range(-1.0f, 1.0f); });
         GenerateNewMesh();
     }
 
     void GenerateNewMesh()
     {
-        (var mesh, var paths) = data.GenerateMesh(0.1f);
+        (var mesh, var paths) = data.GenerateMesh(edgeLength);
         gameObject.GetComponent<MeshFilter>().mesh = mesh;
         GetComponent<PolygonCollider2D>().pathCount = paths.Count;
         for (int i = 0; i < paths.Count; i++) {
             GetComponent<PolygonCollider2D>().SetPath(i, paths[i]);
         }
+    }
+
+    public void ModifyRegion(Vector2 point, float radius, Func<Vector2, float, float> newValueFunction)
+    {
+        var minPoint = point - new Vector2(radius, radius);
+        var maxPoint = point + new Vector2(radius, radius);
+        minPoint.x = Mathf.Max(transform.position.x, minPoint.x);
+        minPoint.y = Mathf.Max(transform.position.y, minPoint.y);
+        maxPoint.x = Mathf.Min(transform.position.x + ((data.densities.GetLength(0) - 1) * edgeLength), maxPoint.x);
+        maxPoint.y = Mathf.Min(transform.position.y + ((data.densities.GetLength(1) - 1) * edgeLength), maxPoint.y);
+        data.Map((xInt, yInt, previousValue) => {
+            Vector2 worldPosition = new Vector2(xInt * edgeLength,yInt * edgeLength) + (Vector2)transform.position;
+            return newValueFunction(worldPosition, previousValue);
+        },
+            Mathf.FloorToInt((minPoint.x - transform.position.x) / edgeLength),
+            Mathf.FloorToInt((minPoint.y - transform.position.y) / edgeLength),
+            Mathf.CeilToInt((maxPoint.x - transform.position.x) / edgeLength),
+            Mathf.CeilToInt((maxPoint.y - transform.position.y) / edgeLength));
+    }
+
+    public void Damage(float damageTaken, Vector2 point)
+    {
+        var dmgRadius = damageTaken * 0.01f;
+        ModifyRegion(point, dmgRadius, (position, previousValue) =>
+         {
+             var newDensity = (position - point).magnitude / dmgRadius - 1;
+             return Mathf.Min(newDensity, previousValue);
+         });
+        GenerateNewMesh();
     }
 }
 
@@ -47,11 +77,19 @@ public class ChunkData
         this.densities = densities;
     }
 
-    public void Map(System.Func<int,int,float,float> lamda)
+    public void Map(System.Func<int,int,float,float> lamda, int minX = 0, int minY = 0, int maxX = -1, int maxY = -1)
     {
-        for(int x = 0; x < densities.GetLength(0); x++)
+        if(maxX == -1)
         {
-            for(int y = 0; y < densities.GetLength(1); y++)
+            maxX = densities.GetLength(0) - 1;
+        }
+        if (maxY == -1)
+        {
+            maxY = densities.GetLength(1) - 1;
+        }
+        for (int x = minX; x <= maxX; x++)
+        {
+            for(int y = minX; y <= maxY; y++)
             {
                 densities[x, y] = lamda(x, y, densities[x, y]);
             }
@@ -324,7 +362,7 @@ public class ChunkData
         return new Vector3(x * edgeLength, y * edgeLength);
     }
 
-    public static float[,] CircleAdd(Vector2 positionOffset, float radius)
+    public static float[,] Circle(Vector2 positionOffset, float radius, bool additive=true)
     {
         int sizeX = Mathf.RoundToInt(radius * 2 + 1.5f);
         int sizeY = Mathf.RoundToInt(radius * 2 + 1.5f);
@@ -333,7 +371,14 @@ public class ChunkData
         {
             for(int y = 0; y < sizeY; y++)
             {
-                newDensities[x, y] = radius/(positionOffset - new Vector2(x, y)).magnitude - 1;
+                if (additive)
+                {
+                    newDensities[x, y] = radius / (positionOffset - new Vector2(x, y)).magnitude - 1;
+                }
+                else
+                {
+                    newDensities[x, y] = (positionOffset - new Vector2(x, y)).magnitude / radius - 1;
+                }
             }
         }
         return newDensities;
