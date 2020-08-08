@@ -7,20 +7,11 @@ using UnityEngine;
 [RequireComponent(typeof(MeshFilter))]
 [RequireComponent(typeof(MeshRenderer))]
 [RequireComponent(typeof(PolygonCollider2D))]
-public class Chunk : MonoBehaviour, IDamageable
+public class Chunk : MonoBehaviour 
 {
     [System.NonSerialized]
     public ChunkData data;
     public float edgeLength = 0.1f;
-
-    void Start()
-    {
-        //data = new ChunkData(21, 21);
-        //data.Map((x, y, previous) => { return -10.0f; });
-        //AddCircle(new Vector2(1.0f, 1.0f), 1f);
-        //data.Map((x, y, previous) => { return UnityEngine.Random.Range(-1.0f, 1.0f); });
-        //GenerateNewMesh();
-    }
 
     public void SetData(ChunkData newData)
     {
@@ -73,17 +64,6 @@ public class Chunk : MonoBehaviour, IDamageable
             Mathf.FloorToInt((minPoint.y - transform.position.y) / edgeLength),
             Mathf.CeilToInt((maxPoint.x - transform.position.x) / edgeLength),
             Mathf.CeilToInt((maxPoint.y - transform.position.y) / edgeLength));
-    }
-
-    public void Damage(float damageTaken, Vector2 point)
-    {
-        var dmgRadius = damageTaken * 0.01f;
-        ModifyRegion( point, dmgRadius, (Vector2 position, float previousValue) =>
-         {
-             var newDensity = (position - point).magnitude / dmgRadius - 1;
-             return Mathf.Min(newDensity, previousValue);
-         });
-        GenerateNewMesh();
     }
 }
 

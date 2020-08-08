@@ -6,7 +6,7 @@ public class Destructable : MonoBehaviour, IDamageable
 {
     public float health = 100;
 
-    public void Damage(float damageTaken, Vector2 point)
+    public void Damage(float damageTaken, DamageType type, Vector2 point, Vector2 damageDirection, Vector2 surfaceNormal)
     {
         health -= damageTaken;
         if(health < 0)
