@@ -340,12 +340,12 @@ PrefabInstance:
     - target: {fileID: 4523761160389634800, guid: 580e3f600fee5ae4cb00aa80082898ab,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.22
+      value: -0.841
       objectReference: {fileID: 0}
     - target: {fileID: 4523761160389634800, guid: 580e3f600fee5ae4cb00aa80082898ab,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.81
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 4523761160389634800, guid: 580e3f600fee5ae4cb00aa80082898ab,
         type: 3}
@@ -397,10 +397,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bullet (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4523761160389634805, guid: 580e3f600fee5ae4cb00aa80082898ab,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4523761160389634806, guid: 580e3f600fee5ae4cb00aa80082898ab,
         type: 3}
       propertyPath: velocity.x
-      value: 10
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4523761160389634806, guid: 580e3f600fee5ae4cb00aa80082898ab,
+        type: 3}
+      propertyPath: damage
+      value: 60
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 580e3f600fee5ae4cb00aa80082898ab, type: 3}
