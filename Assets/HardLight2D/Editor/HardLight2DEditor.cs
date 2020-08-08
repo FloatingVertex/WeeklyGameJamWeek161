@@ -7,6 +7,6 @@ public class HardLight2DEditor : MonoBehaviour
     [MenuItem ("HardLight2D/Refresh collider references")]
     static void RefreshAll ()
     {
-        HardLight2DManager.RefreshAllCollidersReferences ();
+        //HardLight2DManager.RefreshAllCollidersReferences ();
     }
 }

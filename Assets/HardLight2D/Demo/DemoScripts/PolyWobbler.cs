@@ -25,6 +25,6 @@ public class PolyWobbler : MonoBehaviour
             LineRend.SetPosition (i, points[i]);
         }
         Poly.SetPath (0, points);
-        HardLight2DManager.RefreshColliderReference (Poly);
+        //HardLight2DManager.RefreshColliderReference (Poly);
     }
 }
