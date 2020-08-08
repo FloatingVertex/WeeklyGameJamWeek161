@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MachineGun : MonoBehaviour
+public class MachineGun : MonoBehaviour, IWeapon
 {
     public GameObject bulletPrefsb;
     public float shotsPerSecond = 10f;
