@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class TerrainManager : MonoBehaviour
 {
     public TerrainDataScriptableObject data;
@@ -13,11 +14,46 @@ public class TerrainManager : MonoBehaviour
     public GameObject chunkPrefab;
 
     [SerializeField]
-    private Chunk[,] loadedChunks;
+    private ChunksSquare loadedChunks = new ChunksSquare();
 
     // Start is called before the first frame update
     void Start()
     {
+        ReloadChunks();
+    }
+
+    private void Awake()
+    {
+        //ReloadChunks();
+    }
+
+    private void OnEnable()
+    {
+        ReloadChunks();
+    }
+
+    private void OnDisable()
+    {
+    }
+
+    private void ClearChildren()
+    {
+        List<GameObject> toDestroy = new List<GameObject>();
+        foreach (Transform child in transform)
+        {
+            toDestroy.Add(child.gameObject);
+        }
+        foreach (var target in toDestroy)
+        {
+            if (Application.isPlaying)
+            {
+                Destroy(target);
+            }
+            else
+            {
+                DestroyImmediate(target);
+            }
+        }
     }
 
     // Update is called once per frame
@@ -51,33 +87,33 @@ public class TerrainManager : MonoBehaviour
 
     public void ReloadChunks()
     {
-        loadedChunks = new Chunk[data.chunks.GetLength(0), data.chunks.GetLength(1)];
+        Debug.Log("ReloadingChunks");
+        ClearChildren();
+        loadedChunks.loadedChunks = new Chunk[data.chunks.GetLength(0), data.chunks.GetLength(1)];
         for (int chunkX = 0; chunkX < data.chunks.GetLength(0); chunkX++)
         {
             for(int chunkY = 0; chunkY < data.chunks.GetLength(1); chunkY++)
             {
-                if(loadedChunks[chunkX,chunkY] == null)
+                var newChunk = Instantiate(chunkPrefab, chunkToPosition(chunkX, chunkY), Quaternion.identity, transform).GetComponent<Chunk>();
+                newChunk.gameObject.name = "Chunk" + chunkX + "_" + chunkY;
+                newChunk.edgeLength = meshScale;
+                if (Application.isPlaying)
                 {
-                    var newChunk = Instantiate(chunkPrefab, chunkToPosition(chunkX, chunkY), Quaternion.identity, transform).GetComponent<Chunk>();
-                    newChunk.gameObject.name = "Chunk" + chunkX + "_" + chunkY;
-                    newChunk.edgeLength = meshScale;
-                    newChunk.SetData(data.chunks[chunkX,chunkY]);
-                    loadedChunks[chunkX, chunkY] = newChunk;
+                    newChunk.SetData(new ChunkData(data.chunks[chunkX, chunkY].densities));
                 }
                 else
                 {
-                    var chunk = loadedChunks[chunkX, chunkY];
-                    chunk.edgeLength = meshScale;
-                    chunk.transform.position = chunkToPosition(chunkX, chunkY);
-                    chunk.SetData(data.chunks[chunkX, chunkY]);
+                    newChunk.SetData(data.chunks[chunkX, chunkY]);
                 }
+                newChunk.hideFlags = HideFlags.DontSaveInEditor | HideFlags.DontSaveInBuild;
+                loadedChunks.loadedChunks[chunkX, chunkY] = newChunk;
             }
         }
     }
 
-    public void AddCircle(Vector2 position, float radius)
+    public void AddCircle(Vector2 position, float radius, bool removeInstead=false)
     {
-        if(loadedChunks == null || loadedChunks.GetLength(0) != data.chunks.GetLength(0) || loadedChunks.GetLength(0) != data.chunks.GetLength(0))
+        if(loadedChunks == null || loadedChunks.loadedChunks.GetLength(0) != data.chunks.GetLength(0) || loadedChunks.loadedChunks.GetLength(0) != data.chunks.GetLength(0))
         {
             Debug.LogWarning("Trying to edit terrain that hasn't been loaded");
             return;
@@ -91,16 +127,48 @@ public class TerrainManager : MonoBehaviour
         {
             for(int y = minY; y < maxY; y++)
             {
-                if (loadedChunks[x, y] != null)
+                if (loadedChunks.loadedChunks[x, y] != null)
                 {
-                    loadedChunks[x, y].AddCircle(position, radius);
-                    loadedChunks[x, y].GenerateNewMesh();
+                    loadedChunks.loadedChunks[x, y].AddCircle(position, radius, removeInstead);
+                    loadedChunks.loadedChunks[x, y].GenerateNewMesh();
                 }
                 else
                 {
                     Debug.LogWarning("Trying to edit terrain that hasn't been loaded");
                 }
             }
+        }
+    }
+}
+
+[System.Serializable]
+public class ChunksSquare : ISerializationCallbackReceiver
+{
+    [SerializeField] private Chunk[] _loadedChunks;
+    [SerializeField] private int _sizeX;
+    [System.NonSerialized]public Chunk[,] loadedChunks;
+    public void OnAfterDeserialize()
+    {
+        if (_loadedChunks == null)
+        {
+            _loadedChunks = new Chunk[0];
+        }
+        loadedChunks = new Chunk[_sizeX, _loadedChunks.Length / _sizeX];
+        for (int i = 0; i < _loadedChunks.Length; i++)
+        {
+            loadedChunks[i / _sizeX, i % _sizeX] = _loadedChunks[i];
+        }
+        _loadedChunks = null;
+    }
+
+    public void OnBeforeSerialize()
+    {
+        _sizeX = loadedChunks.GetLength(0);
+        int totalCount = (loadedChunks.GetLength(0) * loadedChunks.GetLength(1));
+        _loadedChunks = new Chunk[totalCount];
+        for (int i = 0; i < totalCount; i++)
+        {
+            _loadedChunks[i] = loadedChunks[i / _sizeX, i % _sizeX];
         }
     }
 }
