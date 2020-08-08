@@ -105,7 +105,7 @@ public class TerrainManager : MonoBehaviour
                 {
                     newChunk.SetData(data.chunks[chunkX, chunkY]);
                 }
-                newChunk.hideFlags = HideFlags.DontSaveInEditor | HideFlags.DontSaveInBuild;
+                newChunk.gameObject.hideFlags = HideFlags.DontSaveInEditor | HideFlags.DontSaveInBuild;
                 loadedChunks.loadedChunks[chunkX, chunkY] = newChunk;
             }
         }

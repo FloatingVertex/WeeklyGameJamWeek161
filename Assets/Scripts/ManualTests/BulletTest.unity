@@ -154,7 +154,7 @@ MonoBehaviour:
   chunkCount: 10
   chunkSize: 31
   range: 0.8
-  additive: 0
+  additive: 1
   meshScale: 0.1
   chunkPrefab: {fileID: 2888435233472054062, guid: 59edd5614729688479bdc528a821b696,
     type: 3}
