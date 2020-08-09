@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6714242932986750073}
   - component: {fileID: 6714242932986750072}
-  - component: {fileID: 6714242932986750855}
+  - component: {fileID: 737751049840559511}
   m_Layer: 0
   m_Name: Bunker
   m_TagString: Untagged
@@ -82,8 +82,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &6714242932986750855
-BoxCollider2D:
+--- !u!60 &737751049840559511
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -95,7 +95,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -1.1071358}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -105,6 +105,13 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 4, y: 1.7857285}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: -1.2340422, y: -0.27880096}
+      - {x: -1.5495987, y: -0.59374046}
+      - {x: -1.5564528, y: -0.5980387}
+      - {x: -2.0233135, y: -1.996891}
+      - {x: -2, y: -2}
+      - {x: 2, y: -2}
+      - {x: 1.5469875, y: -0.6068487}
+      - {x: 1.2586279, y: -0.26887608}
