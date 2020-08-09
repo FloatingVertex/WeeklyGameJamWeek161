@@ -12,14 +12,22 @@ public class TerrainManager : MonoBehaviour, IDamageable
     public bool additive = true;
     public float meshScale = 0.1f;
     public GameObject chunkPrefab;
+    public Texture2D noise;
+    [Tooltip("How scale of detail of the noise is")]
+    public float noiseScale;
+    [Tooltip("How strong the noise is 0 = no noise")]
+    public float noiseMultiple = 1.0f;
+    public float circleMultiple = 1.0f;
 
     [SerializeField]
     private ChunksSquare loadedChunks = new ChunksSquare();
+    
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         ReloadChunks();
+
     }
 
     private void ClearChildren()
@@ -61,14 +69,27 @@ public class TerrainManager : MonoBehaviour, IDamageable
         return (Mathf.FloorToInt(position.x/ scaleing), Mathf.FloorToInt(position.y / scaleing));
     }
 
-    public void ResetData()
+    public void ChangeDimentions()
     {
+        // can only perserve data if dimention doesn't change
+        var old_data = new ChunkData[0, 0];
+        if (data.chunks[0,0].densities.GetLength(0) == chunkSize && data.chunks[0, 0].densities.GetLength(0) == chunkSize)
+        {
+            old_data = data.chunks;
+        }
         data.chunks = new ChunkData[chunkCount, chunkCount];
         for (int chunkX = 0; chunkX < data.chunks.GetLength(0); chunkX++)
         {
             for (int chunkY = 0; chunkY < data.chunks.GetLength(1); chunkY++)
             {
-                data.chunks[chunkX, chunkY] = new ChunkData(chunkSize, chunkSize);
+                if (old_data.GetLength(0) > chunkX && old_data.GetLength(1) > chunkY)
+                {
+                    data.chunks[chunkX, chunkY] = old_data[chunkX, chunkY];
+                }
+                else
+                {
+                    data.chunks[chunkX, chunkY] = new ChunkData(chunkSize, chunkSize);
+                }
             }
         }
     }
@@ -100,7 +121,7 @@ public class TerrainManager : MonoBehaviour, IDamageable
         Debug.Log("ReloadingChunks took: "+ timer.ElapsedMilliseconds +" ms");
     }
 
-    public void AddCircle(Vector2 position, float radius, bool removeInstead=false)
+    public void AddCircle(Vector2 position, float radius, bool removeInstead=false, float noiseMultiple = 0.0f, float noiseScale = 0.0f, float noiseOffset = 0.0f,float circleMultiple = 1.0f)
     {
         if(loadedChunks == null || loadedChunks.loadedChunks.GetLength(0) != data.chunks.GetLength(0) || loadedChunks.loadedChunks.GetLength(0) != data.chunks.GetLength(0))
         {
@@ -118,7 +139,40 @@ public class TerrainManager : MonoBehaviour, IDamageable
             {
                 if (loadedChunks.loadedChunks[x, y] != null)
                 {
-                    loadedChunks.loadedChunks[x, y].AddCircle(position, radius, removeInstead);
+                    if (noiseMultiple == 0)
+                    {
+                        loadedChunks.loadedChunks[x, y].AddCircle(position, radius, removeInstead);
+                    }
+                    else
+                    {
+                        loadedChunks.loadedChunks[x, y].ModifyRegion(position, radius * 1.5f, (Vector2 center, float previousValue) =>
+                        {
+                            var newDensity = circleMultiple * ((position - center).magnitude / radius - 1);
+                            float noiseSum = 0f;
+                            var noiseScales = new float[,]
+                            {
+                                {10.0f, 0.1f },// small details
+                                {3.0f, 0.1f },
+                                {1.0f, 0.2f },// large details
+                                {0.1f, 0.2f },// large details
+                            };
+                            for (int i = 0; i < noiseScales.GetLength(0); i++) {
+                                noiseSum += (noise.GetPixel(
+                                    Mathf.RoundToInt(center.x * noiseScales[i,0] * noiseScale + noiseOffset) % noise.width,
+                                    Mathf.RoundToInt(center.y * noiseScales[i, 0] * noiseScale) % noise.height).grayscale 
+                                    - 0.5f) * noiseMultiple * noiseScales[i,1];
+                            }
+                            if (removeInstead)
+                            {
+                                return Mathf.Min(newDensity+noiseSum, previousValue);
+                            }
+                            else
+                            {
+                                newDensity = newDensity * -1;
+                                return Mathf.Max(newDensity-noiseSum, previousValue);
+                            }
+                        });
+                    }
                 }
                 else
                 {
