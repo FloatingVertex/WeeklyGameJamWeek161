@@ -12,6 +12,11 @@ public class TerrainManagerEditor : Editor
     private SerializedProperty chunkCount;
     private SerializedProperty chunkSize;
     private SerializedProperty chunkPrefab;
+    private SerializedProperty noise;
+    private SerializedProperty noiseScale;
+    private SerializedProperty noiseMultiple;
+    private SerializedProperty circleMultiple;
+    private SerializedProperty meshScale;
 
     // Start is called before the first frame update
     private void OnEnable()
@@ -21,7 +26,13 @@ public class TerrainManagerEditor : Editor
         additive = serializedObject.FindProperty("additive");
         chunkCount = serializedObject.FindProperty("chunkCount");
         chunkSize = serializedObject.FindProperty("chunkSize");
+        meshScale = serializedObject.FindProperty("meshScale");
         chunkPrefab = serializedObject.FindProperty("chunkPrefab");
+
+        noise = serializedObject.FindProperty("noise");
+        noiseScale = serializedObject.FindProperty("noiseScale");
+        noiseMultiple = serializedObject.FindProperty("noiseMultiple");
+        circleMultiple = serializedObject.FindProperty("circleMultiple");
     }
 
     private void OnSceneGUI()
@@ -37,7 +48,10 @@ public class TerrainManagerEditor : Editor
             case EventType.MouseDrag:
                 GUIUtility.hotControl = controlID;
                 var terrainManager = ((TerrainManager)serializedObject.targetObject);
-                terrainManager.AddCircle(mousePosition.origin, terrainManager.range, !terrainManager.additive);
+                terrainManager.AddCircle(mousePosition.origin, terrainManager.range, !terrainManager.additive,
+                    noiseMultiple:terrainManager.noiseMultiple,
+                    noiseScale:terrainManager.noiseScale,
+                    circleMultiple:terrainManager.circleMultiple);
                 EditorUtility.SetDirty(terrainManager.data);
                 e.Use();
                 break;
@@ -59,10 +73,11 @@ public class TerrainManagerEditor : Editor
         EditorGUILayout.PropertyField(chunkSize, new GUIContent("chunkSize"));
         if (GUILayout.Button("Regenerate (Clears Current Data)"))
         {
-            terrainManager.ResetData();
+            terrainManager.ChangeDimentions();
             EditorUtility.SetDirty(terrainManager.data);
             terrainManager.ReloadChunks();
         }
+        EditorGUILayout.PropertyField(meshScale, new GUIContent("meshScale"));
         if (GUILayout.Button("Generate"))
         {
             terrainManager.ReloadChunks();
@@ -71,6 +86,11 @@ public class TerrainManagerEditor : Editor
         EditorGUILayout.PropertyField(additive, new GUIContent("Additive"));
         EditorGUILayout.PropertyField(chunkPrefab, new GUIContent("chunkPrefab"));
         EditorGUILayout.PropertyField(data, new GUIContent("Data"));
+
+        EditorGUILayout.PropertyField(noise, new GUIContent("noise"));
+        EditorGUILayout.PropertyField(noiseScale, new GUIContent("noiseScale"));
+        EditorGUILayout.PropertyField(noiseMultiple, new GUIContent("noiseMultiple"));
+        EditorGUILayout.PropertyField(circleMultiple, new GUIContent("circleMultiple"));
 
         serializedObject.ApplyModifiedProperties();
     }
