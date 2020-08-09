@@ -75,40 +75,6 @@ public class Chunk : MonoBehaviour
         }
     }
 
-    public void SetActive(bool newSetting)
-    {
-        if (newSetting)
-        {
-            if (!GetComponent<MeshRenderer>())
-            {
-                gameObject.AddComponent<MeshRenderer>();
-            }
-            if (!GetComponent<PolygonCollider2D>())
-            {
-                gameObject.AddComponent<PolygonCollider2D>();
-            }
-            if (!GetComponent<MeshFilter>())
-            {
-                gameObject.AddComponent<MeshFilter>();
-            }
-        }
-        else
-        {
-            if (GetComponent<MeshRenderer>())
-            {
-                Destroy(GetComponent<MeshRenderer>());
-            }
-            if (GetComponent<PolygonCollider2D>())
-            {
-                Destroy(GetComponent<PolygonCollider2D>());
-            }
-            if (GetComponent<MeshFilter>())
-            {
-                Destroy(GetComponent<MeshFilter>());
-            }
-        }
-    }
-
     private void GenerateNewMeshInternal()
     {
         var newMeshDataToSet = data.GenerateMesh(edgeLength, uvScale);

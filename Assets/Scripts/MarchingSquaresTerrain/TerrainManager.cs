@@ -6,6 +6,8 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class TerrainManager : MonoBehaviour, IDamageable
 {
+    public static TerrainManager singleton;
+
     public TerrainDataScriptableObject data;
     public int chunkCount = 10;
     public int chunkSize = 31;
@@ -33,6 +35,7 @@ public class TerrainManager : MonoBehaviour, IDamageable
     // Start is called before the first frame update
     void OnEnable()
     {
+        singleton = this;
         ClearChildren();
         if(Application.isPlaying)
         {

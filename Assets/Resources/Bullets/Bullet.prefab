@@ -112,3 +112,7 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
+  hitEffects:
+  - materialHit: {fileID: 6200000, guid: d7f1fcb8849add544b02851a1ba497e6, type: 2}
+    prefabToSpawn: {fileID: 6328312979308089698, guid: 3a4a17025a0db3349add2118ef380f79,
+      type: 3}
