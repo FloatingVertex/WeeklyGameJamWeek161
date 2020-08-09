@@ -17,14 +17,14 @@ public class TerrainManager : MonoBehaviour, IDamageable
     public GameObject chunkPrefab;
     public Texture2D noise;
     [Tooltip("How scale of detail of the noise is")]
-    public float noiseScale;
+    public float noiseScale = 1.0f;
     [Tooltip("How strong the noise is 0 = no noise")]
     public float noiseMultiple = 1.0f;
     public float circleMultiple = 1.0f;
 
 
-    public float editModeViewRange = 100.0f;
-    public float playModeViewRange = 100.0f;
+    public float editModeViewRange = 50.0f;
+    public float playModeViewRange = 30.0f;
 
     public Transform playModeTransformToFollow;
 
@@ -105,7 +105,7 @@ public class TerrainManager : MonoBehaviour, IDamageable
     {
         // can only perserve data if dimention doesn't change
         var old_data = new ChunkData[0, 0];
-        if (data.chunks[0,0].densities.GetLength(0) == chunkSize && data.chunks[0, 0].densities.GetLength(0) == chunkSize)
+        if (data.chunks.Length > 0 && data.chunks[0,0].densities.GetLength(0) == chunkSize && data.chunks[0, 0].densities.GetLength(0) == chunkSize)
         {
             old_data = data.chunks;
         }
@@ -128,6 +128,11 @@ public class TerrainManager : MonoBehaviour, IDamageable
 
     public void LoadAroundPoint(Vector2 position, float radius, bool deleteOthers = true)
     {
+        if(data.chunks.Length == 0)
+        {
+            Debug.LogWarning("Terrain data is empty");
+            return;
+        }
         (int minX, int minY) = getChunkIdx(position-Vector2.one*radius);
         (int maxX, int maxY) = getChunkIdx(position+Vector2.one*radius);
         (int centerX, int centerY) = getChunkIdx(position);
