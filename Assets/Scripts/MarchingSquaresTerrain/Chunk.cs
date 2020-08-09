@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading;
 
 
 [RequireComponent(typeof(MeshFilter))]
@@ -15,6 +16,10 @@ public class Chunk : MonoBehaviour
     public float uvScale = 4f;
 
     private bool needsRebuild = false;
+
+    private readonly object _lock = new object();
+    private MeshData meshDataToSet;
+    private bool meshDataReadyToSet = false;
 
     public void SetData(ChunkData newData)
     {
@@ -39,6 +44,25 @@ public class Chunk : MonoBehaviour
         });
     }
 
+    private void Update()
+    {
+        if (needsRebuild)
+        {
+            ThreadPool.QueueUserWorkItem(o => {
+                Debug.Log("Running stuff");
+                this.GenerateNewMeshInternal();
+                });
+            needsRebuild = false;
+        }
+        lock (_lock)
+        {
+            if (meshDataReadyToSet)
+            {
+                SetNewMeshInternal();
+            }
+        }
+    }
+
     public void GenerateNewMesh()
     {
         if (Application.isPlaying)
@@ -48,18 +72,34 @@ public class Chunk : MonoBehaviour
         else
         {
             GenerateNewMeshInternal();
+            SetNewMeshInternal();
         }
     }
+
     private void GenerateNewMeshInternal()
     {
-        (var mesh, var paths) = data.GenerateMesh(edgeLength, uvScale);
+        var newMeshDataToSet = data.GenerateMesh(edgeLength, uvScale);
+        lock(_lock)
+        {
+            meshDataToSet = newMeshDataToSet;
+            meshDataReadyToSet = true;
+        }
+    }
+
+    private void SetNewMeshInternal()
+    {
+        var mesh = new Mesh();
+        mesh.vertices = meshDataToSet.verts;
+        mesh.uv = meshDataToSet.uvs;
+        mesh.triangles = meshDataToSet.triangles;
         gameObject.GetComponent<MeshFilter>().mesh = mesh;
         var timer = System.Diagnostics.Stopwatch.StartNew();
-        GetComponent<PolygonCollider2D>().pathCount = paths.Count;
-        for (int i = 0; i < paths.Count; i++)
+        GetComponent<PolygonCollider2D>().pathCount = meshDataToSet.paths.Count;
+        for (int i = 0; i < meshDataToSet.paths.Count; i++)
         {
-            GetComponent<PolygonCollider2D>().SetPath(i, paths[i]);
+            GetComponent<PolygonCollider2D>().SetPath(i, meshDataToSet.paths[i]);
         }
+        meshDataReadyToSet = false;
         //Debug.Log("Setting Collider: "+ timer.ElapsedMilliseconds+ "ms");
     }
 
@@ -86,15 +126,6 @@ public class Chunk : MonoBehaviour
             Mathf.CeilToInt((maxPoint.x - transform.position.x) / edgeLength),
             Mathf.CeilToInt((maxPoint.y - transform.position.y) / edgeLength));
         GenerateNewMesh();
-    }
-
-    private void Update()
-    {
-        if (needsRebuild)
-        {
-            GenerateNewMeshInternal();
-            needsRebuild = false;
-        }
     }
 }
 
@@ -194,9 +225,10 @@ public class ChunkData : ISerializationCallbackReceiver
                         {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},//0b1111
                     };
 
-    public (Mesh,List<List<Vector2>>) GenerateMesh(float edgeLength = 0.1f, float uvScale = 1)
+    public MeshData GenerateMesh(float edgeLength = 0.1f, float uvScale = 1)
     {
         var timer = System.Diagnostics.Stopwatch.StartNew();
+        MeshData returnVal = new MeshData();
 
         var vertices = new List<Vector3>();
         var triangles = new List<int>();
@@ -336,19 +368,17 @@ public class ChunkData : ISerializationCallbackReceiver
             }
         }
 
-        var uv = new Vector2[vertices.Count];
+        returnVal.uvs = new Vector2[vertices.Count];
         for (int i = 0; i < vertices.Count; i++)
         {
             vertices[i] = vertices[i]*edgeLength;
-            uv[i] = vertices[i] / uvScale;
+            returnVal.uvs[i] = vertices[i] / uvScale;
         }
 
-        var mesh = new Mesh();
-        mesh.vertices = vertices.ToArray();
-        mesh.uv = uv;
-        mesh.triangles = triangles.ToArray();
+        returnVal.verts = vertices.ToArray();
+        returnVal.triangles = triangles.ToArray();
 
-        var colliderPaths = new List<List<Vector2>>();
+        returnVal.paths = new List<List<Vector2>>();
         while(meshEdgeEdgesDict.Count > 0)
         {
             var path = new List<Vector2>();
@@ -363,12 +393,15 @@ public class ChunkData : ISerializationCallbackReceiver
                 current = next;
             }
             path.Add(current * edgeLength);
-            colliderPaths.Add(path);
+            if (path.Count > 4)
+            {
+                returnVal.paths.Add(path);
+            }
         }
 
         //Debug.Log("Generation took: "+ timer.ElapsedMilliseconds +"ms");
 
-        return (mesh, colliderPaths);
+        return returnVal;
     }
 
     public Vector3 posToVector3(int x, int y, float edgeLength)
@@ -409,4 +442,12 @@ public class ChunkData : ISerializationCallbackReceiver
             _densities[i] = densities[i / _sizeX, i % _sizeX];
         }
     }
+}
+
+public struct MeshData
+{
+    public Vector3[] verts;
+    public Vector2[] uvs;
+    public int[] triangles;
+    public List<List<Vector2>> paths;
 }
