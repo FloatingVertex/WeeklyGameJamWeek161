@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6466698284993432575}
   - component: {fileID: 6466698284993432572}
   - component: {fileID: 6466698284993432573}
-  - component: {fileID: 3382114401343706470}
+  - component: {fileID: 3268689633784147934}
   m_Layer: 0
   m_Name: Turret
   m_TagString: Untagged
@@ -103,7 +103,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!60 &3382114401343706470
+--- !u!60 &3268689633784147934
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -120,7 +120,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.315}
-    oldSize: {x: 0.64, y: 0.64}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 0.64, y: 0.64}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -128,13 +128,20 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.07, y: 0.3484}
-      - {x: -0.07, y: 0.3484}
-      - {x: -0.14, y: 0.26839998}
-      - {x: -0.17, y: 0.0884}
-      - {x: -0.17, y: -0.1416}
-      - {x: -0.08, y: -0.1716}
-      - {x: 0.12, y: -0.1716}
-      - {x: 0.17, y: -0.0716}
-      - {x: 0.17, y: 0.1684}
-      - {x: 0.11, y: 0.2784}
+    - - {x: 0.078872, y: 0.4385119}
+      - {x: 0.06580481, y: 0.51387644}
+      - {x: -0.058560297, y: 0.5198387}
+      - {x: -0.07707774, y: 0.44210047}
+      - {x: -0.05188091, y: 0.39425495}
+      - {x: -0.048028667, y: 0.2353805}
+      - {x: -0.115200706, y: 0.21392275}
+      - {x: -0.23332779, y: 0.051999032}
+      - {x: -0.2327671, y: -0.055811908}
+      - {x: -0.16335042, y: -0.16921557}
+      - {x: 0.00418893, y: -0.24300492}
+      - {x: 0.14264268, y: -0.19276479}
+      - {x: 0.23153347, y: -0.06342916}
+      - {x: 0.22913255, y: 0.057490516}
+      - {x: 0.1328474, y: 0.20032485}
+      - {x: 0.053214647, y: 0.23936884}
+      - {x: 0.05165752, y: 0.39911416}
