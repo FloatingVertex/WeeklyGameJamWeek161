@@ -70,7 +70,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 8433f62c1bf24da43b343d220567104b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -112,3 +112,13 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
+  hitEffects:
+  - materialHit: {fileID: 6200000, guid: d7f1fcb8849add544b02851a1ba497e6, type: 2}
+    prefabToSpawn: {fileID: 6328312979308089698, guid: 3a4a17025a0db3349add2118ef380f79,
+      type: 3}
+  - materialHit: {fileID: 6200000, guid: 5866b723c1b1ca24b936573c94586299, type: 2}
+    prefabToSpawn: {fileID: 2993492137965154835, guid: 7c50bb086ec4312478eddaa6a8531e52,
+      type: 3}
+  - materialHit: {fileID: 6200000, guid: 51c1ca07e2d3bc048bcbacda000f16ae, type: 2}
+    prefabToSpawn: {fileID: 4017399445140362675, guid: 20cd757867e449c4c81b4c3840bc5e78,
+      type: 3}

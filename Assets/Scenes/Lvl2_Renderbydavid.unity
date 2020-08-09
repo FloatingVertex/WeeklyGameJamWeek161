@@ -153,13 +153,13 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 8893eb440e264804f9c7504fd2cfe6c2, type: 2}
   chunkCount: 40
   chunkSize: 31
-  range: 6.31
+  range: 4.2
   additive: 1
-  meshScale: 0.1
+  meshScale: 0.25
   chunkPrefab: {fileID: 2888435233472054062, guid: 59edd5614729688479bdc528a821b696,
     type: 3}
-  noise: {fileID: 2800000, guid: a8f67b90aaa7b84469e072eb753c2712, type: 3}
-  noiseScale: 0
+  noise: {fileID: 2800000, guid: 123b6894dfbd4ba45919a1e64f54dec2, type: 3}
+  noiseScale: 50
   noiseMultiple: 1
   circleMultiple: 1
   editModeViewRange: 100
