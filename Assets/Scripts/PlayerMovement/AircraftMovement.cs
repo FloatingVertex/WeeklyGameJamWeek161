@@ -30,8 +30,6 @@ public class AircraftMovement : MonoBehaviour
 
     void TurnTowardTarget(Vector2 target, float maxAngleDeg)
     {
-        float angle = Mathf.Atan2(target.y - transform.position.y, target.x - transform.position.x) * Mathf.Rad2Deg;
-        Quaternion targetRotation = Quaternion.Euler(new Vector3(0, 0, angle));
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, maxAngleDeg);
+        Utility.RotateTowardsTarget(transform, target, maxAngleDeg);
     }
 }

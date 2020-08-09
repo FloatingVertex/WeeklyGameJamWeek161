@@ -10,7 +10,7 @@ public class MachineGun : MonoBehaviour, IWeapon
     public AnimationCurve spreadOverTime;
     public float noiseRate = 10f;
     [Tooltip("1=>1 sec recovers 1 sec of firing, 4=>1 sec recovers from 4 sec of firing")]
-    public float recoilRecoveryRate = 1f;
+    public float recoilRecoveryRate = 0.5f;
 
     private bool firing = false;
 
@@ -55,5 +55,12 @@ public class MachineGun : MonoBehaviour, IWeapon
         bullet.speed = bulletSpeed;
     }
 
-
+    public float BulletSpeed()
+    {
+        return bulletSpeed;
+    }
+    public bool GetFiring()
+    {
+        return firing;
+    }
 }

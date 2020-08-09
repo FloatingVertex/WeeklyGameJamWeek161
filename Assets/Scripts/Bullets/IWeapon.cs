@@ -4,5 +4,7 @@ using UnityEngine;
 
 public interface IWeapon
 {
+    float BulletSpeed();
     void SetFiring(bool firing);
+    bool GetFiring();
 }

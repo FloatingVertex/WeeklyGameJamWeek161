@@ -29,12 +29,17 @@ public class Bullet : MonoBehaviour
             if (damageable != null)
             {
                 damageable.Damage(damage, dmgType, nearestHit.point, transform.right, nearestHit.normal);
-                Destroy(gameObject);
             }
+            Destroy(gameObject);
             transform.position = nearestHit.point;
         }
         else {
             transform.position = newPosition;
+        }
+        timeToLive -= Time.fixedDeltaTime;
+        if(timeToLive < 0.0f)
+        {
+            Destroy(gameObject);
         }
     }
 }
