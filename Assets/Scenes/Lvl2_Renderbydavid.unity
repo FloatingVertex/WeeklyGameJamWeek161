@@ -162,9 +162,9 @@ MonoBehaviour:
   noiseScale: 0
   noiseMultiple: 1
   circleMultiple: 1
-  loadedChunks:
-    _loadedChunks: []
-    _sizeX: 0
+  editModeViewRange: 100
+  playModeViewRange: 100
+  playModeTransformToFollow: {fileID: 0}
 --- !u!4 &1649998811
 Transform:
   m_ObjectHideFlags: 0
