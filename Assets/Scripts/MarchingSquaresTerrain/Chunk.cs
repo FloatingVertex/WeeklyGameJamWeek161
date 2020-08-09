@@ -49,7 +49,6 @@ public class Chunk : MonoBehaviour
         if (needsRebuild)
         {
             ThreadPool.QueueUserWorkItem(o => {
-                Debug.Log("Running stuff");
                 this.GenerateNewMeshInternal();
                 });
             needsRebuild = false;
@@ -94,10 +93,11 @@ public class Chunk : MonoBehaviour
         mesh.triangles = meshDataToSet.triangles;
         gameObject.GetComponent<MeshFilter>().mesh = mesh;
         var timer = System.Diagnostics.Stopwatch.StartNew();
-        GetComponent<PolygonCollider2D>().pathCount = meshDataToSet.paths.Count;
+        PolygonCollider2D polygonCollider2D = GetComponent<PolygonCollider2D>(); 
+        polygonCollider2D.pathCount = meshDataToSet.paths.Count;
         for (int i = 0; i < meshDataToSet.paths.Count; i++)
         {
-            GetComponent<PolygonCollider2D>().SetPath(i, meshDataToSet.paths[i]);
+            polygonCollider2D.SetPath(i, meshDataToSet.paths[i]);
         }
         meshDataReadyToSet = false;
         //Debug.Log("Setting Collider: "+ timer.ElapsedMilliseconds+ "ms");

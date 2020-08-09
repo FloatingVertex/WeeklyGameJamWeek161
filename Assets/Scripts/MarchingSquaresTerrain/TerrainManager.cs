@@ -22,25 +22,9 @@ public class TerrainManager : MonoBehaviour, IDamageable
         ReloadChunks();
     }
 
-    private void Awake()
-    {
-        //ReloadChunks();
-    }
-
-    private void OnEnable()
-    {
-        if (!Application.isPlaying)
-        {
-            ReloadChunks();
-        }
-    }
-
-    private void OnDisable()
-    {
-    }
-
     private void ClearChildren()
     {
+        var timer = System.Diagnostics.Stopwatch.StartNew();
         List<GameObject> toDestroy = new List<GameObject>();
         foreach (Transform child in transform)
         {
@@ -57,6 +41,7 @@ public class TerrainManager : MonoBehaviour, IDamageable
                 DestroyImmediate(target);
             }
         }
+        //Debug.Log("Clearing childern took: " + timer.ElapsedMilliseconds + "ms");
     }
 
     // Update is called once per frame
@@ -102,7 +87,7 @@ public class TerrainManager : MonoBehaviour, IDamageable
                 newChunk.edgeLength = meshScale;
                 if (Application.isPlaying)
                 {
-                    newChunk.SetData(new ChunkData(data.chunks[chunkX, chunkY].densities));
+                    newChunk.SetData(new ChunkData(data.chunks[chunkX, chunkY].densities));// create copy so original isn't modified
                 }
                 else
                 {
