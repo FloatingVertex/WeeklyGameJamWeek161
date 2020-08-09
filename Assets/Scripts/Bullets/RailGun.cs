@@ -35,6 +35,7 @@ public class RailGun : MonoBehaviour, IWeapon
     {
         var bullet = Instantiate(bulletPrefab, transform.position, transform.rotation).GetComponent<Bullet>();
         bullet.speed = bulletSpeed;
+        bullet.FixedUpdateStep();
     }
 
     public float BulletSpeed()

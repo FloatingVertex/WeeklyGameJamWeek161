@@ -53,6 +53,7 @@ public class MachineGun : MonoBehaviour, IWeapon
         var bulletRotation = Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z + rotateBy);
         var bullet = Instantiate(bulletPrefab, transform.position, bulletRotation).GetComponent<Bullet>();
         bullet.speed = bulletSpeed;
+        bullet.FixedUpdateStep();
     }
 
     public float BulletSpeed()

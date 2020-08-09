@@ -58,11 +58,11 @@ public class TerrainManagerEditor : Editor
         serializedObject.Update();
         var terrainManager = ((TerrainManager)serializedObject.targetObject);
         
-        GUILayout.Label("With this selected Click and Drag in the scene view to paint terrain. (Options below)");
+        GUILayout.Label("With this selected Click and Drag in the scene view to paint terrain. (Options below). Terrain is only generated around mouse in editor for performance reasons");
 
         EditorGUILayout.PropertyField(chunkCount, new GUIContent("chunkCount"));
         EditorGUILayout.PropertyField(chunkSize, new GUIContent("chunkSize"));
-        if (GUILayout.Button("Regenerate Data (Clears Current Data)"))
+        if (GUILayout.Button("Regenerate Data (Potentially Clears Current Data!!!!!)"))
         {
             terrainManager.ChangeDimentions();
             EditorUtility.SetDirty(terrainManager.data);
