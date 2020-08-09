@@ -6,6 +6,15 @@ public class FollowCam : MonoBehaviour
 {
     public Transform target;
     public float maxOffset = 10.0f;
+
+    private void Awake()
+    {
+        if(Utility.playerShip == null)
+        {
+            Utility.playerShip = target;
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {

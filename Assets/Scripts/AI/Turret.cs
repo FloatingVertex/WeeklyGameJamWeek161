@@ -17,12 +17,20 @@ public class Turret : MonoBehaviour
     private float burstTimeLeft = 0f;
     private float burstDelayLeft = 0f;
 
+    private void Start()
+    {
+        if(target == null)
+        {
+            target = Utility.playerShip;
+        }
+    }
+
     private void FixedUpdate()
     {
         var weapon = GetComponentInChildren<IWeapon>();
         if (!weapon.GetFiring())
         {
-            if (burstDelayLeft <= 0f && Vector3.Distance(target.position,transform.position) < range)
+            if (burstDelayLeft <= 0f && target && Vector3.Distance(target.position,transform.position) < range)
             {
                 var lineOfSightHit = Physics2D.Raycast(transform.position, target.position - transform.position, Vector3.Distance(transform.position, target.position), Utility.aiVisionRaycastMask);
                 if (lineOfSightHit.collider && lineOfSightHit.collider.transform.IsChildOf(target))

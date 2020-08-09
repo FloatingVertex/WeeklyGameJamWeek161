@@ -4,6 +4,8 @@ using UnityEngine;
 
 public static class Utility
 {
+    public static Transform playerShip;
+
     public static LayerMask aiVisionRaycastMask = LayerMask.GetMask("Default");
 
     // Rotates transform to point towards target (x axis treated as forward)

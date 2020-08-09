@@ -52,8 +52,9 @@ public class TerrainManagerEditor : Editor
     {
         serializedObject.Update();
         var terrainManager = ((TerrainManager)serializedObject.targetObject);
+        
+        GUILayout.Label("With this selected Click and Drag in the scene view to paint terrain. (Options below)");
 
-        GUI.enabled = true;
         EditorGUILayout.PropertyField(chunkCount, new GUIContent("chunkCount"));
         EditorGUILayout.PropertyField(chunkSize, new GUIContent("chunkSize"));
         if (GUILayout.Button("Regenerate (Clears Current Data)"))
