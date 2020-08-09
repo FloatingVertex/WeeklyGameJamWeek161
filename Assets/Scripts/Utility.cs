@@ -17,4 +17,17 @@ public static class Utility
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, maxAngle);
         return transform.rotation == targetRotation;
     }
+
+    public static void DeleteAllChildren(Transform transform)
+    {
+        var toDelete = new List<Transform>();
+        foreach(Transform child in transform)
+        {
+            toDelete.Add(child);
+        }
+        foreach(var child in toDelete)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+    }
 }

@@ -4,23 +4,9 @@ using UnityEngine;
 
 public class SpawnPoint : MonoBehaviour
 {
-    public GameObject[] aircraft;
-    public GameObject[] weapons;
-
-    // Start is called before the first frame update
-    void Start()
+    public void SpawnPlayerPrefab(GameObject prefab)
     {
-        
+        var newObj = Instantiate(prefab, transform.position, transform.rotation);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    void SpawnAircraftPrefab(GameObject prefab)
-    {
-        var newObj = Instantiate(prefab,transform.position,transform.rotation);
-    }
 }

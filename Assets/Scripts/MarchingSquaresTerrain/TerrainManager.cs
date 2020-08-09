@@ -22,9 +22,12 @@ public class TerrainManager : MonoBehaviour, IDamageable
     public float noiseMultiple = 1.0f;
     public float circleMultiple = 1.0f;
 
-
+    [Tooltip("Radius of circle around mouse cursor in which terrain is generated")]
     public float editModeViewRange = 50.0f;
+    [Tooltip("Delete terrain chunks that are far from mouse cursor, speeds up playmode enter times as the editmode terrains don't have deleted all at once")]
+    public bool editModeDeleteExtraTerrain = true;
     public float playModeViewRange = 30.0f;
+
 
     public Transform playModeTransformToFollow;
 

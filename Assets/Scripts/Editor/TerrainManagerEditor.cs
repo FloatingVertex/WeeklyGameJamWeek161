@@ -28,6 +28,7 @@ public class TerrainManagerEditor : Editor
 
         Event e = Event.current;
         var mousePosition = HandleUtility.GUIPointToWorldRay(e.mousePosition);
+        var scenePortPosition = SceneView.currentDrawingSceneView.camera.transform.position;
         var terrainManager = ((TerrainManager)serializedObject.targetObject);
 
         if (Event.current.button == 0)
@@ -37,7 +38,7 @@ public class TerrainManagerEditor : Editor
                 case EventType.MouseDown:
                 case EventType.MouseDrag:
                     GUIUtility.hotControl = controlID;
-                    terrainManager.LoadAroundPoint(mousePosition.origin, terrainManager.editModeViewRange);
+                    terrainManager.LoadAroundPoint(mousePosition.origin, terrainManager.editModeViewRange, terrainManager.editModeDeleteExtraTerrain);
                     terrainManager.AddCircle(mousePosition.origin, terrainManager.range, !terrainManager.additive,
                         noiseMultiple: terrainManager.noiseMultiple,
                         noiseScale: terrainManager.noiseScale,
@@ -50,7 +51,7 @@ public class TerrainManagerEditor : Editor
                     e.Use();
                     break;
                 case EventType.MouseMove:
-                    terrainManager.LoadAroundPoint(mousePosition.origin, terrainManager.editModeViewRange);
+                    terrainManager.LoadAroundPoint(mousePosition.origin, terrainManager.editModeViewRange, terrainManager.editModeDeleteExtraTerrain);
                     break;
             }
         }
@@ -82,7 +83,7 @@ public class TerrainManagerEditor : Editor
         }
         EditorGUILayout.Slider(range, 0.01f, 15f, new GUIContent("Range"));
 
-        string[] propertyNames = new string[] { "additive", "chunkPrefab","data","noise","noiseScale", "noiseMultiple", "circleMultiple", "editModeViewRange", "playModeViewRange","playModeTransformToFollow" };
+        string[] propertyNames = new string[] { "additive", "chunkPrefab","data","noise","noiseScale", "noiseMultiple", "circleMultiple", "editModeViewRange", "editModeDeleteExtraTerrain", "playModeViewRange","playModeTransformToFollow" };
 
         foreach (var name in propertyNames)
         {
