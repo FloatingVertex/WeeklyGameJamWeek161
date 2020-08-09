@@ -30,26 +30,29 @@ public class TerrainManagerEditor : Editor
         var mousePosition = HandleUtility.GUIPointToWorldRay(e.mousePosition);
         var terrainManager = ((TerrainManager)serializedObject.targetObject);
 
-        switch (e.GetTypeForControl(controlID))
+        if (Event.current.button == 0)
         {
-            case EventType.MouseDown:
-            case EventType.MouseDrag:
-                GUIUtility.hotControl = controlID;
-                terrainManager.LoadAroundPoint(mousePosition.origin, terrainManager.editModeViewRange);
-                terrainManager.AddCircle(mousePosition.origin, terrainManager.range, !terrainManager.additive,
-                    noiseMultiple:terrainManager.noiseMultiple,
-                    noiseScale:terrainManager.noiseScale,
-                    circleMultiple:terrainManager.circleMultiple);
-                EditorUtility.SetDirty(terrainManager.data);
-                e.Use();
-                break;
-            case EventType.MouseUp:
-                GUIUtility.hotControl = 0;
-                e.Use();
-                break;
-            case EventType.MouseMove:
-                terrainManager.LoadAroundPoint(mousePosition.origin, terrainManager.editModeViewRange);
-                break;
+            switch (e.GetTypeForControl(controlID))
+            {
+                case EventType.MouseDown:
+                case EventType.MouseDrag:
+                    GUIUtility.hotControl = controlID;
+                    terrainManager.LoadAroundPoint(mousePosition.origin, terrainManager.editModeViewRange);
+                    terrainManager.AddCircle(mousePosition.origin, terrainManager.range, !terrainManager.additive,
+                        noiseMultiple: terrainManager.noiseMultiple,
+                        noiseScale: terrainManager.noiseScale,
+                        circleMultiple: terrainManager.circleMultiple);
+                    EditorUtility.SetDirty(terrainManager.data);
+                    e.Use();
+                    break;
+                case EventType.MouseUp:
+                    GUIUtility.hotControl = 0;
+                    e.Use();
+                    break;
+                case EventType.MouseMove:
+                    terrainManager.LoadAroundPoint(mousePosition.origin, terrainManager.editModeViewRange);
+                    break;
+            }
         }
     }
 
