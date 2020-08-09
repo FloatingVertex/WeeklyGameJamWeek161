@@ -6,33 +6,20 @@ using UnityEngine;
 [CustomEditor(typeof(TerrainManager))]
 public class TerrainManagerEditor : Editor
 {
-    private SerializedProperty data;
     private SerializedProperty range;
     private SerializedProperty additive;
     private SerializedProperty chunkCount;
     private SerializedProperty chunkSize;
-    private SerializedProperty chunkPrefab;
-    private SerializedProperty noise;
-    private SerializedProperty noiseScale;
-    private SerializedProperty noiseMultiple;
-    private SerializedProperty circleMultiple;
     private SerializedProperty meshScale;
 
     // Start is called before the first frame update
     private void OnEnable()
     {
-        data = serializedObject.FindProperty("data");
         range = serializedObject.FindProperty("range");
         additive = serializedObject.FindProperty("additive");
         chunkCount = serializedObject.FindProperty("chunkCount");
         chunkSize = serializedObject.FindProperty("chunkSize");
         meshScale = serializedObject.FindProperty("meshScale");
-        chunkPrefab = serializedObject.FindProperty("chunkPrefab");
-
-        noise = serializedObject.FindProperty("noise");
-        noiseScale = serializedObject.FindProperty("noiseScale");
-        noiseMultiple = serializedObject.FindProperty("noiseMultiple");
-        circleMultiple = serializedObject.FindProperty("circleMultiple");
     }
 
     private void OnSceneGUI()
@@ -41,13 +28,14 @@ public class TerrainManagerEditor : Editor
 
         Event e = Event.current;
         var mousePosition = HandleUtility.GUIPointToWorldRay(e.mousePosition);
+        var terrainManager = ((TerrainManager)serializedObject.targetObject);
 
         switch (e.GetTypeForControl(controlID))
         {
             case EventType.MouseDown:
             case EventType.MouseDrag:
                 GUIUtility.hotControl = controlID;
-                var terrainManager = ((TerrainManager)serializedObject.targetObject);
+                terrainManager.LoadAroundPoint(mousePosition.origin, terrainManager.editModeViewRange);
                 terrainManager.AddCircle(mousePosition.origin, terrainManager.range, !terrainManager.additive,
                     noiseMultiple:terrainManager.noiseMultiple,
                     noiseScale:terrainManager.noiseScale,
@@ -58,6 +46,9 @@ public class TerrainManagerEditor : Editor
             case EventType.MouseUp:
                 GUIUtility.hotControl = 0;
                 e.Use();
+                break;
+            case EventType.MouseMove:
+                terrainManager.LoadAroundPoint(mousePosition.origin, terrainManager.editModeViewRange);
                 break;
         }
     }
@@ -71,26 +62,29 @@ public class TerrainManagerEditor : Editor
 
         EditorGUILayout.PropertyField(chunkCount, new GUIContent("chunkCount"));
         EditorGUILayout.PropertyField(chunkSize, new GUIContent("chunkSize"));
-        if (GUILayout.Button("Regenerate (Clears Current Data)"))
+        if (GUILayout.Button("Regenerate Data (Clears Current Data)"))
         {
             terrainManager.ChangeDimentions();
             EditorUtility.SetDirty(terrainManager.data);
-            terrainManager.ReloadChunks();
+            terrainManager.ClearChildren();
         }
         EditorGUILayout.PropertyField(meshScale, new GUIContent("meshScale"));
-        if (GUILayout.Button("Generate"))
+        if (GUILayout.Button("Generate Fully"))
         {
             terrainManager.ReloadChunks();
         }
-        EditorGUILayout.Slider(range, 0.01f, 10f, new GUIContent("Range"));
-        EditorGUILayout.PropertyField(additive, new GUIContent("Additive"));
-        EditorGUILayout.PropertyField(chunkPrefab, new GUIContent("chunkPrefab"));
-        EditorGUILayout.PropertyField(data, new GUIContent("Data"));
+        if (GUILayout.Button("Clear"))
+        {
+            terrainManager.ClearChildren();
+        }
+        EditorGUILayout.Slider(range, 0.01f, 15f, new GUIContent("Range"));
 
-        EditorGUILayout.PropertyField(noise, new GUIContent("noise"));
-        EditorGUILayout.PropertyField(noiseScale, new GUIContent("noiseScale"));
-        EditorGUILayout.PropertyField(noiseMultiple, new GUIContent("noiseMultiple"));
-        EditorGUILayout.PropertyField(circleMultiple, new GUIContent("circleMultiple"));
+        string[] propertyNames = new string[] { "additive", "chunkPrefab","data","noise","noiseScale", "noiseMultiple", "circleMultiple", "editModeViewRange", "playModeViewRange","playModeTransformToFollow" };
+
+        foreach (var name in propertyNames)
+        {
+            EditorGUILayout.PropertyField(serializedObject.FindProperty(name), new GUIContent(name));
+        }
 
         serializedObject.ApplyModifiedProperties();
     }
