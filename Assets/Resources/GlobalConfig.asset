@@ -17,3 +17,8 @@ MonoBehaviour:
       type: 3}
   - prefab: {fileID: 8527596439739563882, guid: abea2c57e571e8243b62a4f37f61d0f6,
       type: 3}
+  prefabs:
+    aircraftConfigureUI: {fileID: 4593320619940999816, guid: d1233b6d5f2d4954290f050d2235d3ed,
+      type: 3}
+    spawnButton: {fileID: 8377928255279684632, guid: f2c614ebeb3cdb54c8d8458d37fe4e95,
+      type: 3}
