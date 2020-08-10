@@ -392,7 +392,7 @@ public class ChunkData : ISerializationCallbackReceiver
                 meshEdgeEdgesDict.Remove(current);
                 current = next;
             }
-            path.Add(current * edgeLength);
+            //path.Add(current * edgeLength);
             if (path.Count > 4)
             {
                 returnVal.paths.Add(path);

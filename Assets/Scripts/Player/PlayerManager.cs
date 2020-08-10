@@ -7,13 +7,29 @@ public class PlayerManager : MonoBehaviour
 {
     public GlobalConfigurations config;
     public GameObject aircraftPrefab;
-
+    
     private AircraftConfiguration aircraftConfig;
 
-    // Start is called before the first frame update
-    void Start()
+    private void SpawnConfigruationUI()
+    {
+        var canvas = GetComponentInChildren<Canvas>();
+        var configuration = Instantiate(config.prefabs.aircraftConfigureUI, canvas.transform);
+        var spawnButton = Instantiate(config.prefabs.spawnButton, canvas.transform);
+        spawnButton.GetComponent<Button>().onClick.AddListener(()=> {
+            SpawnAircraft(configuration.GetComponent<ConfigureShipGUI>().getConfig());
+            ClearUI();
+        });
+    }
+
+    private void ClearUI()
+    {
+        Utility.DeleteAllChildren(GetComponentInChildren<Canvas>().transform);
+    }
+
+    void SpawnAircraft(AircraftConfiguration config)
     {
         var aircraft = Instantiate(aircraftPrefab, transform.position, transform.rotation, transform);
+        SetConfiguration(config);
         if (aircraftConfig.weapons != null)
         {
             aircraft.GetComponent<AircraftManager>().SetWeapons(aircraftConfig.weapons);
@@ -23,6 +39,12 @@ public class PlayerManager : MonoBehaviour
             GetComponentInChildren<FollowCam>().target = aircraft.transform;
         }
         TerrainManager.singleton.playModeTransformToFollow = aircraft.transform;
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        SpawnConfigruationUI();
     }
 
     public void SetConfiguration(AircraftConfiguration aircraftConfig)

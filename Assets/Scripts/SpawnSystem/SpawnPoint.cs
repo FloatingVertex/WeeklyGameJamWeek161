@@ -9,6 +9,6 @@ public class SpawnPoint : MonoBehaviour
     public void SpawnPlayerPrefab(GameObject prefab)
     {
         var newPlayerPrefab = Instantiate(prefab, transform.position, transform.rotation);
-        newPlayerPrefab.GetComponent<PlayerManager>().SetConfiguration(defaultConfig);
+        //newPlayerPrefab.GetComponent<PlayerManager>().SetConfiguration(defaultConfig);
     }
 }

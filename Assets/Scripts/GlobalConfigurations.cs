@@ -7,6 +7,8 @@ public class GlobalConfigurations : ScriptableObject
 {
     public WeaponData[] weapons;
 
+    public PrefabPointers prefabs;
+
     public GameObject GetWeaponData(string name)
     {
         foreach(var weapon in weapons)
@@ -24,4 +26,11 @@ public class GlobalConfigurations : ScriptableObject
 public struct WeaponData
 {
     public GameObject prefab;
+}
+
+[System.Serializable]
+public struct PrefabPointers
+{
+    public GameObject aircraftConfigureUI;
+    public GameObject spawnButton;
 }
