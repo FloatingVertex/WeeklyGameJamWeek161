@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour
 {
+    public GlobalConfigurations config;
     public GameObject aircraftPrefab;
 
     // Start is called before the first frame update
@@ -18,35 +19,13 @@ public class PlayerManager : MonoBehaviour
         TerrainManager.singleton.playModeTransformToFollow = aircraft.transform;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetConfiguration(AircraftConfiguration aircraftConfig)
     {
-        
-    }
-
-    public void SetWeapon1(string name)
-    {
-
+        GetComponent<AircraftManager>().SetWeapons(aircraftConfig.weapons);
     }
 }
 
 public struct AircraftConfiguration
 {
-
-}
-
-public enum AircraftType
-{
-    Normal,
-}
-
-public enum AircraftWeapon
-{
-    MachineGun,
-    RailGun,
-}
-
-public enum Raycaster
-{
-
+    public string[] weapons;
 }

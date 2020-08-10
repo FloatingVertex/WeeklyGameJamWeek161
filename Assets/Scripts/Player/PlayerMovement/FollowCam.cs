@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using UnityEngine.InputSystem;
+
 public class FollowCam : MonoBehaviour
 {
     public Transform target;
@@ -24,7 +26,7 @@ public class FollowCam : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var offset = ((Vector2)Input.mousePosition - new Vector2(Screen.width/2, Screen.height/2))/ Mathf.Min(Screen.height, Screen.width) / 2;
+        var offset = (Mouse.current.position.ReadValue() - new Vector2(Screen.width/2, Screen.height/2))/ Mathf.Min(Screen.height, Screen.width) / 2;
         if(offset.magnitude > 1.0f)
         {
             offset = offset.normalized;

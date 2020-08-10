@@ -8,5 +8,4 @@ public class SpawnPoint : MonoBehaviour
     {
         var newObj = Instantiate(prefab, transform.position, transform.rotation);
     }
-
 }

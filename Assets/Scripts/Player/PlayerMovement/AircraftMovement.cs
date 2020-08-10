@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class AircraftMovement : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class AircraftMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);// TODO Camera.main is slow
+        targetPosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());// TODO Camera.main is slow
     }
 
     private void FixedUpdate()
