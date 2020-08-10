@@ -309,10 +309,12 @@ public class ChunkData : ISerializationCallbackReceiver
                         {
                             int corner1 = edgeIndexToCornerIndexs[i, 0];
                             int corner2 = edgeIndexToCornerIndexs[i, 1];
-                            vertices.Add(Vector3.Lerp(
+                            var lerpWeight = LerpWeight(densities[(x + corners[corner1, 0]), (y + corners[corner1, 1])], densities[(x + corners[corner2, 0]), (y + corners[corner2, 1])]);
+                            var vertexPosition = Vector3.Lerp(
                                 new Vector3((x + corners[corner1, 0]), (y + corners[corner1, 1])),
                                 new Vector3((x + corners[corner2, 0]), (y + corners[corner2, 1])),
-                                LerpWeight(densities[(x + corners[corner1, 0]), (y + corners[corner1, 1])], densities[(x + corners[corner2, 0]), (y + corners[corner2, 1])])));
+                                lerpWeight);
+                            vertices.Add(vertexPosition);
                         }
                     }
                     
@@ -337,7 +339,7 @@ public class ChunkData : ISerializationCallbackReceiver
                             {
                                 var key = (Vector2)vertices[startingIndex + triangleConnections[mask, idst + trixEdgeId]];
                                 var value = (Vector2)vertices[startingIndex + triangleConnections[mask, idst + ((trixEdgeId + 1) % 3)]];
-                                if (key != value)
+                                if (key.GetHashCode() != value.GetHashCode())
                                 {
                                     meshEdgeEdgesDict[key] = value;
                                 }
