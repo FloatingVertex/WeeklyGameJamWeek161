@@ -12,13 +12,12 @@ public class AircraftManager : MonoBehaviour
 
     private void Start()
     {
-        SetWeapons(new string[] { "MachineGun", "RailGun" });
     }
 
     public void SetWeapons(string[] weapons)
     {
         this.weapons = new IWeapon[weapons.Length];
-        for (int i = 0; i < weapons.Length; i++)
+        for (int i = 0; i < weapons.Length && i < weaponHardpoints.Length; i++)
         {
             Utility.DeleteAllChildren(weaponHardpoints[i]);
             this.weapons[i] = Instantiate(config.GetWeaponData(weapons[i]), weaponHardpoints[i].position, weaponHardpoints[i].rotation, weaponHardpoints[i]).GetComponent<IWeapon>();

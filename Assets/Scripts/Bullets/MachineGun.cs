@@ -14,7 +14,7 @@ public class MachineGun : MonoBehaviour, IWeapon
 
     private bool firing = false;
 
-    private float recoilProgress = 0f;
+    public float recoilProgress = 0f;
     private float deltaToFireAgain = 0f; // negative or zero, number of seconds we have to wait to fire again
 
     public void SetFiring(bool firing)
@@ -38,7 +38,7 @@ public class MachineGun : MonoBehaviour, IWeapon
         }
         else
         {
-            recoilProgress -= Time.fixedDeltaTime * recoilRecoveryRate;
+            recoilProgress = Mathf.Max(recoilProgress - Time.fixedDeltaTime * recoilRecoveryRate,0f);
         }
 
         deltaToFireAgain = Mathf.Max(deltaToFireAgain, 0.0f);

@@ -1828,6 +1828,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1301262334015853490, guid: d54e2a96697a77f4b9776fc3a49d74c6,
+        type: 3}
+      propertyPath: defaultConfig.weapons.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1301262334015853490, guid: d54e2a96697a77f4b9776fc3a49d74c6,
+        type: 3}
+      propertyPath: defaultConfig.weapons.Array.data[0]
+      value: MachineGun
+      objectReference: {fileID: 0}
+    - target: {fileID: 1301262334015853490, guid: d54e2a96697a77f4b9776fc3a49d74c6,
+        type: 3}
+      propertyPath: defaultConfig.weapons.Array.data[1]
+      value: MachineGun
+      objectReference: {fileID: 0}
     - target: {fileID: 1301262334015853491, guid: d54e2a96697a77f4b9776fc3a49d74c6,
         type: 3}
       propertyPath: m_RootOrder
