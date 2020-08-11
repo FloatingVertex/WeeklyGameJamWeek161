@@ -12,4 +12,9 @@ public class HelicopterMovement : MonoBehaviour
         GetComponent<Rigidbody2D>().velocity = context.ReadValue<Vector2>() * speed;
     }
 
+    public void SetSpeed(float speed)
+    {
+
+    }
+
 }

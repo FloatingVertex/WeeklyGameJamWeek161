@@ -23,8 +23,8 @@ public class Turret : MonoBehaviour
 
     private void FixedUpdate()
     {
-        var weapons = GetComponentsInChildren<IWeapon>();
-        if (!weapons[0].GetFiring())
+        var weapon = GetComponentInChildren<IWeapon>();
+        if (!weapon.GetFiring())
         {
             var target = ai.GetTargetInLOS()?.transform;
             if (burstDelayLeft <= 0f && target)
@@ -34,14 +34,11 @@ public class Turret : MonoBehaviour
                 if (target.GetComponent<Rigidbody2D>())
                 {
                     // lead target
-                    targetPosition += (Vector3)(target.GetComponent<Rigidbody2D>().velocity * (range / weapons[0].BulletSpeed()));
+                    targetPosition += (Vector3)(target.GetComponent<Rigidbody2D>().velocity * (range / weapon.BulletSpeed()));
                 }
                 if (Utility.RotateTowardsTarget(transform, targetPosition, turnRate * Time.fixedDeltaTime))
                 {
-                    foreach (var weapon in weapons)
-                    {
-                        weapon.SetFiring(true);
-                    }
+                    weapon.SetFiring(true);
                     burstTimeLeft = burstTime;
                 }
             }
@@ -51,10 +48,7 @@ public class Turret : MonoBehaviour
             burstTimeLeft -= Time.fixedDeltaTime;
             if(burstTimeLeft <= 0.0f)
             {
-                foreach (var weapon in weapons)
-                {
-                    weapon.SetFiring(false);
-                }
+                weapon.SetFiring(false);
                 burstDelayLeft = burstDelay;
             }
         }

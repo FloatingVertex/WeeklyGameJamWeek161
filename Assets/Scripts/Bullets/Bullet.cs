@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
 {
     public float speed = 10.0f;
     public float damage = 40f;
+    public float terrainDamageRadius = 0f;
     public DamageType dmgType;
     public float timeToLive = 5f;
     public ContactFilter2D filter;
@@ -44,7 +45,7 @@ public class Bullet : MonoBehaviour
             var damageable = nearestHit.collider.GetComponentInParent<IDamageable>();
             if (damageable != null)
             {
-                damageable.Damage(damage, dmgType, nearestHit.point, transform.right, nearestHit.normal);
+                damageable.Damage(damage, terrainDamageRadius, dmgType, nearestHit.point, transform.right, nearestHit.normal);
             }
             Destroy(gameObject);
             transform.position = nearestHit.point - (velocity.normalized * 0.5f);

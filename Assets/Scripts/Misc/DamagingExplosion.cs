@@ -20,7 +20,7 @@ public class DamagingExplosion : MonoBehaviour
         {
             if (!collider.isTrigger && collider.GetComponentInParent<IDamageable>() != null)
             {
-                collider.GetComponentInParent<IDamageable>().Damage(damage, DamageType.Explosive, position, Vector2.zero, Vector2.zero);
+                collider.GetComponentInParent<IDamageable>().Damage(damage, radius, DamageType.Explosive, position, Vector2.zero, Vector2.zero);
             }
         }
     }

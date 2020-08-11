@@ -10,7 +10,7 @@ public class BoostSystem : MonoBehaviour
     
     public float cooldown = 20f;
     public float duration = 10f;
-    private float speedBoost = 8f;
+    public float speedBoost = 8f;
     public float speedNormal;
     private bool hasCooldown;
 
@@ -26,22 +26,20 @@ public class BoostSystem : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(speedNormal);
-        Debug.Log(hasCooldown);
     }
     
     public void Boost()
     {
-            GetComponent<HelicopterMovement>().speed = speedBoost;
-            StartCoroutine(ActivateCooldown());
-            StartCoroutine(ResetMovement());    
+        GetComponent<HelicopterMovement>().speed = speedBoost;
+        StopAllCoroutines();
+        StartCoroutine(ActivateCooldown());
+        StartCoroutine(ResetMovement());    
     }
 
     IEnumerator ResetMovement()
     {
         yield return new WaitForSeconds(duration);
         GetComponent<HelicopterMovement>().speed = speedNormal;
-        Debug.Log("Reset called");
     }
 
     IEnumerator ActivateCooldown()
@@ -49,7 +47,6 @@ public class BoostSystem : MonoBehaviour
         hasCooldown = true;
         yield return new WaitForSeconds(cooldown);
         hasCooldown = false;
-        Debug.Log("Cooldown called");
     }
     
 }

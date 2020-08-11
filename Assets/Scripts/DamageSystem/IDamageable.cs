@@ -4,12 +4,12 @@ using UnityEngine;
 
 public interface IDamageable
 {
-    void Damage(float damageTaken, DamageType type, Vector2 point, Vector2 damageDirection, Vector2 surfaceNormal);
+    void Damage(float damageTaken,float terrainDamageRadius, DamageType type, Vector2 point, Vector2 damageDirection, Vector2 surfaceNormal);
 }
 
 public enum DamageType
 {
     Impact,
     Explosive,
-    Penetrating
+    Other
 }

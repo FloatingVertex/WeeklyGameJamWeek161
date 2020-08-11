@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1572628904086820844}
   - component: {fileID: 1315846781453646857}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Point Light 2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81,7 +81,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2082438995621578405}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Hardpoint1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 7268617076460060050}
   - component: {fileID: 6408433916546176697}
   - component: {fileID: -6235719086886030501}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ShipSystem
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -174,6 +174,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   affiliation: 0
+  spotting: []
 --- !u!114 &5095268593199320164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -350,7 +351,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 022ca081d3ee5db46b32ea9ef0f8218e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 10000
   destroyedPrefab: {fileID: 0}
 --- !u!114 &-6235719086886030501
 MonoBehaviour:
@@ -377,7 +378,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5165432593247644909}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Hardpoint2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -410,7 +411,7 @@ GameObject:
   - component: {fileID: 4007042556292731843}
   - component: {fileID: 7850249522278265454}
   - component: {fileID: 5698957866166149322}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ShipSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -557,7 +558,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7334839483315764257}
   - component: {fileID: 3730291313608642183}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ForwardLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -629,7 +630,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7077175117808479715}
   - component: {fileID: 3546911368252739673}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}

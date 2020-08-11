@@ -21,6 +21,8 @@ public class Chunk : MonoBehaviour
     private MeshData meshDataToSet;
     private bool meshDataReadyToSet = false;
 
+    public bool needToRecalcNavGrid = false;
+
     public void SetData(ChunkData newData)
     {
         data = newData;
@@ -117,6 +119,12 @@ public class Chunk : MonoBehaviour
             ShadowCaster.CreateShadowCaster( i, transform );
         }
         meshDataReadyToSet = false;
+
+        // update AStar map
+        if (GridAStar.singleton)// && needToRecalcNavGrid)
+        {
+            GridAStar.singleton.RegenerateSection(transform.position, (Vector2)transform.position + new Vector2(data.densities.GetLength(0) * edgeLength, data.densities.GetLength(1) * edgeLength));
+        }
     }
 
     public void ModifyRegion(Vector2 point, float radius, Func<Vector2, float, float> newValueFunction)
