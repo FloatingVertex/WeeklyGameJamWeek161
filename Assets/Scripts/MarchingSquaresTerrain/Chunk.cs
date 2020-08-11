@@ -75,6 +75,15 @@ public class Chunk : MonoBehaviour
         }
     }
 
+    private IEnumerator DeleteAfterFrame(Transform[] objects)
+    {
+        yield return new WaitForEndOfFrame();
+        foreach(var obj in objects)
+        {
+            Utility.Destroy(obj.gameObject);
+        }
+    }
+
     private void GenerateNewMeshInternal()
     {
         var newMeshDataToSet = data.GenerateMesh(edgeLength, uvScale);
@@ -93,9 +102,9 @@ public class Chunk : MonoBehaviour
         mesh.triangles = meshDataToSet.triangles;
         gameObject.GetComponent<MeshFilter>().mesh = mesh;
         var timer = System.Diagnostics.Stopwatch.StartNew();
-        PolygonCollider2D polygonCollider2D = GetComponent<PolygonCollider2D>(); 
+        PolygonCollider2D polygonCollider2D = GetComponent<PolygonCollider2D>();
         polygonCollider2D.pathCount = meshDataToSet.paths.Count;
-        Utility.DeleteAllChildren(transform);
+        DeleteAfterFrame(gameObject.GetComponentsInChildren<Transform>());
         for (int i = 0; i < meshDataToSet.paths.Count; i++)
         {
             polygonCollider2D.SetPath(i, meshDataToSet.paths[i]);
