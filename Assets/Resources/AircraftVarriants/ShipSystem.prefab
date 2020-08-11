@@ -117,6 +117,7 @@ GameObject:
   - component: {fileID: 2791146994731236100}
   - component: {fileID: 7268617076460060050}
   - component: {fileID: 6408433916546176697}
+  - component: {fileID: -6235719086886030501}
   m_Layer: 0
   m_Name: ShipSystem
   m_TagString: Player
@@ -201,7 +202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0245464f3c0daf041b07f23359e2b202, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 2
+  speed: 2
 --- !u!114 &7268617076460060050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -317,6 +318,21 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: f5311df5-4216-447e-980b-0a335ad5bb8e
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -6235719086886030501}
+        m_MethodName: Boost
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 51d1a27e-222f-46dd-b1fe-f02eeace9080
+    m_ActionName: Player/Boost[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -336,6 +352,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   destroyedPrefab: {fileID: 0}
+--- !u!114 &-6235719086886030501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2970763651309799999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f5a43f5282bf1c48b94e9a852c516f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldown: 5
+  duration: 3
+  speedNormal: 0
 --- !u!1 &3045268819789367324
 GameObject:
   m_ObjectHideFlags: 0
