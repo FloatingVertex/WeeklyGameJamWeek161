@@ -27,7 +27,14 @@ public static class Utility
         }
         foreach(var child in toDelete)
         {
-            GameObject.Destroy(child.gameObject);
+            if (Application.isPlaying)
+            {
+                GameObject.Destroy(child.gameObject);
+            }
+            else
+            {
+                GameObject.DestroyImmediate(child.gameObject);
+            }
         }
     }
 }

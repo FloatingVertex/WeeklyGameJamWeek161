@@ -47,7 +47,7 @@ public class Bullet : MonoBehaviour
                 damageable.Damage(damage, dmgType, nearestHit.point, transform.right, nearestHit.normal);
             }
             Destroy(gameObject);
-            transform.position = nearestHit.point;
+            transform.position = nearestHit.point - (velocity.normalized * 0.5f);
         }
         else
         {

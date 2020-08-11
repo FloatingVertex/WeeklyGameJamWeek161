@@ -275,7 +275,7 @@ public class TerrainManager : MonoBehaviour, IDamageable
                             else
                             {
                                 newDensity = newDensity * -1;
-                                return Mathf.Max(newDensity-noiseSum, previousValue);
+                                return Mathf.Max(newDensity+noiseSum, previousValue);
                             }
                         });
                     }

@@ -90,7 +90,14 @@ namespace UnityEngine.Experimental.Rendering.Universal
             Bounds bounds = new Bounds(transform.position, Vector3.one);
             
             Renderer renderer = GetComponent<Renderer>();
-            if (renderer != null)
+            int pathIndex = 0;
+            if (transform.parent.GetComponent<PolygonCollider2D>() && Int32.TryParse(gameObject.name,out pathIndex))
+            {
+                m_ShapePath = Array.ConvertAll<Vector2, Vector3>(transform.parent.GetComponent<PolygonCollider2D>().GetPath(pathIndex), i=>(Vector3)i);
+                m_UseRendererSilhouette = true;
+                m_SelfShadows = true;
+            }
+            else if (renderer != null)
             {
                 bounds = renderer.bounds;
             }

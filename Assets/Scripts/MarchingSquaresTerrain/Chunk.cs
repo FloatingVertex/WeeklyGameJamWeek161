@@ -95,9 +95,11 @@ public class Chunk : MonoBehaviour
         var timer = System.Diagnostics.Stopwatch.StartNew();
         PolygonCollider2D polygonCollider2D = GetComponent<PolygonCollider2D>(); 
         polygonCollider2D.pathCount = meshDataToSet.paths.Count;
+        Utility.DeleteAllChildren(transform);
         for (int i = 0; i < meshDataToSet.paths.Count; i++)
         {
             polygonCollider2D.SetPath(i, meshDataToSet.paths[i]);
+            ShadowCaster.CreateShadowCaster( i, transform );
         }
         meshDataReadyToSet = false;
         //Debug.Log("Setting Collider: "+ timer.ElapsedMilliseconds+ "ms");
@@ -225,6 +227,8 @@ public class ChunkData : ISerializationCallbackReceiver
                         {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},//0b1111
                     };
 
+
+
     public MeshData GenerateMesh(float edgeLength = 0.1f, float uvScale = 1)
     {
         var timer = System.Diagnostics.Stopwatch.StartNew();
@@ -240,15 +244,15 @@ public class ChunkData : ISerializationCallbackReceiver
             vertices.Add(new Vector3((x + 1), yStart));
             vertices.Add(new Vector3(x, yEnd));
             vertices.Add(new Vector3((x + 1), yEnd));
-
+            
             triangles.Add(startingIndex);
             triangles.Add(startingIndex + 2);
             triangles.Add(startingIndex + 1);
-
+            
             triangles.Add(startingIndex + 2);
             triangles.Add(startingIndex + 3);
             triangles.Add(startingIndex + 1);
-
+            
             if(yStart == 0)
             {
                 meshEdgeEdgesDict[new Vector2((x + 1), yStart)] = new Vector2(x, yStart);
@@ -339,7 +343,7 @@ public class ChunkData : ISerializationCallbackReceiver
                             {
                                 var key = (Vector2)vertices[startingIndex + triangleConnections[mask, idst + trixEdgeId]];
                                 var value = (Vector2)vertices[startingIndex + triangleConnections[mask, idst + ((trixEdgeId + 1) % 3)]];
-                                if (key.GetHashCode() != value.GetHashCode())
+                                if (key.GetHashCode() != value.GetHashCode() || key != value)
                                 {
                                     meshEdgeEdgesDict[key] = value;
                                 }
@@ -353,11 +357,17 @@ public class ChunkData : ISerializationCallbackReceiver
                                 var value = (Vector2)vertices[startingIndex + triangleConnections[mask, idst + ((trixEdgeId + 1) % 3)]];
                                 if(key.x == value.x && (key.x == 0 || key.x == (densities.GetLength(0) - 1)))
                                 {
-                                    meshEdgeEdgesDict[key] = value;
+                                    if (key.GetHashCode() != value.GetHashCode() || key != value)
+                                    {
+                                        meshEdgeEdgesDict[key] = value;
+                                    }
                                 }
                                 if(key.y == value.y && (key.y == 0 || key.y == (densities.GetLength(0) - 1)))
                                 {
-                                    meshEdgeEdgesDict[key] = value;
+                                    if (key.GetHashCode() != value.GetHashCode() || key != value)
+                                    {
+                                        meshEdgeEdgesDict[key] = value;
+                                    }
                                 }
                             }
                         }
@@ -395,7 +405,7 @@ public class ChunkData : ISerializationCallbackReceiver
                 current = next;
             }
             //path.Add(current * edgeLength);
-            if (path.Count > 4)
+            if (path.Count > 1)
             {
                 returnVal.paths.Add(path);
             }
