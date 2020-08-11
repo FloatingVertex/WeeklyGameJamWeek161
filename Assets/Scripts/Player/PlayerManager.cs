@@ -38,7 +38,10 @@ public class PlayerManager : MonoBehaviour
         {
             GetComponentInChildren<FollowCam>().target = aircraft.transform;
         }
-        TerrainManager.singleton.playModeTransformToFollow = aircraft.transform;
+        if (TerrainManager.singleton)
+        {
+            TerrainManager.singleton.playModeTransformToFollow = aircraft.transform;
+        }
     }
 
     // Start is called before the first frame update

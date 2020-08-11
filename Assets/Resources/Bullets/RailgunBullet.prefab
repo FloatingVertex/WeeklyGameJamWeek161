@@ -96,7 +96,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 100
   damage: 100
-  dmgType: 0
+  dmgType: 1
   timeToLive: 5
   filter:
     useTriggers: 0

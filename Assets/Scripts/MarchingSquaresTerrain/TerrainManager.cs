@@ -291,10 +291,10 @@ public class TerrainManager : MonoBehaviour, IDamageable
     public void Damage(float damageTaken, DamageType type, Vector2 point, Vector2 damageDirection, Vector2 surfaceNormal)
     {
         Dictionary<DamageType, float> radiusMultiples = new Dictionary<DamageType, float> {
-            { DamageType.Explosive,0.2f },
-            { DamageType.Impact, 0.04f },
+            { DamageType.Explosive, 1f },
+            { DamageType.Impact, 0.3f },
             { DamageType.Penetrating, 0.01f } };
-        var dmgRadius = Mathf.Sqrt(damageTaken) * radiusMultiples[type];
+        var dmgRadius = Mathf.Sqrt(damageTaken * radiusMultiples[type] * 0.01f);
         AddCircle(point, dmgRadius, true);
     }
 }

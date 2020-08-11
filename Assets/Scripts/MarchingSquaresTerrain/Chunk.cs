@@ -80,7 +80,10 @@ public class Chunk : MonoBehaviour
         yield return new WaitForEndOfFrame();
         foreach(var obj in objects)
         {
-            Utility.Destroy(obj.gameObject);
+            if(obj != transform)
+            {
+                Utility.Destroy(obj.gameObject);
+            }
         }
     }
 
@@ -104,14 +107,13 @@ public class Chunk : MonoBehaviour
         var timer = System.Diagnostics.Stopwatch.StartNew();
         PolygonCollider2D polygonCollider2D = GetComponent<PolygonCollider2D>();
         polygonCollider2D.pathCount = meshDataToSet.paths.Count;
-        DeleteAfterFrame(gameObject.GetComponentsInChildren<Transform>());
+        StartCoroutine(DeleteAfterFrame(gameObject.GetComponentsInChildren<Transform>()));
         for (int i = 0; i < meshDataToSet.paths.Count; i++)
         {
             polygonCollider2D.SetPath(i, meshDataToSet.paths[i]);
             ShadowCaster.CreateShadowCaster( i, transform );
         }
         meshDataReadyToSet = false;
-        //Debug.Log("Setting Collider: "+ timer.ElapsedMilliseconds+ "ms");
     }
 
     public void ModifyRegion(Vector2 point, float radius, Func<Vector2, float, float> newValueFunction)

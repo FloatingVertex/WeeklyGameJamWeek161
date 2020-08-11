@@ -53,13 +53,13 @@ MonoBehaviour:
   m_LightCookieSprite: {fileID: 0}
   m_UseNormalMap: 0
   m_LightOrder: 0
-  m_AlphaBlendOnOverlap: 0
+  m_AlphaBlendOnOverlap: 1
   m_ShadowIntensity: 1
   m_ShadowVolumeIntensity: 0
-  m_PointLightInnerAngle: 232.8
-  m_PointLightOuterAngle: 306.74
-  m_PointLightInnerRadius: 0
-  m_PointLightOuterRadius: 2.1028779
+  m_PointLightInnerAngle: 360
+  m_PointLightOuterAngle: 360
+  m_PointLightInnerRadius: 1.5621425
+  m_PointLightOuterRadius: 1.5755743
   m_PointLightDistance: 3
   m_PointLightQuality: 1
   m_ShapeLightParametricSides: 5
@@ -95,11 +95,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2956442406069921210}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.11, y: 0.19, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 2970763651309799994}
+  m_Father: {fileID: 7077175117808479715}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2970763651309799999
@@ -112,9 +112,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2970763651309799994}
   - component: {fileID: 2970763651309799993}
-  - component: {fileID: 2970763651309799992}
+  - component: {fileID: 8182803515182925988}
   - component: {fileID: 5095268593199320164}
-  - component: {fileID: 2674948910611143808}
+  - component: {fileID: 2791146994731236100}
+  - component: {fileID: 7268617076460060050}
   m_Layer: 0
   m_Name: ShipSystem
   m_TagString: Player
@@ -133,9 +134,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 3388095303123966464}
-  - {fileID: 2082438995621578405}
-  - {fileID: 5165432593247644909}
+  - {fileID: 7077175117808479715}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -154,13 +153,13 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 1
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!114 &2970763651309799992
+  m_Constraints: 4
+--- !u!114 &8182803515182925988
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -169,11 +168,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2970763651309799999}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c998dbbff01649444b9158469ca069b9, type: 3}
+  m_Script: {fileID: 11500000, guid: 272b5138d47708c49807284a9a18e3de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
-  turnRate: 180
+  affiliation: 0
 --- !u!114 &5095268593199320164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,7 +188,20 @@ MonoBehaviour:
   weaponHardpoints:
   - {fileID: 2082438995621578405}
   - {fileID: 5165432593247644909}
---- !u!114 &2674948910611143808
+--- !u!114 &2791146994731236100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2970763651309799999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0245464f3c0daf041b07f23359e2b202, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkSpeed: 2
+--- !u!114 &7268617076460060050
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -217,7 +228,18 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents:
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2791146994731236100}
+        m_MethodName: Move
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 6b65dec1-a812-4000-aea0-8becd219bc19
     m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   - m_PersistentCalls:
@@ -238,7 +260,22 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 6518d58c-10e8-4a80-86c7-3fd6023f0d88
-    m_ActionName: Player/Fire[/Mouse/leftButton]
+    m_ActionName: Player/FireWeapon1[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5095268593199320164}
+        m_MethodName: Fire2
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 345af8ea-09e9-41e3-928b-e3d1a66c103a
+    m_ActionName: Player/FireWeapon2[/Mouse/rightButton]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 7ea232ea-158d-4de8-b8e9-7855a2c4dfcd
@@ -279,21 +316,6 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: f5311df5-4216-447e-980b-0a335ad5bb8e
     m_ActionName: UI/TrackedDeviceOrientation
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5095268593199320164}
-        m_MethodName: Fire2
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 345af8ea-09e9-41e3-928b-e3d1a66c103a
-    m_ActionName: Player/FireWeapon2[/Mouse/rightButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -322,11 +344,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3045268819789367324}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.11, y: -0.19, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 2970763651309799994}
+  m_Father: {fileID: 7077175117808479715}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3519938376991422974
@@ -354,14 +376,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3519938376991422974}
-  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
+  m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6877057710499401813}
   - {fileID: 7334839483315764257}
   - {fileID: 1572628904086820844}
-  m_Father: {fileID: 2970763651309799994}
+  m_Father: {fileID: 7077175117808479715}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!212 &4007042556292731843
@@ -501,7 +523,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5548488029379858697}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: 0.005539596, w: 0.9999847}
   m_LocalPosition: {x: -0, y: 0.313, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -530,13 +552,13 @@ MonoBehaviour:
   m_LightCookieSprite: {fileID: 0}
   m_UseNormalMap: 0
   m_LightOrder: 0
-  m_AlphaBlendOnOverlap: 0
+  m_AlphaBlendOnOverlap: 1
   m_ShadowIntensity: 1
   m_ShadowVolumeIntensity: 0
-  m_PointLightInnerAngle: 15.77
+  m_PointLightInnerAngle: 120.4
   m_PointLightOuterAngle: 120.4
-  m_PointLightInnerRadius: 0
-  m_PointLightOuterRadius: 15.123439
+  m_PointLightInnerRadius: 15.155051
+  m_PointLightOuterRadius: 15.241674
   m_PointLightDistance: 3
   m_PointLightQuality: 1
   m_ShapeLightParametricSides: 5
@@ -651,3 +673,50 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &8954408364507198004
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7077175117808479715}
+  - component: {fileID: 3546911368252739673}
+  m_Layer: 0
+  m_Name: Turret
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7077175117808479715
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8954408364507198004}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 3388095303123966464}
+  - {fileID: 2082438995621578405}
+  - {fileID: 5165432593247644909}
+  m_Father: {fileID: 2970763651309799994}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3546911368252739673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8954408364507198004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fadc93627a48b914d8fed0c4c22d4168, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turnRate: 180
