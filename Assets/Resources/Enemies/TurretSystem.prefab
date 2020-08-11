@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 1334546147374229227}
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3014046982163751505}
   m_RootOrder: 0
@@ -69,8 +69,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 750248417
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: -539579915749326718, guid: 44d689a8644a71a48a06c159062f6f39,
     type: 3}
@@ -287,8 +287,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnRate: 60
-  burstTime: 0.5
-  burstDelay: 2
+  burstTime: 1
+  burstDelay: 1
 --- !u!114 &7497324519914416493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -301,8 +301,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 022ca081d3ee5db46b32ea9ef0f8218e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
-  destroyedPrefab: {fileID: 218644064012870207, guid: 36696fe482f16924aa42d730b80a1f03,
+  health: 50
+  destroyedPrefab: {fileID: 2887852203156980217, guid: eb80b0138b5d2504c819b183c67365df,
     type: 3}
 --- !u!1 &8899082385085667818
 GameObject:
@@ -329,7 +329,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8899082385085667818}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.073, y: 0, z: 0}
+  m_LocalPosition: {x: 0.532, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3014046982163751505}

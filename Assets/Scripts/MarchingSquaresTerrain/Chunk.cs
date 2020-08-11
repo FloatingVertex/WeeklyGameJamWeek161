@@ -82,7 +82,10 @@ public class Chunk : MonoBehaviour
         {
             if(obj != transform)
             {
-                Utility.Destroy(obj.gameObject);
+                if (obj != null)// TODO: findout why this happens? when shadows get updated two frames in a row?
+                {
+                    Utility.Destroy(obj.gameObject);
+                }
             }
         }
     }

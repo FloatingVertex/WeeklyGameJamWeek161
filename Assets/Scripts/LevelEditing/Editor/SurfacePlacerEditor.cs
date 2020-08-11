@@ -42,7 +42,7 @@ public class SurfacePlacerEditor : Editor
                     float bestDistance = placer.maxReach;
                     foreach (var collider in candidates)
                     {
-                        if (Vector2.Distance(mousePosition,collider.ClosestPoint(mousePosition)) < bestDistance)
+                        if (!collider.isTrigger && Vector2.Distance(mousePosition,collider.ClosestPoint(mousePosition)) < bestDistance)
                         {
                             bestDistance = Vector2.Distance(mousePosition, collider.ClosestPoint(mousePosition));
                             bestCollider = collider;
@@ -51,7 +51,7 @@ public class SurfacePlacerEditor : Editor
 
                     GameObject newObj = PrefabUtility.InstantiatePrefab(placer.prefab) as GameObject;
                     newObj.transform.position = bestCollider.ClosestPoint(mousePosition);
-                    newObj.transform.parent = placer.parent;
+                    newObj.transform.parent = placer.parent ? placer.parent : placer.transform;
 
                     if (placer.alignTo == PlacementAllignTo.PointToMouse)
                     {

@@ -18,7 +18,7 @@ public class DamagingExplosion : MonoBehaviour
         var overlaps = Physics2D.OverlapCircleAll(position, radius);
         foreach(var collider in overlaps)
         {
-            if (collider.GetComponentInParent<IDamageable>() != null)
+            if (!collider.isTrigger && collider.GetComponentInParent<IDamageable>() != null)
             {
                 collider.GetComponentInParent<IDamageable>().Damage(damage, DamageType.Explosive, position, Vector2.zero, Vector2.zero);
             }
