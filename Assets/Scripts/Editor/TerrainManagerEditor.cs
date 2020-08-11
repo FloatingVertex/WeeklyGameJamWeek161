@@ -41,7 +41,7 @@ public class TerrainManagerEditor : Editor
                     terrainManager.LoadAroundPoint(mousePosition.origin, terrainManager.editModeViewRange, terrainManager.editModeDeleteExtraTerrain);
                     terrainManager.AddCircle(mousePosition.origin, terrainManager.range, !terrainManager.additive,
                         noiseMultiple: terrainManager.noiseMultiple,
-                        noiseScale: terrainManager.noiseScale,
+                        noiseDetail: terrainManager.noiseDetail,
                         circleMultiple: terrainManager.circleMultiple);
                     EditorUtility.SetDirty(terrainManager.data);
                     e.Use();
@@ -83,7 +83,7 @@ public class TerrainManagerEditor : Editor
         }
         EditorGUILayout.Slider(range, 0.01f, 15f, new GUIContent("Range"));
 
-        string[] propertyNames = new string[] { "additive", "chunkPrefab","data","noise","noiseScale", "noiseMultiple", "circleMultiple", "editModeViewRange", "editModeDeleteExtraTerrain", "playModeViewRange","playModeTransformToFollow" };
+        string[] propertyNames = new string[] { "additive", "chunkPrefab","data","noise","noiseDetail", "noiseMultiple", "circleMultiple", "editModeViewRange", "editModeDeleteExtraTerrain", "playModeViewRange","playModeTransformToFollow" };
 
         foreach (var name in propertyNames)
         {

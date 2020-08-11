@@ -17,7 +17,7 @@ public class TerrainManager : MonoBehaviour, IDamageable
     public GameObject chunkPrefab;
     public Texture2D noise;
     [Tooltip("How scale of detail of the noise is")]
-    public float noiseScale = 1.0f;
+    public float noiseDetail = 1.0f;
     [Tooltip("How strong the noise is 0 = no noise")]
     public float noiseMultiple = 1.0f;
     public float circleMultiple = 1.0f;
@@ -183,6 +183,7 @@ public class TerrainManager : MonoBehaviour, IDamageable
                     if (Application.isPlaying)
                     {
                         newChunk.SetData(playModeData[chunkX, chunkY]);
+                        newChunk.needToRecalcNavGrid = true;
                         //newChunk.SetData(new ChunkData(data.chunks[chunkX, chunkY].densities));// create copy so original isn't modified
                     }
                     else
@@ -231,7 +232,7 @@ public class TerrainManager : MonoBehaviour, IDamageable
         Debug.Log("ReloadingChunks took: "+ timer.ElapsedMilliseconds +" ms");
     }
 
-    public void AddCircle(Vector2 position, float radius, bool removeInstead=false, float noiseMultiple = 0.0f, float noiseScale = 0.0f, float noiseOffset = 0.0f,float circleMultiple = 1.0f)
+    public void AddCircle(Vector2 position, float radius, bool removeInstead=false, float noiseMultiple = 0.0f, float noiseDetail = 0.0f, float noiseOffset = 0.0f,float circleMultiple = 1.0f)
     {
         (int centerX, int centerY) = getChunkIdx(position);
         int extraBuffer = Mathf.FloorToInt(radius / ChunkEdgeLength());
@@ -264,8 +265,8 @@ public class TerrainManager : MonoBehaviour, IDamageable
                             };
                             for (int i = 0; i < noiseScales.GetLength(0); i++) {
                                 noiseSum += (noise.GetPixel(
-                                    Mathf.RoundToInt(center.x * noiseScales[i,0] * noiseScale + noiseOffset) % noise.width,
-                                    Mathf.RoundToInt(center.y * noiseScales[i, 0] * noiseScale) % noise.height).grayscale 
+                                    Mathf.RoundToInt(center.x * noiseScales[i,0] * noiseDetail + noiseOffset) % noise.width,
+                                    Mathf.RoundToInt(center.y * noiseScales[i, 0] * noiseDetail) % noise.height).grayscale 
                                     - 0.5f) * noiseMultiple * noiseScales[i,1];
                             }
                             if (removeInstead)
@@ -288,14 +289,12 @@ public class TerrainManager : MonoBehaviour, IDamageable
         }
     }
 
-    public void Damage(float damageTaken, DamageType type, Vector2 point, Vector2 damageDirection, Vector2 surfaceNormal)
+    public void Damage(float damageTaken, float radius, DamageType type, Vector2 point, Vector2 damageDirection, Vector2 surfaceNormal)
     {
-        Dictionary<DamageType, float> radiusMultiples = new Dictionary<DamageType, float> {
-            { DamageType.Explosive, 1f },
-            { DamageType.Impact, 0.3f },
-            { DamageType.Penetrating, 0.01f } };
-        var dmgRadius = Mathf.Sqrt(damageTaken * radiusMultiples[type] * 0.01f);
-        AddCircle(point, dmgRadius, true);
+        if (radius > 0.0f)
+        {
+            AddCircle(point, radius, true);
+        }
     }
 }
 

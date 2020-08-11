@@ -6,7 +6,7 @@ public static class Utility
 {
     public static Transform playerShip;
 
-    public static LayerMask aiVisionRaycastMask = LayerMask.GetMask("Default");
+    public static LayerMask aiVisionRaycastMask = LayerMask.GetMask("Default","Terrain","Player");
 
     // Rotates transform to point towards target (x axis treated as forward)
     // returns if transform points at target at the end of it
