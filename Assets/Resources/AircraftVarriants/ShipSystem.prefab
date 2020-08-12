@@ -118,6 +118,8 @@ GameObject:
   - component: {fileID: 7268617076460060050}
   - component: {fileID: 6408433916546176697}
   - component: {fileID: -6235719086886030501}
+  - component: {fileID: 438755714184002674}
+  - component: {fileID: -4171522993598432356}
   m_Layer: 10
   m_Name: ShipSystem
   m_TagString: Player
@@ -369,6 +371,33 @@ MonoBehaviour:
   duration: 3
   speedBoost: 8
   speedNormal: 0
+--- !u!114 &438755714184002674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2970763651309799999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4114625c740ea104e9615b7e8f1302c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panel: {fileID: 5704594797524765779, guid: de51cf2f14f4d7b45b84b981b7120528, type: 3}
+--- !u!114 &-4171522993598432356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2970763651309799999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50a6241cc09d8af4fa3ddc257d3ab46b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseMenu: {fileID: 5145984198797163009, guid: 2bde1fbb330c91e498b26b4fe8b95997,
+    type: 3}
 --- !u!1 &3045268819789367324
 GameObject:
   m_ObjectHideFlags: 0
