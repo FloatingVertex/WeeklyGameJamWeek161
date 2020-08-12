@@ -13,6 +13,11 @@ public class AI : MonoBehaviour
     private void Start()
     {
         actor = GetComponent<Actor>();
+        var spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
+        foreach( var renderer in spriteRenderers)
+        {
+            renderer.sortingLayerName = "Floor";
+        }
     }
 
     private void FixedUpdate()
