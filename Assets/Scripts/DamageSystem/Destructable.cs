@@ -38,7 +38,10 @@ public class Destructable : MonoBehaviour, IDamageable
 
     public void FlashRed()
     {
-        GetComponentInChildren<SpriteRenderer>().color = Color.red;
+        foreach (var obj in GetComponentsInChildren<SpriteRenderer>())
+        {
+            obj.color = Color.red;
+        }
         StartCoroutine(ResetColor());
     }
 
