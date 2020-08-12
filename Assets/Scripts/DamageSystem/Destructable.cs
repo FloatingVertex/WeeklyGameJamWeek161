@@ -7,6 +7,18 @@ public class Destructable : MonoBehaviour, IDamageable
     public float health = 100;
     public GameObject destroyedPrefab;
 
+    private float startingHealth;
+
+    void Start()
+    {
+        startingHealth = health;
+    }
+
+    public float GetStartingHealth()
+    {
+        return startingHealth;
+    }
+
     public void Damage(float damageTaken, float terrainDamageRadius, DamageType type, Vector2 point, Vector2 damageDirection, Vector2 surfaceNormal)
     {
         health -= damageTaken;

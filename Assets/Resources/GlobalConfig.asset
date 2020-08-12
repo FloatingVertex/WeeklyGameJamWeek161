@@ -22,3 +22,5 @@ MonoBehaviour:
       type: 3}
     spawnButton: {fileID: 8377928255279684632, guid: f2c614ebeb3cdb54c8d8458d37fe4e95,
       type: 3}
+    gameUI: {fileID: 5055168127149729642, guid: 34c4ca2d04630144c8d363a10de6d609,
+      type: 3}

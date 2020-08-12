@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 786326476304806729}
   - component: {fileID: 786326476304806728}
   - component: {fileID: 786326476304806731}
+  - component: {fileID: 6396800244805656446}
   m_Layer: 8
   m_Name: AATank
   m_TagString: Untagged
@@ -131,6 +132,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   engagementRange: 10
+  ghostFollowTime: 5
+--- !u!114 &6396800244805656446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 786326476304806733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 022ca081d3ee5db46b32ea9ef0f8218e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  destroyedPrefab: {fileID: 2887852203156980217, guid: eb80b0138b5d2504c819b183c67365df,
+    type: 3}
 --- !u!1 &786326477573555702
 GameObject:
   m_ObjectHideFlags: 0
@@ -422,7 +439,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4f3fe48013137c4293eb1fada96f84c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 4523761160389634805, guid: 580e3f600fee5ae4cb00aa80082898ab,
+  bulletPrefab: {fileID: 6647661957039595750, guid: f39873ea19452844c96b8806050b98a7,
     type: 3}
   shotsPerSecond: 4
   bulletSpeed: 15

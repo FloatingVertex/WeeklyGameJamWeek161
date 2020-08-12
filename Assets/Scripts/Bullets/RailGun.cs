@@ -47,4 +47,9 @@ public class RailGun : MonoBehaviour, IWeapon
     {
         return firing;
     }
+
+    public float ReloadStatus()
+    {
+        return (1f - Mathf.Max(0f, deltaToFireAgain / secondsBetweenShots));
+    }
 }

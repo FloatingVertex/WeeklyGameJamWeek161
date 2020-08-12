@@ -24,6 +24,16 @@ public class AircraftManager : MonoBehaviour
         }
     }
 
+    public float[] GetWeaponReload()
+    {
+        var val = new float[weapons.Length];
+        for(int i = 0; i < weapons.Length;i++)
+        {
+            val[i] = weapons[i].ReloadStatus();
+        }
+        return val;
+    }
+
     private void SetFireing(int weaponIndex, bool setFiring)
     {
         if (weapons != null && weapons.Length > weaponIndex && weapons[weaponIndex] != null)

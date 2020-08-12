@@ -16,8 +16,8 @@ public class PlayerManager : MonoBehaviour
         var configuration = Instantiate(config.prefabs.aircraftConfigureUI, canvas.transform);
         var spawnButton = Instantiate(config.prefabs.spawnButton, canvas.transform);
         spawnButton.GetComponent<Button>().onClick.AddListener(()=> {
-            SpawnAircraft(configuration.GetComponent<ConfigureShipGUI>().getConfig());
             ClearUI();
+            SpawnAircraft(configuration.GetComponent<ConfigureShipGUI>().getConfig());
         });
     }
 
@@ -42,6 +42,11 @@ public class PlayerManager : MonoBehaviour
         {
             TerrainManager.singleton.playModeTransformToFollow = aircraft.transform;
         }
+
+        // spawn ui
+        var canvas = GetComponentInChildren<Canvas>();
+        var gameUI = Instantiate(this.config.prefabs.gameUI, canvas.transform);
+        gameUI.GetComponent<GameUI>().manager = aircraft.GetComponent<AircraftManager>();
     }
 
     // Start is called before the first frame update

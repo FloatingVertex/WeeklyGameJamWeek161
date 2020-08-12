@@ -72,5 +72,15 @@ PrefabInstance:
       propertyPath: terrainDamageRadius
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4523761160389634806, guid: 580e3f600fee5ae4cb00aa80082898ab,
+        type: 3}
+      propertyPath: filter.layerMask.m_Bits
+      value: 1536
+      objectReference: {fileID: 0}
+    - target: {fileID: 4523761160389634806, guid: 580e3f600fee5ae4cb00aa80082898ab,
+        type: 3}
+      propertyPath: filter.useLayerMask
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 580e3f600fee5ae4cb00aa80082898ab, type: 3}

@@ -22,6 +22,11 @@ public class MachineGun : MonoBehaviour, IWeapon
         this.firing = firing;
     }
 
+    private float TimeBetweenShots()
+    {
+        return 1.0f / shotsPerSecond;
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -30,9 +35,8 @@ public class MachineGun : MonoBehaviour, IWeapon
         {
             if (deltaToFireAgain <= 0.0f)
             {
-                float timeBetweenShots = 1.0f / shotsPerSecond;
-                deltaToFireAgain += timeBetweenShots;
-                recoilProgress += timeBetweenShots;
+                deltaToFireAgain += TimeBetweenShots();
+                recoilProgress += TimeBetweenShots();
                 Fire();
             }
         }
@@ -63,5 +67,10 @@ public class MachineGun : MonoBehaviour, IWeapon
     public bool GetFiring()
     {
         return firing;
+    }
+
+    public float ReloadStatus()
+    {
+        return (1f-Mathf.Max(0f,deltaToFireAgain/ TimeBetweenShots()));
     }
 }

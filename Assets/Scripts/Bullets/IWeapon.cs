@@ -7,4 +7,6 @@ public interface IWeapon
     float BulletSpeed();
     void SetFiring(bool firing);
     bool GetFiring();
+
+    float ReloadStatus();
 }

@@ -44,7 +44,7 @@ public class GridAStar : MonoBehaviour
                     {
                         foreach (var link in data[x, y].links)
                         {
-                            if (link.x >= data[x, y].x && link.y >= data[x, y].y)
+                            if (link.x * gridXSideCount + link.y > data[x, y].x * gridXSideCount + data[x, y].y)
                             {
                                 Gizmos.DrawLine(NodeToPosition(data[x, y]), NodeToPosition(link));
                             }

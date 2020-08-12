@@ -33,4 +33,5 @@ public struct PrefabPointers
 {
     public GameObject aircraftConfigureUI;
     public GameObject spawnButton;
+    public GameObject gameUI;
 }
