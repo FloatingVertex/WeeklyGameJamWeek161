@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8527596439739563876}
   - component: {fileID: 8527596439739563883}
   m_Layer: 0
-  m_Name: RailGun
+  m_Name: Cannon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,8 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 4523761160389634805, guid: 1fba1ec5b56d9e7419ab0370e79f71a4,
     type: 3}
-  secondsBetweenShots: 4
-  bulletSpeed: 100
+  secondsBetweenShots: 1
+  bulletSpeed: 10
 --- !u!1001 &2831803734888532723
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -114,6 +114,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RailgunSpriteLeft
+      objectReference: {fileID: 0}
+    - target: {fileID: 8233365045803297543, guid: 3f4c91fceaca987468235ef9417eefe2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f4c91fceaca987468235ef9417eefe2, type: 3}

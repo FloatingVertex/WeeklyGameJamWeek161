@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4523761160389634807}
   - component: {fileID: 4523761160389634806}
   m_Layer: 0
-  m_Name: RailgunBullet
+  m_Name: CannonBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -95,9 +95,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b5bf155c4fa1ed46af4f29b6c1a3c11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 100
-  damage: 100
-  terrainDamageRadius: 2
+  speed: 10
+  damage: 25
+  terrainDamageRadius: 0
   dmgType: 1
   timeToLive: 5
   filter:
@@ -116,13 +116,16 @@ MonoBehaviour:
     maxNormalAngle: 0
   hitEffects:
   - materialHit: {fileID: 6200000, guid: d7f1fcb8849add544b02851a1ba497e6, type: 2}
-    prefabToSpawn: {fileID: 6328312979308089698, guid: 3a4a17025a0db3349add2118ef380f79,
+    prefabToSpawn: {fileID: 7741321326348808816, guid: 10637c901f7948f49b28e3de37d87c42,
       type: 3}
   - materialHit: {fileID: 6200000, guid: 5866b723c1b1ca24b936573c94586299, type: 2}
-    prefabToSpawn: {fileID: 2993492137965154835, guid: 7c50bb086ec4312478eddaa6a8531e52,
+    prefabToSpawn: {fileID: 7741321326348808816, guid: 10637c901f7948f49b28e3de37d87c42,
       type: 3}
   - materialHit: {fileID: 6200000, guid: 51c1ca07e2d3bc048bcbacda000f16ae, type: 2}
-    prefabToSpawn: {fileID: 4017399445140362675, guid: 20cd757867e449c4c81b4c3840bc5e78,
+    prefabToSpawn: {fileID: 7741321326348808816, guid: 10637c901f7948f49b28e3de37d87c42,
+      type: 3}
+  - materialHit: {fileID: 0}
+    prefabToSpawn: {fileID: 7741321326348808816, guid: 10637c901f7948f49b28e3de37d87c42,
       type: 3}
 --- !u!1001 &5569012983233071337
 PrefabInstance:
@@ -194,7 +197,7 @@ PrefabInstance:
     - target: {fileID: 2597948960526043630, guid: 5d757df026b6a1a48a073f2fd2ed6f7a,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2597948960526043630, guid: 5d757df026b6a1a48a073f2fd2ed6f7a,
         type: 3}
