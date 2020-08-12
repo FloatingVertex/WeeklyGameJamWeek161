@@ -11,8 +11,20 @@ public class Navigator : MonoBehaviour
     private Vector2[] path;
     private Vector2 pathTarget;
     private int currentWaypointIndex;
+    public float rotationRate = 0f;
     public Vector2 target;
     public bool active;
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.blue;
+        if (path.Length > 1) {
+            for (int i = 1; i < path.Length; i++)
+            {
+                Gizmos.DrawLine(path[i-1], path[i]);
+            }
+        }
+    }
 
     void FixedUpdate()
     {
@@ -36,8 +48,14 @@ public class Navigator : MonoBehaviour
             if (path.Length > currentWaypointIndex)
             {
                 // move towards next waypoint
-                GetComponent<Rigidbody2D>().velocity = (path[currentWaypointIndex] - (Vector2)transform.position) * speed;
+                var velocity = (path[currentWaypointIndex] - (Vector2)transform.position) * speed;
+                GetComponent<Rigidbody2D>().velocity = velocity;
+                Utility.RotateTowardsTarget(transform,(Vector2)transform.position + velocity, rotationRate * Time.fixedDeltaTime);
             }
+        }
+        else
+        {
+            GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         }
     }
 }
