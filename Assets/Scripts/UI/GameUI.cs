@@ -8,6 +8,7 @@ public class GameUI : MonoBehaviour
     public AircraftManager manager;
     public Slider healthSlider;
     public Slider[] weaponSliders;
+    public Text objectCountLebel;
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +31,8 @@ public class GameUI : MonoBehaviour
             {
                 weaponSliders[i].value = weaponStatus[i];
             }
+            (int done, int total) = LevelManager.singleton.GetObjectivesInfo();
+            objectCountLebel.text = done + "/" + total+" "+LevelManager.singleton.levelObjectiveString;
         }
     }
 }

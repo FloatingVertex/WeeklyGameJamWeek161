@@ -9,6 +9,8 @@ public class GlobalConfigurations : ScriptableObject
 
     public PrefabPointers prefabs;
 
+    public string[] levels;
+
     public GameObject GetWeaponData(string name)
     {
         foreach(var weapon in weapons)

@@ -44,8 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 352159da2c09659458a07cae6ebbb258, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultConfig:
-    weapons: []
 --- !u!114 &2375741404105371732
 MonoBehaviour:
   m_ObjectHideFlags: 0
