@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(CircleCollider2D))]
 [RequireComponent(typeof(Actor))]
 public class AI : MonoBehaviour
 {
@@ -27,7 +28,11 @@ public class AI : MonoBehaviour
             }
             else
             {
-                target.spotting.Remove(actor);
+                if (target.spotting.Remove(actor))
+                {
+                    Actor.lastKnownPlayerLocation = target.transform.position;
+                    Actor.timeLastSpoted = Time.time;
+                }
             }
         }
     }
@@ -46,7 +51,7 @@ public class AI : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         var otherActor = other.GetComponentInParent<Actor>();
-        if (otherActor && otherActor.affiliation != GetComponent<Actor>().affiliation && !targets.Contains(otherActor))
+        if (otherActor && otherActor.affiliation == Affiliation.Player && !targets.Contains(otherActor))
         {
             Debug.Log(otherActor.gameObject.name + " enter the trigger of " + gameObject.name);
             targets.Add(otherActor);

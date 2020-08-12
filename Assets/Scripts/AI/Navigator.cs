@@ -18,7 +18,7 @@ public class Navigator : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.blue;
-        if (path.Length > 1) {
+        if (path != null && path.Length > 1) {
             for (int i = 1; i < path.Length; i++)
             {
                 Gizmos.DrawLine(path[i-1], path[i]);

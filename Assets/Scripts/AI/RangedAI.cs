@@ -6,6 +6,7 @@ using UnityEngine;
 public class RangedAI : MonoBehaviour
 {
     public float engagementRange = 10f;
+    public float ghostFollowTime = 5f;
 
     // Update is called once per frame
     void FixedUpdate()
@@ -30,7 +31,14 @@ public class RangedAI : MonoBehaviour
             GetComponent<Navigator>().target = target;
             GetComponent<Navigator>().active = true;
         }
-        else {
+        else if(Time.time - Actor.timeLastSpoted < ghostFollowTime && (Actor.lastKnownPlayerLocation - (Vector2)transform.position).magnitude < GetComponent<CircleCollider2D>().radius)
+        {
+            var target = Actor.lastKnownPlayerLocation;
+            GetComponent<Navigator>().target = target;
+            GetComponent<Navigator>().active = true;
+        }
+        else
+        {
             GetComponent<Navigator>().active = false;
         }
     }
