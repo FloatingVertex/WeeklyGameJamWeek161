@@ -14,6 +14,7 @@ public class PlayerManager : MonoBehaviour
     {
         var canvas = GetComponentInChildren<Canvas>();
         var configuration = Instantiate(config.prefabs.aircraftConfigureUI, canvas.transform);
+        configuration.GetComponent<ConfigureShipGUI>().SetWeaponOptions(LevelManager.singleton.availableWeapons);
         var spawnButton = Instantiate(config.prefabs.spawnButton, canvas.transform);
         spawnButton.GetComponent<Button>().onClick.AddListener(()=> {
             ClearUI();

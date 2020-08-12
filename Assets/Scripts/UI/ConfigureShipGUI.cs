@@ -7,6 +7,14 @@ public class ConfigureShipGUI : MonoBehaviour
 {
     public WeaponSelector weapon1;
     public WeaponSelector weapon2;
+
+    public void SetWeaponOptions(string[] options)
+    {
+        foreach(var selector in new WeaponSelector[]{ weapon1,weapon2 })
+        {
+            selector.SetOptions(options);
+        }
+    }
     
     public AircraftConfiguration getConfig()
     {

@@ -19,11 +19,6 @@ public class PauseMenu : MonoBehaviour
         {
             Paused();   
         }
-
-       
-
-        
-        
     }
 
     public void Paused()
