@@ -18,5 +18,23 @@ public class Destructable : MonoBehaviour, IDamageable
             }
             Destroy(gameObject);
         }
+        else
+        {
+            FlashRed();
+        }
+    }
+
+    public void FlashRed()
+    {
+        GetComponentInChildren<SpriteRenderer>().color = Color.red;
+        StartCoroutine(ResetColor());
+    }
+
+    IEnumerator ResetColor()
+    {
+        yield return new WaitForSeconds(0.2f);
+        foreach (var obj in GetComponentsInChildren<SpriteRenderer>()) {
+            obj.color = Color.white;
+        }
     }
 }

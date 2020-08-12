@@ -22,6 +22,7 @@ public class Bullet : MonoBehaviour
     {
         Vector2 velocity = transform.right * speed;
         Vector3 newPosition = transform.position + (Vector3)velocity * Time.fixedDeltaTime;
+        Utility.RotateTowardsTarget(transform, (Vector2)transform.position + velocity);
         var hits = new List<RaycastHit2D>();
         if (0 != Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y), velocity, filter, hits, velocity.magnitude * Time.fixedDeltaTime))
         {
