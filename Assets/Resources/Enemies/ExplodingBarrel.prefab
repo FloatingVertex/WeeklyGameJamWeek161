@@ -143,7 +143,7 @@ GameObject:
   - component: {fileID: 2524294968220239851}
   - component: {fileID: 2524294968220239852}
   - component: {fileID: 2524294968220239767}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ExplodingBarrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}

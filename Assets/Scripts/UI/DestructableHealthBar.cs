@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class DestructableHealthBar : MonoBehaviour
 {
-    public bool showWhenFull = true;
-
+    public bool showWhenFull = false;
+    public Vector2 offset = Vector2.zero;
     public Slider healthBar;
 
     private Destructable totrack;
@@ -21,6 +21,9 @@ public class DestructableHealthBar : MonoBehaviour
     void Update()
     {
         healthBar.value = totrack.health / totrack.GetStartingHealth();
+        var newPosition = (Vector2)transform.parent.position + offset;
+        transform.position = new Vector3(newPosition.x, newPosition.y, transform.position.z);
+        transform.rotation = Quaternion.identity;
         if (!showWhenFull)
         {
             if (totrack.health == totrack.GetStartingHealth())

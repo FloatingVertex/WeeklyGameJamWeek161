@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2436850517598062932}
   - component: {fileID: 950524500957774713}
   - component: {fileID: 5543689043222628423}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: DoubleCannonTurret
   m_TagString: Untagged
   m_Icon: {fileID: 0}

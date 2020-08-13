@@ -6,16 +6,17 @@ public class DamagingExplosion : MonoBehaviour
 {
     public float radius;
     public float damage;
+    public LayerMask mask;
 
     // Start is called before the first frame update
     void Start()
     {
-        Explosion(transform.position, radius, damage);
+        Explosion(transform.position, radius, damage, mask);
     }
 
-    public static void Explosion(Vector2 position, float radius, float damage)
+    public static void Explosion(Vector2 position, float radius, float damage, LayerMask mask)
     {
-        var overlaps = Physics2D.OverlapCircleAll(position, radius);
+        var overlaps = Physics2D.OverlapCircleAll(position, radius, mask);
         foreach(var collider in overlaps)
         {
             if (!collider.isTrigger && collider.GetComponentInParent<IDamageable>() != null)

@@ -1,0 +1,110 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &9036809469347777660
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4523761160389634800, guid: 1fba1ec5b56d9e7419ab0370e79f71a4,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4523761160389634800, guid: 1fba1ec5b56d9e7419ab0370e79f71a4,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4523761160389634800, guid: 1fba1ec5b56d9e7419ab0370e79f71a4,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4523761160389634800, guid: 1fba1ec5b56d9e7419ab0370e79f71a4,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4523761160389634800, guid: 1fba1ec5b56d9e7419ab0370e79f71a4,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4523761160389634800, guid: 1fba1ec5b56d9e7419ab0370e79f71a4,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4523761160389634800, guid: 1fba1ec5b56d9e7419ab0370e79f71a4,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4523761160389634800, guid: 1fba1ec5b56d9e7419ab0370e79f71a4,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4523761160389634800, guid: 1fba1ec5b56d9e7419ab0370e79f71a4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4523761160389634800, guid: 1fba1ec5b56d9e7419ab0370e79f71a4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4523761160389634800, guid: 1fba1ec5b56d9e7419ab0370e79f71a4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4523761160389634805, guid: 1fba1ec5b56d9e7419ab0370e79f71a4,
+        type: 3}
+      propertyPath: m_Name
+      value: EnemyCannonBullet
+      objectReference: {fileID: 0}
+    - target: {fileID: 4523761160389634806, guid: 1fba1ec5b56d9e7419ab0370e79f71a4,
+        type: 3}
+      propertyPath: filter.useLayerMask
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4523761160389634806, guid: 1fba1ec5b56d9e7419ab0370e79f71a4,
+        type: 3}
+      propertyPath: filter.layerMask.m_Bits
+      value: 1536
+      objectReference: {fileID: 0}
+    - target: {fileID: 4523761160389634806, guid: 1fba1ec5b56d9e7419ab0370e79f71a4,
+        type: 3}
+      propertyPath: filter.useOutsideNormalAngle
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4523761160389634806, guid: 1fba1ec5b56d9e7419ab0370e79f71a4,
+        type: 3}
+      propertyPath: hitEffects.Array.data[3].prefabToSpawn
+      value: 
+      objectReference: {fileID: 2887852203156980217, guid: eb80b0138b5d2504c819b183c67365df,
+        type: 3}
+    - target: {fileID: 4523761160389634806, guid: 1fba1ec5b56d9e7419ab0370e79f71a4,
+        type: 3}
+      propertyPath: hitEffects.Array.data[2].prefabToSpawn
+      value: 
+      objectReference: {fileID: 2887852203156980217, guid: eb80b0138b5d2504c819b183c67365df,
+        type: 3}
+    - target: {fileID: 4523761160389634806, guid: 1fba1ec5b56d9e7419ab0370e79f71a4,
+        type: 3}
+      propertyPath: hitEffects.Array.data[1].prefabToSpawn
+      value: 
+      objectReference: {fileID: 2887852203156980217, guid: eb80b0138b5d2504c819b183c67365df,
+        type: 3}
+    - target: {fileID: 4523761160389634806, guid: 1fba1ec5b56d9e7419ab0370e79f71a4,
+        type: 3}
+      propertyPath: hitEffects.Array.data[0].prefabToSpawn
+      value: 
+      objectReference: {fileID: 2887852203156980217, guid: eb80b0138b5d2504c819b183c67365df,
+        type: 3}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1fba1ec5b56d9e7419ab0370e79f71a4, type: 3}

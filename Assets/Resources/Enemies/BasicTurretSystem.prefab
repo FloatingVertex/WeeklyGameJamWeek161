@@ -159,7 +159,7 @@ GameObject:
   - component: {fileID: 375370654120765566}
   - component: {fileID: 3014046982163751507}
   - component: {fileID: 7497324519914416493}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: BasicTurretSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}

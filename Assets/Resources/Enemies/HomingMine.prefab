@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 8278717159395459374}
   - component: {fileID: 1244901863242839497}
   - component: {fileID: 2295136468148060036}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: HomingMine
   m_TagString: Untagged
   m_Icon: {fileID: 0}

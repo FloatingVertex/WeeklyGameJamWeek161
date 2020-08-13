@@ -159,7 +159,7 @@ GameObject:
   - component: {fileID: 1778197978313176649}
   - component: {fileID: 3768655260590062692}
   - component: {fileID: 8472151407964125018}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: CannonTurret
   m_TagString: Untagged
   m_Icon: {fileID: 0}

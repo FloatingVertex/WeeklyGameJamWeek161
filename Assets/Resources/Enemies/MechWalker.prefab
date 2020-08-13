@@ -153,7 +153,7 @@ GameObject:
   - component: {fileID: 6129764175780568496}
   - component: {fileID: 521612884807315845}
   - component: {fileID: 2716108400431683419}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: MechWalker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
