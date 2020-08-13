@@ -11,6 +11,8 @@ public class PlayerManager : MonoBehaviour
     
     private AircraftConfiguration aircraftConfig;
 
+    private float timeTaken = 0f;
+
     private void SpawnConfigruationUI()
     {
         var canvas = GetComponentInChildren<Canvas>();
@@ -30,6 +32,7 @@ public class PlayerManager : MonoBehaviour
 
     void SpawnAircraft(AircraftConfiguration config)
     {
+        Time.timeScale = 1f;
         var aircraft = Instantiate(aircraftPrefab, transform.position, transform.rotation, transform);
         SetConfiguration(config);
         if (aircraftConfig.weapons != null)
@@ -67,9 +70,20 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    public void LevelFinished()
+    {
+        ClearUI();
+        Time.timeScale = 0f;
+        var canvas = GetComponentInChildren<Canvas>();
+        Scores.UploadScores(Scores.username, UnityEngine.SceneManagement.SceneManager.GetActiveScene().name, Mathf.RoundToInt(timeTaken));
+        this.enabled = false;
+        Instantiate(config.prefabs.pauseMenuUI, canvas.transform);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 0f;
         SpawnConfigruationUI();
     }
 
@@ -79,6 +93,12 @@ public class PlayerManager : MonoBehaviour
         {
             Pause();
         }
+        (int done, int total) = (LevelManager.singleton.GetObjectivesInfo());
+        if(done == total)
+        {
+            LevelFinished();
+        }
+        timeTaken += Time.deltaTime;
     }
 
     public void SetConfiguration(AircraftConfiguration aircraftConfig)

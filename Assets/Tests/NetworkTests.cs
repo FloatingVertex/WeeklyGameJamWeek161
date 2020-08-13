@@ -12,7 +12,7 @@ namespace Tests
         public void GetScores()
         {
             // just checking it doesn't error out, not a full test
-            var result = Scores.GetScores();
+            var result = Scores.GetScores("Level1");
             Assert.Greater(result.Count, 3);
         }
 
@@ -20,7 +20,7 @@ namespace Tests
         public void UploadScore()
         {
             // just checking it doesn't error out, not a full test
-            Scores.UploadScores("unittesting_username",10);
+            Scores.UploadScores("unittesting_username","NetworkTestLevel",10);
         }
     }
 }

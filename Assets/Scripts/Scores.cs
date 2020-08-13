@@ -6,10 +6,12 @@ using System.Text;
 
 public static class Scores
 {
-    public static List<KeyValuePair<string, int>> GetScores(int count = 10)
+    public static string username = "Unknown_Prerelease";
+
+    public static List<KeyValuePair<string, int>> GetScores(string level, int count = 10)
     {
         const string URL = "https://firestore.googleapis.com/v1beta1/projects/wgjweek161/databases/(default)/documents:runQuery";
-        string queryJson = "{\"structuredQuery\": {\"from\": [{\"collectionId\": \"scores\",\"allDescendants\": false}],\"orderBy\":{\"field\":{\"fieldPath\":\"Score\"}},\"limit\": 10},}";
+        string queryJson = "{\"structuredQuery\": {\"from\": [{\"collectionId\": \"scores\",\"allDescendants\": false}],\"where\":{\"fieldFilter\" : {\"field\":{\"fieldPath\":\"Level\"},\"op\":\"EQUAL\",\"value\":{\"stringValue\":\""+level+"\"}}},\"orderBy\":{\"field\":{\"fieldPath\":\"Score\"}},\"limit\": 10},}";
 
         HttpClient httpClient = new HttpClient();
         httpClient.BaseAddress = new Uri(URL);
@@ -30,10 +32,10 @@ public static class Scores
         return scores;
     }
 
-    public static void UploadScores(string username, int score)
+    public static void UploadScores(string username, string levelName, int score)
     {
         const string URL = "https://firestore.googleapis.com/v1beta1/projects/wgjweek161/databases/(default)/documents/scores/";
-        string queryJson = "{\"fields\": {\"Score\": {\"integerValue\": \"" + score + "\"},\"Name\": {\"stringValue\": \"" + username + "\"}}}";
+        string queryJson = "{\"fields\": {\"Score\": {\"integerValue\": \"" + score + "\"},\"Name\": {\"stringValue\": \"" + username + "\"}, \"Level\":{\"stringValue\":\""+ levelName+"\"}}}";
         HttpClient httpClient = new HttpClient();
         httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         var content = new StringContent(queryJson, Encoding.UTF8, "application/json");
