@@ -69,8 +69,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 750248417
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 7578003073365097194, guid: d5a8bf3d54e877945911dd5c84cc21c9,
     type: 3}
@@ -207,6 +207,7 @@ MonoBehaviour:
   health: 1
   destroyedPrefab: {fileID: 2887852203156980217, guid: eb80b0138b5d2504c819b183c67365df,
     type: 3}
+  addHealthbar: 1
 --- !u!58 &2524294968220239852
 CircleCollider2D:
   m_ObjectHideFlags: 0

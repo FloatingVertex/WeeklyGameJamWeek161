@@ -46,6 +46,7 @@ public class Chunk : MonoBehaviour
         if (needsRebuild)
         {
             this.GenerateNewMeshInternal();
+            needsRebuild = false;
         }
     }
 

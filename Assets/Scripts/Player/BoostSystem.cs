@@ -14,6 +14,9 @@ public class BoostSystem : MonoBehaviour
     public float speedNormal;
     private bool hasCooldown;
 
+    public SpriteRenderer boostRenderer;
+    public SpriteRenderer normalRenderer;
+
 
     private void Start()
     {
@@ -30,16 +33,23 @@ public class BoostSystem : MonoBehaviour
     
     public void Boost()
     {
-        GetComponent<HelicopterMovement>().speed = speedBoost;
-        StopAllCoroutines();
-        StartCoroutine(ActivateCooldown());
-        StartCoroutine(ResetMovement());    
+        if (hasCooldown)
+        {
+            GetComponent<HelicopterMovement>().speed = speedBoost;
+            normalRenderer.enabled = false;
+            boostRenderer.enabled = true;
+            StopAllCoroutines();
+            StartCoroutine(ActivateCooldown());
+            StartCoroutine(ResetMovement());
+        }
     }
 
     IEnumerator ResetMovement()
     {
         yield return new WaitForSeconds(duration);
         GetComponent<HelicopterMovement>().speed = speedNormal;
+        normalRenderer.enabled = true;
+        boostRenderer.enabled = false;
     }
 
     IEnumerator ActivateCooldown()
