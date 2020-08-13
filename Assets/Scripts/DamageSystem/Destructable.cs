@@ -6,12 +6,14 @@ public class Destructable : MonoBehaviour, IDamageable
 {
     public float health = 100;
     public GameObject destroyedPrefab;
+    public bool addHealthbar = true;
 
     private float startingHealth;
 
     void Start()
     {
         startingHealth = health;
+        Instantiate(Resources.Load("UI/InWorldHealthBar"), transform);
     }
 
     public float GetStartingHealth()

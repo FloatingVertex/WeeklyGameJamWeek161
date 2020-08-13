@@ -131,6 +131,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 1000
   destroyedPrefab: {fileID: 0}
+  addHealthbar: 0
 --- !u!1 &6700770285677468250
 GameObject:
   m_ObjectHideFlags: 0

@@ -353,6 +353,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 150
   destroyedPrefab: {fileID: 0}
+  addHealthbar: 0
 --- !u!114 &-6235719086886030501
 MonoBehaviour:
   m_ObjectHideFlags: 0
