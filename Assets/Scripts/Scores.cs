@@ -6,7 +6,7 @@ using System.Text;
 
 public static class Scores
 {
-    public static string username = "Unknown_Prerelease";
+    public static string username = "Unknown_Pre_release";
 
     public static List<KeyValuePair<string, int>> GetScores(string level, int count = 10)
     {

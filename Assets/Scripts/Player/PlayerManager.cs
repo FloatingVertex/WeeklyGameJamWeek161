@@ -85,7 +85,7 @@ public class PlayerManager : MonoBehaviour
         var canvas = GetComponentInChildren<Canvas>();
         Scores.UploadScores(Scores.username, UnityEngine.SceneManagement.SceneManager.GetActiveScene().name, Mathf.RoundToInt(timeTaken));
         this.enabled = false;
-        Instantiate(config.prefabs.pauseMenuUI, canvas.transform);
+        Instantiate(config.prefabs.levelFinishedScreen, canvas.transform);
     }
 
     // Start is called before the first frame update
@@ -97,7 +97,7 @@ public class PlayerManager : MonoBehaviour
 
     private void Update()
     {
-        if(Keyboard.current.escapeKey.isPressed)
+        if(Keyboard.current.escapeKey.wasPressedThisFrame && GetComponentInChildren<AircraftManager>())
         {
             Pause();
         }

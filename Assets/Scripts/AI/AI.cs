@@ -22,8 +22,15 @@ public class AI : MonoBehaviour
 
     private void FixedUpdate()
     {
-        foreach(var target in targets)
+        for (int i = 0; i < targets.Count; i++)
         {
+            var target = targets[i];
+            if (target == null)
+            {
+                i--;
+                targets.Remove(target);
+                continue;
+            }
             if (CheckLOS(target))
             {
                 if (!target.spotting.Contains(actor))

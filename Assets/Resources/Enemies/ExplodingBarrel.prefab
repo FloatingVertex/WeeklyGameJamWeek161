@@ -191,7 +191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63cfbf4d74076944092d783cfcc4a8a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nonTriggerCollider: {fileID: 0}
+  nonTriggerCollider: {fileID: 641038204042665739}
 --- !u!114 &2524294968220239851
 MonoBehaviour:
   m_ObjectHideFlags: 0

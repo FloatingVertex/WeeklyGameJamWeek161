@@ -13,7 +13,7 @@ public class TerrainManager : MonoBehaviour, IDamageable
     public int chunkSize = 31;
     public float range = 1.0f;
     public bool additive = true;
-    public float meshScale = 0.1f;
+    public float meshScale = 0.25f;
     public GameObject chunkPrefab;
     public Texture2D noise;
     [Tooltip("How scale of detail of the noise is")]
@@ -53,6 +53,16 @@ public class TerrainManager : MonoBehaviour, IDamageable
             }
             Debug.Log("Copying data took: " + timer.ElapsedMilliseconds + "ms");
         }
+    }
+
+    public void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.blue;
+        float edgeLength = (chunkSize - 1) * chunkCount * meshScale;
+        Gizmos.DrawLine(Vector2.zero, new Vector2(0, edgeLength));
+        Gizmos.DrawLine(Vector2.zero, new Vector2(edgeLength, 0));
+        Gizmos.DrawLine(new Vector2(0, edgeLength), new Vector2(edgeLength, edgeLength));
+        Gizmos.DrawLine(new Vector2(edgeLength, 0), new Vector2(edgeLength, edgeLength));
     }
 
     public void ClearChildren()

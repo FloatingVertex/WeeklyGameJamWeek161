@@ -34,6 +34,10 @@ public class GridAStar : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.blue;
+        Gizmos.DrawLine(Vector2.zero, new Vector2(0, gridYSideCount * gridEdge));
+        Gizmos.DrawLine(Vector2.zero, new Vector2(gridXSideCount * gridEdge, 0));
+        Gizmos.DrawLine(new Vector2(0, gridYSideCount * gridEdge), new Vector2(gridXSideCount * gridEdge, gridYSideCount * gridEdge));
+        Gizmos.DrawLine(new Vector2(gridXSideCount * gridEdge, 0), new Vector2(gridXSideCount * gridEdge, gridYSideCount * gridEdge));
         if (data != null)
         {
             for (int x = 0; x < gridXSideCount; x++)

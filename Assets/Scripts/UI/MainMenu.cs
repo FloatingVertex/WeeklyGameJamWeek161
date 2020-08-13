@@ -11,7 +11,7 @@ public class MainMenu : MonoBehaviour
     
     private void Start()
     {
-        
+        Scores.UploadStart(Scores.username, "MainMenu");
     }
 
     private void Update()
