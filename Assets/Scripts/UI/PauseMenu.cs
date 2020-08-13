@@ -9,35 +9,14 @@ public class PauseMenu : MonoBehaviour
     public GameObject pauseMenu;
     public static bool isPaused = false;
 
-    private void Update()
+    private void Start()
     {
-        if (isPaused)
-        {
-            Resume();
-        }
-        else
-        {
-            Paused();   
-        }
-    }
-
-    public void Paused()
-    {
-        pauseMenu.SetActive(true);
         Time.timeScale = 0;
-        isPaused = true;
     }
 
     public void Resume()
     {
-        pauseMenu.SetActive(false);
         Time.timeScale = 1;
-        isPaused = false;
+        GetComponentInParent<PlayerManager>().SpawnGameUI();
     }
-
-    public void Exit()
-    {
-        SceneManager.LoadScene("MainMenu");
-    }
-
 }

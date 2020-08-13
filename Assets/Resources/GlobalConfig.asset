@@ -15,7 +15,11 @@ MonoBehaviour:
   weapons:
   - prefab: {fileID: 5957118287669565353, guid: 35bbd7590259348478ca88392d818729,
       type: 3}
+    weaponSelectionSprite: {fileID: 21300000, guid: 40fd1f5c6ccae6446b6988bd147a1d84,
+      type: 3}
   - prefab: {fileID: 8527596439739563882, guid: abea2c57e571e8243b62a4f37f61d0f6,
+      type: 3}
+    weaponSelectionSprite: {fileID: 21300000, guid: 7f67a6d715e8bd14cad9a9f5e6e67e62,
       type: 3}
   prefabs:
     aircraftConfigureUI: {fileID: 4593320619940999816, guid: d1233b6d5f2d4954290f050d2235d3ed,
@@ -24,3 +28,7 @@ MonoBehaviour:
       type: 3}
     gameUI: {fileID: 5055168127149729642, guid: 34c4ca2d04630144c8d363a10de6d609,
       type: 3}
+    pauseMenuUI: {fileID: 5145984198797163009, guid: 2bde1fbb330c91e498b26b4fe8b95997,
+      type: 3}
+  levels: []
+  mainMenuLevelName: MainMenu

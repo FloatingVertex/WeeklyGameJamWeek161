@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -44,16 +45,40 @@ public class PlayerManager : MonoBehaviour
             TerrainManager.singleton.playModeTransformToFollow = aircraft.transform;
         }
 
-        // spawn ui
+        SpawnGameUI();
+    }
+
+    public void SpawnGameUI()
+    {
+        ClearUI();
+        var aircraft = GetComponentInChildren<AircraftManager>();
         var canvas = GetComponentInChildren<Canvas>();
         var gameUI = Instantiate(this.config.prefabs.gameUI, canvas.transform);
-        gameUI.GetComponent<GameUI>().manager = aircraft.GetComponent<AircraftManager>();
+        gameUI.GetComponent<GameUI>().manager = aircraft;
+    }
+
+    public void Pause()
+    {
+        if (GetComponentInChildren<PauseMenu>() == null)
+        {
+            ClearUI();
+            var canvas = GetComponentInChildren<Canvas>();
+            Instantiate(config.prefabs.pauseMenuUI, canvas.transform);
+        }
     }
 
     // Start is called before the first frame update
     void Start()
     {
         SpawnConfigruationUI();
+    }
+
+    private void Update()
+    {
+        if(Keyboard.current.escapeKey.isPressed)
+        {
+            Pause();
+        }
     }
 
     public void SetConfiguration(AircraftConfiguration aircraftConfig)

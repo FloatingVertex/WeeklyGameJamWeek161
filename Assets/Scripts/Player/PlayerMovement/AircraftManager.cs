@@ -20,7 +20,7 @@ public class AircraftManager : MonoBehaviour
         for (int i = 0; i < weapons.Length && i < weaponHardpoints.Length; i++)
         {
             Utility.DeleteAllChildren(weaponHardpoints[i]);
-            this.weapons[i] = Instantiate(config.GetWeaponData(weapons[i]), weaponHardpoints[i].position, weaponHardpoints[i].rotation, weaponHardpoints[i]).GetComponent<IWeapon>();
+            this.weapons[i] = Instantiate(config.GetWeaponPrefab(weapons[i]), weaponHardpoints[i].position, weaponHardpoints[i].rotation, weaponHardpoints[i]).GetComponent<IWeapon>();
         }
     }
 

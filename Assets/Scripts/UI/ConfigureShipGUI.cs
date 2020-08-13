@@ -5,14 +5,20 @@ using UnityEngine.UI;
 
 public class ConfigureShipGUI : MonoBehaviour
 {
+    public GlobalConfigurations config;
     public WeaponSelector weapon1;
     public WeaponSelector weapon2;
 
     public void SetWeaponOptions(string[] options)
     {
-        foreach(var selector in new WeaponSelector[]{ weapon1,weapon2 })
+        var optionsData = new List<Dropdown.OptionData>();
+        foreach (var option in options)
         {
-            selector.SetOptions(options);
+            optionsData.Add(new Dropdown.OptionData(option,config.GetWeaponData(option).weaponSelectionSprite));
+        }
+        foreach (var selector in new WeaponSelector[]{ weapon1,weapon2 })
+        {
+            selector.SetOptions(optionsData);
         }
     }
     

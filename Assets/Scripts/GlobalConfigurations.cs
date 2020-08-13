@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [CreateAssetMenu(fileName = "Config", menuName = "Configuration/GlobalConfigs", order = 1)]
 public class GlobalConfigurations : ScriptableObject
@@ -9,18 +10,44 @@ public class GlobalConfigurations : ScriptableObject
 
     public PrefabPointers prefabs;
 
-    public string[] levels;
+    public List<string> levels = new List<string>();
 
-    public GameObject GetWeaponData(string name)
+    public string mainMenuLevelName = "MainMenu";
+
+    public GameObject GetWeaponPrefab(string name)
     {
-        foreach(var weapon in weapons)
+        return GetWeaponData(name).prefab;
+    }
+
+    public WeaponData GetWeaponData(string name)
+    {
+        foreach (var weapon in weapons)
         {
-            if(weapon.prefab.name == name)
+            if (weapon.prefab.name == name)
             {
-                return weapon.prefab;
+                return weapon;
             }
         }
-        throw new System.Exception("Failed to find weapon with name: "+name);
+        throw new System.Exception("Failed to find weapon with name: " + name);
+    }
+
+    public void LoadNextLevel(string currentLevel)
+    {
+        var currentIndex = levels.IndexOf(currentLevel);
+        if(currentIndex < 0)
+        {
+            Debug.LogError("Failed to find current level in list");
+            return;
+        }
+        if(currentIndex < levels.Count)
+        {
+            SceneManager.LoadScene(levels[currentIndex + 1], LoadSceneMode.Single);
+        }
+    }
+
+    public void LoadMainMenu()
+    {
+        SceneManager.LoadScene(mainMenuLevelName);
     }
 }
 
@@ -28,6 +55,7 @@ public class GlobalConfigurations : ScriptableObject
 public struct WeaponData
 {
     public GameObject prefab;
+    public Sprite weaponSelectionSprite;
 }
 
 [System.Serializable]
@@ -36,4 +64,5 @@ public struct PrefabPointers
     public GameObject aircraftConfigureUI;
     public GameObject spawnButton;
     public GameObject gameUI;
+    public GameObject pauseMenuUI;
 }

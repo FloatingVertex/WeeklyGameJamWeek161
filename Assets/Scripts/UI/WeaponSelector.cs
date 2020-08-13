@@ -7,15 +7,15 @@ public class WeaponSelector : MonoBehaviour
 {
     public string[] options;
 
-    public void SetOptions(string[] newOptions)
+    public void SetOptions(List<Dropdown.OptionData> newOptions)
     {
-        var optionsData = new List<Dropdown.OptionData>();
-        foreach(var option in newOptions)
+        var optionsStr = new string[newOptions.Count];
+        for(int i = 0; i < newOptions.Count; i++)
         {
-            optionsData.Add(new Dropdown.OptionData(option));
+            optionsStr[i] = newOptions[i].text;
         }
-        options = newOptions;
-        GetComponent<UnityEngine.UI.Dropdown>().options = optionsData;
+        options = optionsStr;
+        GetComponent<UnityEngine.UI.Dropdown>().options = newOptions;
         GetComponent<UnityEngine.UI.Dropdown>().value = 0;
     }
 
