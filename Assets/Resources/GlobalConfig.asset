@@ -34,5 +34,9 @@ MonoBehaviour:
       type: 3}
     deathMenu: {fileID: 5704594797524765779, guid: de51cf2f14f4d7b45b84b981b7120528,
       type: 3}
-  levels: []
+  levels:
+  - Tutoria1
+  - EarlyLevel1
+  - MidLevel1
+  - LateLevel1
   mainMenuLevelName: MainMenu
