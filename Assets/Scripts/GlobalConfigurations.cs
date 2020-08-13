@@ -37,6 +37,7 @@ public class GlobalConfigurations : ScriptableObject
         if(currentIndex < 0)
         {
             Debug.LogError("Failed to find current level in list");
+            LoadMainMenu();
             return;
         }
         if(currentIndex < levels.Count)

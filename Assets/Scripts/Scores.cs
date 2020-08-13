@@ -1,12 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
+//using System.Collections.Generic;
+//using System.Net.Http;
+//using System.Net.Http.Headers;
+//using System.Text;
 
 public static class Scores
 {
     public static string username = "Unknown_Prerelease2";
+    public static void UploadScores(string username, string levelName, int score)
+    {
+    }
+
+    public static void UploadStart(string username, string levelName)
+    {
+    }
+
+    public static void UploadDeath(string username, string levelName, int time)
+    {
+    }
+    /*
 
     public static List<KeyValuePair<string, int>> GetScores(string level, int count = 10)
     {
@@ -60,5 +72,5 @@ public static class Scores
         var content = new StringContent(queryJson, Encoding.UTF8, "application/json");
 
         httpClient.PostAsync(URL, content);
-    }
+    }*/
 }

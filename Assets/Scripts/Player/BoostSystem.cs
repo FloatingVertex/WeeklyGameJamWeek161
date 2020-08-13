@@ -12,7 +12,7 @@ public class BoostSystem : MonoBehaviour
     public float duration = 10f;
     public float speedBoost = 8f;
     public float speedNormal;
-    private bool hasCooldown;
+    public bool hasCooldown;
 
     public SpriteRenderer boostRenderer;
     public SpriteRenderer normalRenderer;

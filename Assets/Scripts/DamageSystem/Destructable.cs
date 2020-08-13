@@ -13,7 +13,10 @@ public class Destructable : MonoBehaviour, IDamageable
     void Start()
     {
         startingHealth = health;
-        Instantiate(Resources.Load("UI/InWorldHealthBar"), transform);
+        if (addHealthbar)
+        {
+            Instantiate(Resources.Load("UI/InWorldHealthBar"), transform);
+        }
     }
 
     public float GetStartingHealth()

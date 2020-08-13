@@ -7,12 +7,7 @@ public class GameUI : MonoBehaviour
     public Slider healthSlider;
     public Slider[] weaponSliders;
     public Text objectCountLebel;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Slider boostBar;
 
     // Update is called once per frame
     void Update()
@@ -31,6 +26,7 @@ public class GameUI : MonoBehaviour
             }
             (int done, int total) = LevelManager.singleton.GetObjectivesInfo();
             objectCountLebel.text = done + "/" + total+" "+LevelManager.singleton.levelObjectiveString;
+            boostBar.value = manager.GetComponent<BoostSystem>().hasCooldown ? 0.0f : 1.0f;
         }
     }
 }

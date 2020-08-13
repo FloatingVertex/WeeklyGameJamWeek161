@@ -3442,7 +3442,7 @@ MonoBehaviour:
   circleMultiple: 1
   editModeViewRange: 50
   editModeDeleteExtraTerrain: 0
-  playModeViewRange: 30
+  playModeViewRange: 20
   playModeTransformToFollow: {fileID: 0}
 --- !u!1001 &3344800424834111902
 PrefabInstance:

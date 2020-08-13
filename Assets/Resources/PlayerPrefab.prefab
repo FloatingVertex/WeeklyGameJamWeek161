@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  maxOffset: 20
+  maxOffset: 5
 --- !u!114 &6896438085161518297
 MonoBehaviour:
   m_ObjectHideFlags: 0

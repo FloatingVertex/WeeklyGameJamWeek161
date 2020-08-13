@@ -368,7 +368,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 5
   duration: 3
-  speedBoost: 8
+  speedBoost: 7
   speedNormal: 0
   boostRenderer: {fileID: 5391568991058051127}
   normalRenderer: {fileID: 4007042556292731843}

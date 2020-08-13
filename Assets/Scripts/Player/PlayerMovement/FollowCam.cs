@@ -28,7 +28,7 @@ public class FollowCam : MonoBehaviour
     {
         if (target)
         {
-            var offset = (Mouse.current.position.ReadValue() - new Vector2(Screen.width / 2, Screen.height / 2)) / Mathf.Min(Screen.height, Screen.width) / 2;
+            var offset = (Mouse.current.position.ReadValue() - new Vector2(Screen.width / 2, Screen.height / 2)) / Mathf.Min(Screen.height, Screen.width) * 2;
             if (offset.magnitude > 1.0f)
             {
                 offset = offset.normalized;
