@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class DeathMenu : MonoBehaviour
 {
- /*   
+   
     public GameObject panel;
     public float health;
 
@@ -40,5 +40,5 @@ public class DeathMenu : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenu");
     }
-    */
+    
 }
