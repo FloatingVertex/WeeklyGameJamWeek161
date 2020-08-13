@@ -109,6 +109,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1604416291617611235, guid: 66752468784ceb84ab652a18c14d27cc,
         type: 3}
+    - target: {fileID: 2602480683378332133, guid: 580e3f600fee5ae4cb00aa80082898ab,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2602480683378332134, guid: 580e3f600fee5ae4cb00aa80082898ab,
         type: 3}
       propertyPath: m_Controller
@@ -203,6 +208,11 @@ PrefabInstance:
         type: 3}
       propertyPath: damage
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8557408120526817343, guid: 580e3f600fee5ae4cb00aa80082898ab,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8947018061597955212, guid: 580e3f600fee5ae4cb00aa80082898ab,
         type: 3}

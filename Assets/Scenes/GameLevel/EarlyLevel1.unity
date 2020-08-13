@@ -2428,11 +2428,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 51df405f5f4a24647ac27c1a0510afc0,
         type: 2}
-    - target: {fileID: 8110914847356454710, guid: e085d6628a5c21a47b3dbd7c3c035355,
-        type: 3}
-      propertyPath: playModeViewRange
-      value: 20
-      objectReference: {fileID: 0}
     - target: {fileID: 8456028233620346510, guid: e085d6628a5c21a47b3dbd7c3c035355,
         type: 3}
       propertyPath: availableWeapons.Array.size

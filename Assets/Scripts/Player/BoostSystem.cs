@@ -12,7 +12,7 @@ public class BoostSystem : MonoBehaviour
     public float duration = 10f;
     public float speedBoost = 8f;
     public float speedNormal;
-    public bool hasCooldown;
+    public bool hasCooldown = false;
 
     public SpriteRenderer boostRenderer;
     public SpriteRenderer normalRenderer;
@@ -33,13 +33,13 @@ public class BoostSystem : MonoBehaviour
     
     public void Boost()
     {
-        if (hasCooldown)
+        if (!hasCooldown)
         {
+            hasCooldown = true;
+            StartCoroutine(ActivateCooldown());
             GetComponent<HelicopterMovement>().speed = speedBoost;
             normalRenderer.enabled = false;
             boostRenderer.enabled = true;
-            StopAllCoroutines();
-            StartCoroutine(ActivateCooldown());
             StartCoroutine(ResetMovement());
         }
     }
@@ -54,7 +54,6 @@ public class BoostSystem : MonoBehaviour
 
     IEnumerator ActivateCooldown()
     {
-        hasCooldown = true;
         yield return new WaitForSeconds(cooldown);
         hasCooldown = false;
     }
