@@ -72,6 +72,7 @@ public class PlayerManager : MonoBehaviour
 
     public void Died()
     {
+        Debug.Log("Died");
         Scores.UploadDeath(Scores.username, UnityEngine.SceneManagement.SceneManager.GetActiveScene().name, Mathf.RoundToInt(timeTaken));
         ClearUI();
         var canvas = GetComponentInChildren<Canvas>();
@@ -83,9 +84,9 @@ public class PlayerManager : MonoBehaviour
         ClearUI();
         Time.timeScale = 0f;
         var canvas = GetComponentInChildren<Canvas>();
+        Instantiate(config.prefabs.levelFinishedScreen, canvas.transform);
         Scores.UploadScores(Scores.username, UnityEngine.SceneManagement.SceneManager.GetActiveScene().name, Mathf.RoundToInt(timeTaken));
         this.enabled = false;
-        Instantiate(config.prefabs.levelFinishedScreen, canvas.transform);
     }
 
     // Start is called before the first frame update

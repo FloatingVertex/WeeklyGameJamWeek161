@@ -576,12 +576,12 @@ PrefabInstance:
     - target: {fileID: 950524500957774715, guid: 960ca90a7a5260c4496477c4eb01fbe2,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 45.512253
+      value: 44.12
       objectReference: {fileID: 0}
     - target: {fileID: 950524500957774715, guid: 960ca90a7a5260c4496477c4eb01fbe2,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.0787954
+      value: 7.02
       objectReference: {fileID: 0}
     - target: {fileID: 950524500957774715, guid: 960ca90a7a5260c4496477c4eb01fbe2,
         type: 3}
@@ -782,5 +782,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: ff6ae9162455c324d8139032edfc592a,
         type: 2}
+    - target: {fileID: 8110914847356454710, guid: e085d6628a5c21a47b3dbd7c3c035355,
+        type: 3}
+      propertyPath: editModeDeleteExtraTerrain
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e085d6628a5c21a47b3dbd7c3c035355, type: 3}

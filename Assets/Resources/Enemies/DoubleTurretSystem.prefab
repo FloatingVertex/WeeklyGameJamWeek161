@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3014046982163751507}
   - component: {fileID: 7497324519914416493}
   m_Layer: 8
-  m_Name: TurretSystemDouble
+  m_Name: DoubleTurretSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -118,6 +118,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   affiliation: 1
+  spotting: []
 --- !u!114 &375370654120765566
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,6 +146,7 @@ MonoBehaviour:
   turnRate: 60
   burstTime: 1
   burstDelay: 1
+  maxRange: 10
 --- !u!114 &7497324519914416493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,7 +205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4f3fe48013137c4293eb1fada96f84c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 4523761160389634805, guid: 580e3f600fee5ae4cb00aa80082898ab,
+  bulletPrefab: {fileID: 6647661957039595750, guid: f39873ea19452844c96b8806050b98a7,
     type: 3}
   shotsPerSecond: 5
   bulletSpeed: 5
@@ -277,7 +279,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4f3fe48013137c4293eb1fada96f84c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 4523761160389634805, guid: 580e3f600fee5ae4cb00aa80082898ab,
+  bulletPrefab: {fileID: 6647661957039595750, guid: f39873ea19452844c96b8806050b98a7,
     type: 3}
   shotsPerSecond: 5
   bulletSpeed: 5

@@ -8,11 +8,6 @@ public class DeathMenu : MonoBehaviour
     public GameObject panel;
     public GlobalConfigurations config;
 
-    private void Start()
-    {
-        gameObject.SetActive(false);
-    }
-
     public void Retry()
     {
         Scene scene = SceneManager.GetActiveScene();

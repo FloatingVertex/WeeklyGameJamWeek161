@@ -37,7 +37,13 @@ public class Turret : MonoBehaviour
                     if (target.GetComponent<Rigidbody2D>())
                     {
                         // lead target
-                        targetPosition += (Vector3)(target.GetComponent<Rigidbody2D>().velocity * (range / weapons[0].BulletSpeed()));
+                        var lead = (Vector3)(target.GetComponent<Rigidbody2D>().velocity * (range / weapons[0].BulletSpeed()));
+                        var maxLead = 3;
+                        if(lead.magnitude > maxLead)
+                        {
+                            lead = lead.normalized * maxLead;
+                        }
+                        targetPosition += lead;
                     }
                     if (Utility.RotateTowardsTarget(transform, targetPosition, turnRate * Time.fixedDeltaTime))
                     {
