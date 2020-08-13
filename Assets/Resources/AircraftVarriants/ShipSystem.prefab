@@ -351,7 +351,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 022ca081d3ee5db46b32ea9ef0f8218e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 150
+  health: 200
   destroyedPrefab: {fileID: 0}
   addHealthbar: 0
 --- !u!114 &-6235719086886030501
@@ -366,10 +366,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f5a43f5282bf1c48b94e9a852c516f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 5
-  duration: 3
+  cooldown: 4
+  duration: 1
   speedBoost: 7
   speedNormal: 0
+  hasCooldown: 0
   boostRenderer: {fileID: 5391568991058051127}
   normalRenderer: {fileID: 4007042556292731843}
 --- !u!1 &3045268819789367324

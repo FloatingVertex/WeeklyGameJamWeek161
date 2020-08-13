@@ -46,7 +46,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 5846858540600885351, guid: 8fee3b839d88c7644b7970824fbef0a1,
     type: 3}
   shotsPerSecond: 10
-  bulletSpeed: 3
+  bulletSpeed: 3.5
   spreadOverTime:
     serializedVersion: 2
     m_Curve:

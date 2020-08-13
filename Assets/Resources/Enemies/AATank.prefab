@@ -115,7 +115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waypointTriggerDistance: 0.3
-  speed: 2
+  speed: 3
   rotationRate: 360
   target: {x: 0, y: 0}
   active: 0
@@ -148,6 +148,7 @@ MonoBehaviour:
   health: 100
   destroyedPrefab: {fileID: 2887852203156980217, guid: eb80b0138b5d2504c819b183c67365df,
     type: 3}
+  addHealthbar: 1
 --- !u!1 &786326477573555702
 GameObject:
   m_ObjectHideFlags: 0

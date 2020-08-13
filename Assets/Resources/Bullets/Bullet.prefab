@@ -198,7 +198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  damage: 5
+  damage: 10
   terrainDamageRadius: 0.3
   dmgType: 0
   timeToLive: 5
