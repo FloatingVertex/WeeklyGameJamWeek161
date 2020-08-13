@@ -351,7 +351,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 022ca081d3ee5db46b32ea9ef0f8218e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 300
+  health: 150
   destroyedPrefab: {fileID: 0}
 --- !u!114 &-6235719086886030501
 MonoBehaviour:

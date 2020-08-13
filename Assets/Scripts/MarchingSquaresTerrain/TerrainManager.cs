@@ -52,6 +52,9 @@ public class TerrainManager : MonoBehaviour, IDamageable
                 }
             }
             Debug.Log("Copying data took: " + timer.ElapsedMilliseconds + "ms");
+        }else if (!editModeDeleteExtraTerrain)
+        {
+            ReloadChunks();
         }
     }
 

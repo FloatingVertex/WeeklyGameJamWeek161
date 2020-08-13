@@ -11,6 +11,7 @@ public class SurfacePlacer : MonoBehaviour
     [Tooltip("Object new spawns will be parented to")]
     public Transform parent;
     public LayerMask mask = ~0;
+    public bool placeOnEdge = true;
 }
 
 public enum PlacementAllignTo
