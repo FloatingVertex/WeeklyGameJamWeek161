@@ -50,6 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df80427a712fc96499eef951a74050b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  config: {fileID: 11400000, guid: df9dd422188a885499393f2a4e020681, type: 2}
   weapon1: {fileID: 5889154345988559090}
   weapon2: {fileID: 600010710476450637}
 --- !u!1001 &4593320619737622989
@@ -128,16 +129,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6929995905366389572, guid: f90930789ee4aee4bb5b5a49829692f4,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 160
-      objectReference: {fileID: 0}
-    - target: {fileID: 6929995905366389572, guid: f90930789ee4aee4bb5b5a49829692f4,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 6929995905366389572, guid: f90930789ee4aee4bb5b5a49829692f4,
         type: 3}
@@ -265,16 +256,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6929995905366389572, guid: f90930789ee4aee4bb5b5a49829692f4,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 160
-      objectReference: {fileID: 0}
-    - target: {fileID: 6929995905366389572, guid: f90930789ee4aee4bb5b5a49829692f4,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 6929995905366389572, guid: f90930789ee4aee4bb5b5a49829692f4,
         type: 3}

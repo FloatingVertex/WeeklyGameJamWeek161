@@ -5,9 +5,15 @@ using UnityEngine;
 public class DestroyEffectAfterTime : MonoBehaviour
 {
     public float timer = 1.0f;
+    public AudioClip spawnClip;
+    public float audioVolume = 1.0f;
 
     void Start()
     {
+        //if (spawnClip)
+        //{
+        //    GetComponent<AudioSource>().PlayOneShot(spawnClip, audioVolume);
+        //}
         StartCoroutine(DestroyAfterTime(timer));
     }
 
