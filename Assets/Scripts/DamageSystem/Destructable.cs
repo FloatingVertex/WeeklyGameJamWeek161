@@ -29,6 +29,10 @@ public class Destructable : MonoBehaviour, IDamageable
                 Instantiate(destroyedPrefab, transform.position, transform.rotation);
             }
             Destroy(gameObject);
+            if (GetComponentInParent<PlayerManager>())
+            {
+                GetComponentInParent<PlayerManager>().Died();
+            }
         }
         else
         {

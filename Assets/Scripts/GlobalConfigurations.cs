@@ -66,4 +66,5 @@ public struct PrefabPointers
     public GameObject gameUI;
     public GameObject pauseMenuUI;
     public GameObject levelFinishedScreen;
+    public GameObject deathMenu;
 }

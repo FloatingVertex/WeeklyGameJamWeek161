@@ -36,6 +36,25 @@ public static class Scores
     {
         const string URL = "https://firestore.googleapis.com/v1beta1/projects/wgjweek161/databases/(default)/documents/scores/";
         string queryJson = "{\"fields\": {\"Score\": {\"integerValue\": \"" + score + "\"},\"Name\": {\"stringValue\": \"" + username + "\"}, \"Level\":{\"stringValue\":\""+ levelName+"\"}}}";
+        PostQuery(URL, queryJson);
+    }
+
+    public static void UploadStart(string username, string levelName)
+    {
+        const string URL = "https://firestore.googleapis.com/v1beta1/projects/wgjweek161/databases/(default)/documents/starts/";
+        string queryJson = "{\"fields\": {\"Name\": {\"stringValue\": \"" + username + "\"}, \"Level\":{\"stringValue\":\"" + levelName + "\"}}}";
+        PostQuery(URL, queryJson);
+    }
+
+    public static void UploadDeath(string username, string levelName, int time)
+    {
+        const string URL = "https://firestore.googleapis.com/v1beta1/projects/wgjweek161/databases/(default)/documents/scores/";
+        string queryJson = "{\"fields\": {\"Time\": {\"integerValue\": \"" + time + "\"},\"Name\": {\"stringValue\": \"" + username + "\"}, \"Level\":{\"stringValue\":\"" + levelName + "\"}}}";
+        PostQuery(URL, queryJson);
+    }
+
+    public static void PostQuery(string URL,string queryJson)
+    {
         HttpClient httpClient = new HttpClient();
         httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         var content = new StringContent(queryJson, Encoding.UTF8, "application/json");

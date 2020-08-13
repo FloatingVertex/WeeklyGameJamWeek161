@@ -30,5 +30,9 @@ MonoBehaviour:
       type: 3}
     pauseMenuUI: {fileID: 5145984198797163009, guid: 2bde1fbb330c91e498b26b4fe8b95997,
       type: 3}
+    levelFinishedScreen: {fileID: 6903177052926289223, guid: b9dde1c31c6923748843c5789f263c36,
+      type: 3}
+    deathMenu: {fileID: 5704594797524765779, guid: de51cf2f14f4d7b45b84b981b7120528,
+      type: 3}
   levels: []
   mainMenuLevelName: MainMenu

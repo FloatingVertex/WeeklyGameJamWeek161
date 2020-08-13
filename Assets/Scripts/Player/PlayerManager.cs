@@ -47,7 +47,7 @@ public class PlayerManager : MonoBehaviour
         {
             TerrainManager.singleton.playModeTransformToFollow = aircraft.transform;
         }
-
+        Scores.UploadStart(Scores.username, UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
         SpawnGameUI();
     }
 
@@ -68,6 +68,14 @@ public class PlayerManager : MonoBehaviour
             var canvas = GetComponentInChildren<Canvas>();
             Instantiate(config.prefabs.pauseMenuUI, canvas.transform);
         }
+    }
+
+    public void Died()
+    {
+        Scores.UploadDeath(Scores.username, UnityEngine.SceneManagement.SceneManager.GetActiveScene().name, Mathf.RoundToInt(timeTaken));
+        ClearUI();
+        var canvas = GetComponentInChildren<Canvas>();
+        Instantiate(config.prefabs.deathMenu, canvas.transform);
     }
 
     public void LevelFinished()

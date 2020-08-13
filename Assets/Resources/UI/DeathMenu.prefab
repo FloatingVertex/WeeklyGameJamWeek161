@@ -1446,3 +1446,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panel: {fileID: 5704594797524765779}
+  config: {fileID: 11400000, guid: df9dd422188a885499393f2a4e020681, type: 2}

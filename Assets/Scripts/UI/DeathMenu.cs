@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class DeathMenu : MonoBehaviour
 {
     public GameObject panel;
+    public GlobalConfigurations config;
 
     private void Start()
     {
@@ -26,7 +27,7 @@ public class DeathMenu : MonoBehaviour
 
     public void BackToMenu()
     {
-        SceneManager.LoadScene("MainMenu");
+        config.LoadMainMenu();
     }
 
 
