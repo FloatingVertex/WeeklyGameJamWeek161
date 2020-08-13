@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class GameUI : MonoBehaviour
@@ -23,7 +21,7 @@ public class GameUI : MonoBehaviour
         {
             manager = Utility.playerShip?.GetComponent<AircraftManager>();
         }
-       if(manager)
+        if(manager)
         {
             healthSlider.value = manager.GetComponent<Destructable>().health / manager.GetComponent<Destructable>().GetStartingHealth();
             var weaponStatus = manager.GetComponentInChildren<AircraftManager>().GetWeaponReload();

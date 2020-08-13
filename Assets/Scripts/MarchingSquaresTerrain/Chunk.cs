@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Threading;
 
 
 [RequireComponent(typeof(MeshFilter))]
@@ -16,10 +15,6 @@ public class Chunk : MonoBehaviour
     public float uvScale = 4f;
 
     private bool needsRebuild = false;
-
-    private readonly object _lock = new object();
-    private MeshData meshDataToSet;
-    private bool meshDataReadyToSet = false;
 
     public bool needToRecalcNavGrid = false;
 
@@ -50,17 +45,7 @@ public class Chunk : MonoBehaviour
     {
         if (needsRebuild)
         {
-            ThreadPool.QueueUserWorkItem(o => {
-                this.GenerateNewMeshInternal();
-                });
-            needsRebuild = false;
-        }
-        lock (_lock)
-        {
-            if (meshDataReadyToSet)
-            {
-                SetNewMeshInternal();
-            }
+            this.GenerateNewMeshInternal();
         }
     }
 
@@ -73,7 +58,6 @@ public class Chunk : MonoBehaviour
         else
         {
             GenerateNewMeshInternal();
-            SetNewMeshInternal();
         }
     }
 
@@ -94,31 +78,25 @@ public class Chunk : MonoBehaviour
 
     private void GenerateNewMeshInternal()
     {
-        var newMeshDataToSet = data.GenerateMesh(edgeLength, uvScale);
-        lock(_lock)
-        {
-            meshDataToSet = newMeshDataToSet;
-            meshDataReadyToSet = true;
-        }
+        SetNewMeshInternal(data.GenerateMesh(edgeLength, uvScale));
     }
 
-    private void SetNewMeshInternal()
+    private void SetNewMeshInternal(MeshData newData)
     {
         var mesh = new Mesh();
-        mesh.vertices = meshDataToSet.verts;
-        mesh.uv = meshDataToSet.uvs;
-        mesh.triangles = meshDataToSet.triangles;
+        mesh.vertices = newData.verts;
+        mesh.uv = newData.uvs;
+        mesh.triangles = newData.triangles;
         gameObject.GetComponent<MeshFilter>().mesh = mesh;
         var timer = System.Diagnostics.Stopwatch.StartNew();
         PolygonCollider2D polygonCollider2D = GetComponent<PolygonCollider2D>();
-        polygonCollider2D.pathCount = meshDataToSet.paths.Count;
+        polygonCollider2D.pathCount = newData.paths.Count;
         StartCoroutine(DeleteAfterFrame(gameObject.GetComponentsInChildren<Transform>()));
-        for (int i = 0; i < meshDataToSet.paths.Count; i++)
+        for (int i = 0; i < newData.paths.Count; i++)
         {
-            polygonCollider2D.SetPath(i, meshDataToSet.paths[i]);
+            polygonCollider2D.SetPath(i, newData.paths[i]);
             ShadowCaster.CreateShadowCaster( i, transform );
         }
-        meshDataReadyToSet = false;
 
         // update AStar map
         if (GridAStar.singleton)// && needToRecalcNavGrid)

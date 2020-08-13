@@ -6,7 +6,7 @@ using System.Text;
 
 public static class Scores
 {
-    public static string username = "Unknown_Pre_release";
+    public static string username = "Unknown_Prerelease2";
 
     public static List<KeyValuePair<string, int>> GetScores(string level, int count = 10)
     {
@@ -48,7 +48,7 @@ public static class Scores
 
     public static void UploadDeath(string username, string levelName, int time)
     {
-        const string URL = "https://firestore.googleapis.com/v1beta1/projects/wgjweek161/databases/(default)/documents/scores/";
+        const string URL = "https://firestore.googleapis.com/v1beta1/projects/wgjweek161/databases/(default)/documents/deaths/";
         string queryJson = "{\"fields\": {\"Time\": {\"integerValue\": \"" + time + "\"},\"Name\": {\"stringValue\": \"" + username + "\"}, \"Level\":{\"stringValue\":\"" + levelName + "\"}}}";
         PostQuery(URL, queryJson);
     }
